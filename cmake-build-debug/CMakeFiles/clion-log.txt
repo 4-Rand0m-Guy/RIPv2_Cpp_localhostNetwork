@@ -1,0 +1,4 @@
+"/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.3986.16/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/usr/bin/make -DCMAKE_C_COMPILER=/usr/local/bin/gcc-7 -DCMAKE_CXX_COMPILER=/usr/local/bin/g++-7 -G "CodeBlocks - Unix Makefiles" /Users/johny/CLionProjects/RIP-
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/johny/CLionProjects/RIP-/cmake-build-debug
