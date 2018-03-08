@@ -1,34 +1,24 @@
-//
-// Created by plr37 on 3/6/18.
-//
-
 #ifndef RIP_CONFIGIMPORTER_H
 #define RIP_CONFIGIMPORTER_H
-#include <string>
-#include <unordered_map>
-#include <unordered_set>
 #include <vector>
-
 #include "OutputInterface.h"
 
 class ConfigImporter {
-    static const std::unordered_map<int, std::string> error_messages;
-    static const std::unordered_map<int, std::string> warning_messages;
     public:
-        ConfigImporter(int argc, char **argv);
+        ConfigImporter(const std::string filename);
     private:
-        std::string filename;
         int routerID;
         std::vector<int> input_ports;
         std::vector<OutputInterface> outputs;
+//        std::vector<int*> outputs;
         int timer;
-        void print_error(int errorCode);
-        void print_warning(int errorCode);
         std::string get_filename(int argc, char **argv);
-        void load_config(std::ifstream &file);
+        void load_config(const std::string &filename);
         void open_config(const std::string &filename, std::ifstream &file);
-        void set_inputPorts(std::string &id);
-        void set_generic_variable(std::string &rString, int &var);
+        void set_input_ports(std::string &id);
+        void set_outputs(std::string &outputs);
+        void set_timer(std::string &timer);
+        void assign_variable_as_int(int *var, std::string &rString);
         void set_routerId(std::string &id);
 };
 

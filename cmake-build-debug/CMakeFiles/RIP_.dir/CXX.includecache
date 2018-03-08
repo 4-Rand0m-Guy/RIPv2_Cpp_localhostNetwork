@@ -15,20 +15,34 @@ cstring
 -
 ConfigImporter.h
 /Users/johny/CLionProjects/RIP-/ConfigImporter.h
+OutputInterface.h
+/Users/johny/CLionProjects/RIP-/OutputInterface.h
 Utils.h
 /Users/johny/CLionProjects/RIP-/Utils.h
+ConsoleLogger.h
+/Users/johny/CLionProjects/RIP-/ConsoleLogger.h
 
 /Users/johny/CLionProjects/RIP-/ConfigImporter.h
+vector
+-
+OutputInterface.h
+/Users/johny/CLionProjects/RIP-/OutputInterface.h
+
+/Users/johny/CLionProjects/RIP-/ConsoleLogger.cpp
+unordered_map
+-
+iostream
+-
+ConsoleLogger.h
+/Users/johny/CLionProjects/RIP-/ConsoleLogger.h
+
+/Users/johny/CLionProjects/RIP-/ConsoleLogger.h
 string
 -
 unordered_map
 -
 unordered_set
 -
-vector
--
-OutputInterface.h
-/Users/johny/CLionProjects/RIP-/OutputInterface.h
 
 /Users/johny/CLionProjects/RIP-/OutputInterface.cpp
 string
@@ -45,12 +59,18 @@ string
 -
 fstream
 -
+vector
+-
 Utils.h
 /Users/johny/CLionProjects/RIP-/Utils.h
 
 /Users/johny/CLionProjects/RIP-/Utils.h
 
 /Users/johny/CLionProjects/RIP-/main.cpp
+string
+-
 ConfigImporter.h
 /Users/johny/CLionProjects/RIP-/ConfigImporter.h
+ConsoleLogger.h
+/Users/johny/CLionProjects/RIP-/ConsoleLogger.h
 

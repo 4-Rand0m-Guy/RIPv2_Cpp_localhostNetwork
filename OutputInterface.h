@@ -6,9 +6,9 @@
 #define RIP_OUTPUTINTERFACE_H
 
 struct OutputInterface {
-    std::string port_number;
-    std::string id;
-    std::string metric;
+    int port_number;
+    int id;
+    int metric;
 };
 
 #endif //RIP_OUTPUTINTERFACE_H

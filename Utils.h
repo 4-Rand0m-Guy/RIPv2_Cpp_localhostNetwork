@@ -8,15 +8,16 @@
 namespace Utils {
     class Files {
     public:
-        static bool isFileExist(const std::string& filename);
+        static bool isFileCanOpen(const std::string &filename);
     };
     class Strings {
     public:
         static bool hasOnlyDigits(std::string s);
         static void ltrim(std::string &s);
         static void rtrim(std::string &s);
+        static void trim(std::string &s);
+        static std::vector<std::string> split(std::string &s, char delimiter);
     };
 };
-
 
 #endif //RIP_UTILS_H

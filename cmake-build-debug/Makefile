@@ -150,6 +150,33 @@ ConfigImporter.cpp.s:
 	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/ConfigImporter.cpp.s
 .PHONY : ConfigImporter.cpp.s
 
+ConsoleLogger.o: ConsoleLogger.cpp.o
+
+.PHONY : ConsoleLogger.o
+
+# target to build an object file
+ConsoleLogger.cpp.o:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o
+.PHONY : ConsoleLogger.cpp.o
+
+ConsoleLogger.i: ConsoleLogger.cpp.i
+
+.PHONY : ConsoleLogger.i
+
+# target to preprocess a source file
+ConsoleLogger.cpp.i:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/ConsoleLogger.cpp.i
+.PHONY : ConsoleLogger.cpp.i
+
+ConsoleLogger.s: ConsoleLogger.cpp.s
+
+.PHONY : ConsoleLogger.s
+
+# target to generate assembly for a file
+ConsoleLogger.cpp.s:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/ConsoleLogger.cpp.s
+.PHONY : ConsoleLogger.cpp.s
+
 OutputInterface.o: OutputInterface.cpp.o
 
 .PHONY : OutputInterface.o
@@ -243,6 +270,9 @@ help:
 	@echo "... ConfigImporter.o"
 	@echo "... ConfigImporter.i"
 	@echo "... ConfigImporter.s"
+	@echo "... ConsoleLogger.o"
+	@echo "... ConsoleLogger.i"
+	@echo "... ConsoleLogger.s"
 	@echo "... OutputInterface.o"
 	@echo "... OutputInterface.i"
 	@echo "... OutputInterface.s"
