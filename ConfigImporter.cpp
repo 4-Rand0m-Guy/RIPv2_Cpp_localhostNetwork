@@ -8,10 +8,10 @@
 
 // Handles Import of router settings from config file
 ConfigImporter::ConfigImporter(const std::string filename) {
-    routerID = -1;
-//    input_ports = -1;
+    routerID = NULL;
+    input_ports = {};
 //    outputs = -1;
-    timer = -1;
+    timer = NULL;
     load_config(filename);
 };
 
@@ -60,42 +60,51 @@ void ConfigImporter::open_config(const std::string &filename, std::ifstream &fil
     }
 }
 
+// Outputs contains information about the port number, id, and metric of adjacent routers.
 void ConfigImporter::set_outputs(std::string &outputsline) {
 //    for (auto output : Utils::Strings::split(outputsline, ',')) {
 //        for (auto var : Utils::Strings::split(output, '-')) {
 //            OutputInterface outputInterface = {};
 //        }
+//    }
 }
 
+// Input ports are the ports that the RIP daemon will be listening on.
 void ConfigImporter::set_input_ports(std::string &inputs) {
-    std::vector<std::string> inputports = Utils::Strings::split(inputs, ',');
-    for (auto input : inputports) {
-        inputports.push_back(input);
+    if (input_ports.empty()) {
+        std::vector<std::string> inputport_strings = Utils::Strings::split(inputs, ',');
+        input_ports.resize(inputport_strings.size(), 0);
+        int i = 0;
+        for (auto it = input_ports.begin(); it != input_ports.end(); ++it) {
+            int *p = &(*it); // the address of the integer pointed to by the iterator
+            assign_variable_as_int(p, inputport_strings[i++]);
+        }
+    } else {
+        ConsoleLogger::warning(2, "CONFIG");
     }
 }
 
+// RouterID is the unique id of the router in the network
 void ConfigImporter::set_routerId(std::string &id) {
     int *p_routerID = &routerID;
-    assign_variable_as_int(p_routerID, id);
-    std::cout << routerID << std::endl;
+    if (*p_routerID == NULL) {
+        assign_variable_as_int(p_routerID, id);
+    } else {
+        ConsoleLogger::warning(2, "CONFIG");
+    }
 }
 
 // Set variable, throw error if cannot convert to integer, print warning if already set
 void ConfigImporter::assign_variable_as_int(int *variable, std::string &s) {
-    if (*variable < 0) {
-        try {
-            if (Utils::Strings::hasOnlyDigits(s)) {
-                *variable = std::stoi(s);
-            } else {
-                throw std::invalid_argument("Not an integer.");
-            }
+    try {
+        if (Utils::Strings::hasOnlyDigits(s)) {
+            *variable = std::stoi(s);
+        } else {
+            throw std::invalid_argument("Not an integer.");
         }
-        catch (std::invalid_argument &ia) {
-            ConsoleLogger::error(3, "CONFIG");
-        }
-    } else {
-//        std::cout <<
-        ConsoleLogger::warning(2, "CONFIG");
+    }
+    catch (std::invalid_argument &ia) {
+        ConsoleLogger::error(3, "CONFIG");
     }
 }
 

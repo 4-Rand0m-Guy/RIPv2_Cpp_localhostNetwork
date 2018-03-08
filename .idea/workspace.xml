@@ -12,35 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="704b5066-ab03-4006-9c36-81750a55fe4e" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/ConsoleLogger.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ConsoleLogger.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConfigImporter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ConfigImporter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConfigImporter.h" beforeDir="false" afterPath="$PROJECT_DIR$/ConfigImporter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OutputInterface.h" beforeDir="false" afterPath="$PROJECT_DIR$/OutputInterface.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Utils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/Utils.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/ConfigImporter.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/ConfigImporter.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/OutputInterface.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/OutputInterface.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/Utils.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/Utils.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/cmake_clean.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/depend.internal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/main.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/RIP_" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/RIP_" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/RIP_.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/RIP_.cbp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/RIP_.dSYM/Contents/Resources/DWARF/RIP_" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/RIP_.dSYM/Contents/Resources/DWARF/RIP_" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/config1.ini" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/config1.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConsoleLogger.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ConsoleLogger.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/RIP_.dir/ConfigImporter.cpp.o" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -55,11 +29,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.510119">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="config1.ini" pinned="false" current-in-tab="true">
+          <file leaf-file-name="config1.ini" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/cmake-build-debug/config1.ini">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="135">
-                  <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+                <state relative-caret-position="105">
+                  <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
                 </state>
               </provider>
             </entry>
@@ -76,11 +50,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ConfigImporter.cpp" pinned="false" current-in-tab="false">
+          <file leaf-file-name="ConfigImporter.cpp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/ConfigImporter.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="261">
-                  <caret line="79" column="39" lean-forward="true" selection-start-line="79" selection-start-column="39" selection-end-line="79" selection-end-column="39" />
+                <state relative-caret-position="177">
+                  <caret line="70" selection-start-line="70" selection-end-line="70" />
                   <folding>
                     <element signature="e#0#19#0" expanded="true" />
                   </folding>
@@ -103,7 +77,8 @@
           <file leaf-file-name="ConsoleLogger.cpp" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ConsoleLogger.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
+                <state relative-caret-position="420">
+                  <caret line="28" column="57" lean-forward="true" selection-start-line="28" selection-start-column="57" selection-end-line="28" selection-end-column="57" />
                   <folding>
                     <element signature="e#0#24#0" expanded="true" />
                   </folding>
@@ -160,11 +135,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ConfigImporter.h" pinned="false" current-in-tab="false">
+          <file leaf-file-name="ConfigImporter.h" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/ConfigImporter.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="22" column="2" lean-forward="true" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
+                <state relative-caret-position="165">
+                  <caret line="11" column="45" lean-forward="true" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
                   <folding>
                     <element signature="e#58#75#0" expanded="true" />
                   </folding>
@@ -172,7 +147,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="OutputInterface.h" pinned="false" current-in-tab="true">
+          <file leaf-file-name="OutputInterface.h" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/OutputInterface.h">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="210">
@@ -208,13 +183,13 @@
         <option value="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" />
         <option value="$PROJECT_DIR$/Utils.h" />
         <option value="$PROJECT_DIR$/ConsoleLogger.h" />
-        <option value="$PROJECT_DIR$/ConsoleLogger.cpp" />
         <option value="$PROJECT_DIR$/Utils.cpp" />
         <option value="$PROJECT_DIR$/OutputInterface.h" />
         <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/ConfigImporter.h" />
-        <option value="$PROJECT_DIR$/ConfigImporter.cpp" />
         <option value="$PROJECT_DIR$/cmake-build-debug/config1.ini" />
+        <option value="$PROJECT_DIR$/ConsoleLogger.cpp" />
+        <option value="$PROJECT_DIR$/ConfigImporter.cpp" />
       </list>
     </option>
   </component>
@@ -225,6 +200,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="-36" />
     <option name="y" value="23" />
     <option name="width" value="1680" />
     <option name="height" value="1023" />
@@ -273,15 +249,15 @@
       <updated>1520296535600</updated>
       <workItem from="1520296537483" duration="4823000" />
       <workItem from="1520305595363" duration="20172000" />
-      <workItem from="1520379153800" duration="2567000" />
+      <workItem from="1520379153800" duration="5490000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27562000" />
+    <option name="totallyTimeSpent" value="30485000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="1023" extended-state="6" />
+    <frame x="-36" y="23" width="1680" height="1023" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.1404762" />
@@ -538,15 +514,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ConsoleLogger.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/OutputInterface.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -584,20 +551,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ConfigImporter.cpp">
+    <entry file="file://$PROJECT_DIR$/ConsoleLogger.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="79" column="39" lean-forward="true" selection-start-line="79" selection-start-column="39" selection-end-line="79" selection-end-column="39" />
+        <state relative-caret-position="420">
+          <caret line="28" column="57" lean-forward="true" selection-start-line="28" selection-start-column="57" selection-end-line="28" selection-end-column="57" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/config1.ini">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+        <state relative-caret-position="105">
+          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ConfigImporter.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
