@@ -26,7 +26,7 @@ const std::unordered_map<int, std::string> ConsoleLogger::error_messages({
                   "\trouter-id\n\tinput-ports\n\toutputs\n"
                   "\033[1mOptional parameters:\033[0m\n"
                   "\ttimer"},
-      {3, "Configuration parameters must be an integer."}
+      {3, "Configuration parameters must be an unsigned integer."}
 });
 
 // errorcode maps to warning message

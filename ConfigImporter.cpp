@@ -8,10 +8,6 @@
 
 // Handles Import of router settings from config file
 ConfigImporter::ConfigImporter(const std::string filename) {
-    routerID = NULL;
-    input_ports = {};
-//    outputs = -1;
-    timer = NULL;
     load_config(filename);
 };
 
@@ -62,6 +58,7 @@ void ConfigImporter::open_config(const std::string &filename, std::ifstream &fil
 
 // Outputs contains information about the port number, id, and metric of adjacent routers.
 void ConfigImporter::set_outputs(std::string &outputsline) {
+// todo implement this method, possibly using OutputInterface Struct
 //    for (auto output : Utils::Strings::split(outputsline, ',')) {
 //        for (auto var : Utils::Strings::split(output, '-')) {
 //            OutputInterface outputInterface = {};
@@ -76,7 +73,7 @@ void ConfigImporter::set_input_ports(std::string &inputs) {
         input_ports.resize(inputport_strings.size(), 0);
         int i = 0;
         for (auto it = input_ports.begin(); it != input_ports.end(); ++it) {
-            int *p = &(*it); // the address of the integer pointed to by the iterator
+            unsigned *p = &(*it); // the address of the integer pointed to by the iterator
             assign_variable_as_int(p, inputport_strings[i++]);
         }
     } else {
@@ -86,7 +83,7 @@ void ConfigImporter::set_input_ports(std::string &inputs) {
 
 // RouterID is the unique id of the router in the network
 void ConfigImporter::set_routerId(std::string &id) {
-    int *p_routerID = &routerID;
+    unsigned *p_routerID = &routerID;
     if (*p_routerID == NULL) {
         assign_variable_as_int(p_routerID, id);
     } else {
@@ -95,7 +92,7 @@ void ConfigImporter::set_routerId(std::string &id) {
 }
 
 // Set variable, throw error if cannot convert to integer, print warning if already set
-void ConfigImporter::assign_variable_as_int(int *variable, std::string &s) {
+void ConfigImporter::assign_variable_as_int(unsigned *variable, std::string &s) {
     try {
         if (Utils::Strings::hasOnlyDigits(s)) {
             *variable = std::stoi(s);
