@@ -20,14 +20,14 @@ void ConsoleLogger::error(int errorcode, std::string source) {
 // errorcode maps to error message
 const std::unordered_map<int, std::string> ConsoleLogger::error_messages({
       {0, "No input configuration file."},
-      {1, "Unable to open onfiguration file. Ensure that the file exists and is readable."},
+      {1, "Unable to open configuration file. Ensure that the file exists and is readable."},
       {2, "Some mandatory parameters are missing. Check the configuration file.\n"
                   "\033[1mMandatory parameters:\033[0m\n"
                   "\trouter-id\n\tinput-ports\n\toutputs\n"
                   "\033[1mOptional parameters:\033[0m\n"
                   "\ttimer"},
       {3, "Configuration parameters must be an unsigned integer."},
-      {4, "Outputs should be a comma separated list in format: portNumber-routerId-metric"}
+      {4, "Outputs should be a comma separated list in format: portNumber-routerId-metric"},
 });
 
 // errorcode maps to warning message

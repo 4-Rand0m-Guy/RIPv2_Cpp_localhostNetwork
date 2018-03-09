@@ -5,11 +5,23 @@
 #include "OutputInterface.h"
 #include "Utils.h"
 #include "ConsoleLogger.h"
+#include "Configuration.h"
 
 // Handles Import of router settings from config file
 ConfigImporter::ConfigImporter(const std::string filename) {
     load_config(filename);
+    bool isMissingConfigParams = routerID == NULL || input_ports.empty() || outputs.empty();
+    if (isMissingConfigParams) { // timer is optional
+        ConsoleLogger::error(2, "CONFIG");
+    }
+    if (timer == NULL) {
+        timer = 30; // default is 30s
+    }
 };
+
+Configuration ConfigImporter::get_configuration() {
+    return Configuration({ routerID, input_ports, outputs, timer });
+}
 
 // reads config settings into program variables
 void ConfigImporter::load_config(const std::string &filename) {
@@ -23,7 +35,8 @@ void ConfigImporter::load_config(const std::string &filename) {
         if (tokBuffer != NULL) {
             std::string key(tokBuffer);
             Utils::Strings::rtrim(key);
-            if (key.at(0) == '#' || isspace(key.at(0))) {
+            bool isComment = key.at(0) == '#' || isspace(key.at(0));
+            if (isComment) {
                 continue;
             }
 

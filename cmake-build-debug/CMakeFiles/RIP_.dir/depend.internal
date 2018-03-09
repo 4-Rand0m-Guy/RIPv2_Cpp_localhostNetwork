@@ -4,20 +4,31 @@
 CMakeFiles/RIP_.dir/ConfigImporter.cpp.o
  /Users/johny/CLionProjects/RIP-/ConfigImporter.cpp
  /Users/johny/CLionProjects/RIP-/ConfigImporter.h
+ /Users/johny/CLionProjects/RIP-/Configuration.h
  /Users/johny/CLionProjects/RIP-/ConsoleLogger.h
  /Users/johny/CLionProjects/RIP-/OutputInterface.h
  /Users/johny/CLionProjects/RIP-/Utils.h
+CMakeFiles/RIP_.dir/Configuration.cpp.o
+ /Users/johny/CLionProjects/RIP-/Configuration.cpp
+ /Users/johny/CLionProjects/RIP-/Configuration.h
+ /Users/johny/CLionProjects/RIP-/OutputInterface.h
 CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o
  /Users/johny/CLionProjects/RIP-/ConsoleLogger.cpp
  /Users/johny/CLionProjects/RIP-/ConsoleLogger.h
 CMakeFiles/RIP_.dir/OutputInterface.cpp.o
  /Users/johny/CLionProjects/RIP-/OutputInterface.cpp
  /Users/johny/CLionProjects/RIP-/OutputInterface.h
+CMakeFiles/RIP_.dir/Rip.cpp.o
+ /Users/johny/CLionProjects/RIP-/OutputInterface.h
+ /Users/johny/CLionProjects/RIP-/Rip.cpp
+ /Users/johny/CLionProjects/RIP-/Rip.h
 CMakeFiles/RIP_.dir/Utils.cpp.o
  /Users/johny/CLionProjects/RIP-/Utils.cpp
  /Users/johny/CLionProjects/RIP-/Utils.h
 CMakeFiles/RIP_.dir/main.cpp.o
  /Users/johny/CLionProjects/RIP-/ConfigImporter.h
+ /Users/johny/CLionProjects/RIP-/Configuration.h
  /Users/johny/CLionProjects/RIP-/ConsoleLogger.h
  /Users/johny/CLionProjects/RIP-/OutputInterface.h
+ /Users/johny/CLionProjects/RIP-/Rip.h
  /Users/johny/CLionProjects/RIP-/main.cpp

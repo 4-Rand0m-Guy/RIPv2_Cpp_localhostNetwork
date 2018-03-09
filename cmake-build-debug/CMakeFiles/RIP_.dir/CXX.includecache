@@ -21,8 +21,22 @@ Utils.h
 /Users/johny/CLionProjects/RIP-/Utils.h
 ConsoleLogger.h
 /Users/johny/CLionProjects/RIP-/ConsoleLogger.h
+Configuration.h
+/Users/johny/CLionProjects/RIP-/Configuration.h
 
 /Users/johny/CLionProjects/RIP-/ConfigImporter.h
+vector
+-
+OutputInterface.h
+/Users/johny/CLionProjects/RIP-/OutputInterface.h
+Configuration.h
+/Users/johny/CLionProjects/RIP-/Configuration.h
+
+/Users/johny/CLionProjects/RIP-/Configuration.cpp
+Configuration.h
+/Users/johny/CLionProjects/RIP-/Configuration.h
+
+/Users/johny/CLionProjects/RIP-/Configuration.h
 vector
 -
 OutputInterface.h
@@ -45,11 +59,19 @@ unordered_set
 -
 
 /Users/johny/CLionProjects/RIP-/OutputInterface.cpp
-string
--
 OutputInterface.h
 /Users/johny/CLionProjects/RIP-/OutputInterface.h
 
+/Users/johny/CLionProjects/RIP-/OutputInterface.h
+
+/Users/johny/CLionProjects/RIP-/Rip.cpp
+Rip.h
+/Users/johny/CLionProjects/RIP-/Rip.h
+
+/Users/johny/CLionProjects/RIP-/Rip.h
+vector
+-
+OutputInterface.h
 /Users/johny/CLionProjects/RIP-/OutputInterface.h
 
 /Users/johny/CLionProjects/RIP-/Utils.cpp
@@ -73,4 +95,6 @@ ConfigImporter.h
 /Users/johny/CLionProjects/RIP-/ConfigImporter.h
 ConsoleLogger.h
 /Users/johny/CLionProjects/RIP-/ConsoleLogger.h
+Rip.h
+/Users/johny/CLionProjects/RIP-/Rip.h
 

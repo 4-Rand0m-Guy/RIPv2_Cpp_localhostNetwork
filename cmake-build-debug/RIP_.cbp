@@ -94,6 +94,12 @@
 		<Unit filename="/Users/johny/CLionProjects/RIP-/ConfigImporter.h">
 			<Option target="RIP_"/>
 		</Unit>
+		<Unit filename="/Users/johny/CLionProjects/RIP-/Configuration.cpp">
+			<Option target="RIP_"/>
+		</Unit>
+		<Unit filename="/Users/johny/CLionProjects/RIP-/Configuration.h">
+			<Option target="RIP_"/>
+		</Unit>
 		<Unit filename="/Users/johny/CLionProjects/RIP-/ConsoleLogger.cpp">
 			<Option target="RIP_"/>
 		</Unit>

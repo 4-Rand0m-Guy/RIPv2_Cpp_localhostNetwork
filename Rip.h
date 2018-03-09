@@ -7,7 +7,7 @@
 
 class Rip {
     public:
-        Rip::Rip(unsigned routerID,
+        Rip(unsigned routerID,
                  std::vector<unsigned> input_ports,
                  std::vector<OutputInterface> outputs,
                  unsigned timer=30);

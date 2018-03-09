@@ -150,6 +150,33 @@ ConfigImporter.cpp.s:
 	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/ConfigImporter.cpp.s
 .PHONY : ConfigImporter.cpp.s
 
+Configuration.o: Configuration.cpp.o
+
+.PHONY : Configuration.o
+
+# target to build an object file
+Configuration.cpp.o:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Configuration.cpp.o
+.PHONY : Configuration.cpp.o
+
+Configuration.i: Configuration.cpp.i
+
+.PHONY : Configuration.i
+
+# target to preprocess a source file
+Configuration.cpp.i:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Configuration.cpp.i
+.PHONY : Configuration.cpp.i
+
+Configuration.s: Configuration.cpp.s
+
+.PHONY : Configuration.s
+
+# target to generate assembly for a file
+Configuration.cpp.s:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Configuration.cpp.s
+.PHONY : Configuration.cpp.s
+
 ConsoleLogger.o: ConsoleLogger.cpp.o
 
 .PHONY : ConsoleLogger.o
@@ -297,6 +324,9 @@ help:
 	@echo "... ConfigImporter.o"
 	@echo "... ConfigImporter.i"
 	@echo "... ConfigImporter.s"
+	@echo "... Configuration.o"
+	@echo "... Configuration.i"
+	@echo "... Configuration.s"
 	@echo "... ConsoleLogger.o"
 	@echo "... ConsoleLogger.i"
 	@echo "... ConsoleLogger.s"

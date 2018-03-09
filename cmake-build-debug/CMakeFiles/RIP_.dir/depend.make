@@ -3,9 +3,14 @@
 
 CMakeFiles/RIP_.dir/ConfigImporter.cpp.o: ../ConfigImporter.cpp
 CMakeFiles/RIP_.dir/ConfigImporter.cpp.o: ../ConfigImporter.h
+CMakeFiles/RIP_.dir/ConfigImporter.cpp.o: ../Configuration.h
 CMakeFiles/RIP_.dir/ConfigImporter.cpp.o: ../ConsoleLogger.h
 CMakeFiles/RIP_.dir/ConfigImporter.cpp.o: ../OutputInterface.h
 CMakeFiles/RIP_.dir/ConfigImporter.cpp.o: ../Utils.h
+
+CMakeFiles/RIP_.dir/Configuration.cpp.o: ../Configuration.cpp
+CMakeFiles/RIP_.dir/Configuration.cpp.o: ../Configuration.h
+CMakeFiles/RIP_.dir/Configuration.cpp.o: ../OutputInterface.h
 
 CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o: ../ConsoleLogger.cpp
 CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o: ../ConsoleLogger.h
@@ -13,11 +18,17 @@ CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o: ../ConsoleLogger.h
 CMakeFiles/RIP_.dir/OutputInterface.cpp.o: ../OutputInterface.cpp
 CMakeFiles/RIP_.dir/OutputInterface.cpp.o: ../OutputInterface.h
 
+CMakeFiles/RIP_.dir/Rip.cpp.o: ../OutputInterface.h
+CMakeFiles/RIP_.dir/Rip.cpp.o: ../Rip.cpp
+CMakeFiles/RIP_.dir/Rip.cpp.o: ../Rip.h
+
 CMakeFiles/RIP_.dir/Utils.cpp.o: ../Utils.cpp
 CMakeFiles/RIP_.dir/Utils.cpp.o: ../Utils.h
 
 CMakeFiles/RIP_.dir/main.cpp.o: ../ConfigImporter.h
+CMakeFiles/RIP_.dir/main.cpp.o: ../Configuration.h
 CMakeFiles/RIP_.dir/main.cpp.o: ../ConsoleLogger.h
 CMakeFiles/RIP_.dir/main.cpp.o: ../OutputInterface.h
+CMakeFiles/RIP_.dir/main.cpp.o: ../Rip.h
 CMakeFiles/RIP_.dir/main.cpp.o: ../main.cpp
 

@@ -1,6 +1,7 @@
 #include <string>
 #include "ConfigImporter.h"
 #include "ConsoleLogger.h"
+#include "Rip.h"
 
 int main(int argc, char **argv) {
     if (argc < 2) {
@@ -13,5 +14,7 @@ int main(int argc, char **argv) {
 
     const std::string filename = argv[1];
     ConfigImporter configImporter = ConfigImporter(filename);
+    Configuration cfg = configImporter.get_configuration();
+    Rip(cfg.routerID, cfg.input_ports, cfg.outputs, cfg.timer);
     return 0;
 }

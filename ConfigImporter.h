@@ -2,11 +2,13 @@
 #define RIP_CONFIGIMPORTER_H
 #include <vector>
 #include "OutputInterface.h"
+#include "Configuration.h"
 
 class ConfigImporter {
     public:
         ConfigImporter(const std::string filename);
-    private:
+        Configuration get_configuration();
+private:
         unsigned routerID = NULL;
         std::vector<unsigned> input_ports;
         std::vector<OutputInterface> outputs;
