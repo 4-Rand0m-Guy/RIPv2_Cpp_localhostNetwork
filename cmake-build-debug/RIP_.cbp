@@ -106,6 +106,12 @@
 		<Unit filename="/Users/johny/CLionProjects/RIP-/OutputInterface.h">
 			<Option target="RIP_"/>
 		</Unit>
+		<Unit filename="/Users/johny/CLionProjects/RIP-/Rip.cpp">
+			<Option target="RIP_"/>
+		</Unit>
+		<Unit filename="/Users/johny/CLionProjects/RIP-/Rip.h">
+			<Option target="RIP_"/>
+		</Unit>
 		<Unit filename="/Users/johny/CLionProjects/RIP-/Utils.cpp">
 			<Option target="RIP_"/>
 		</Unit>

@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/RIP_.dir/OutputInterface.cpp.o"
   "CMakeFiles/RIP_.dir/Utils.cpp.o"
   "CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o"
+  "CMakeFiles/RIP_.dir/Rip.cpp.o"
   "RIP_.pdb"
   "RIP_"
 )

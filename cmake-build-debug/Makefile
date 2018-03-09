@@ -204,6 +204,33 @@ OutputInterface.cpp.s:
 	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/OutputInterface.cpp.s
 .PHONY : OutputInterface.cpp.s
 
+Rip.o: Rip.cpp.o
+
+.PHONY : Rip.o
+
+# target to build an object file
+Rip.cpp.o:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Rip.cpp.o
+.PHONY : Rip.cpp.o
+
+Rip.i: Rip.cpp.i
+
+.PHONY : Rip.i
+
+# target to preprocess a source file
+Rip.cpp.i:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Rip.cpp.i
+.PHONY : Rip.cpp.i
+
+Rip.s: Rip.cpp.s
+
+.PHONY : Rip.s
+
+# target to generate assembly for a file
+Rip.cpp.s:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Rip.cpp.s
+.PHONY : Rip.cpp.s
+
 Utils.o: Utils.cpp.o
 
 .PHONY : Utils.o
@@ -276,6 +303,9 @@ help:
 	@echo "... OutputInterface.o"
 	@echo "... OutputInterface.i"
 	@echo "... OutputInterface.s"
+	@echo "... Rip.o"
+	@echo "... Rip.i"
+	@echo "... Rip.s"
 	@echo "... Utils.o"
 	@echo "... Utils.i"
 	@echo "... Utils.s"

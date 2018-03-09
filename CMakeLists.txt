@@ -3,4 +3,4 @@ project(RIP_)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(RIP_ main.cpp ConfigImporter.cpp ConfigImporter.h OutputInterface.cpp OutputInterface.h Utils.cpp Utils.h ConsoleLogger.cpp ConsoleLogger.h)
+add_executable(RIP_ main.cpp ConfigImporter.cpp ConfigImporter.h OutputInterface.cpp OutputInterface.h Utils.cpp Utils.h ConsoleLogger.cpp ConsoleLogger.h Rip.cpp Rip.h)
