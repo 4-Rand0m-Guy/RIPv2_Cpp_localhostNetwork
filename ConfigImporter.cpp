@@ -38,7 +38,7 @@ void ConfigImporter::load_config(const std::string &filename) {
                 } else if (key == "outputs") {
                     set_outputs(value);
                 } else if (key == "timer") {
-                    // set timer
+                     set_timer(value);
                 } else {
                     ConsoleLogger::warning(1, "CONFIG");
                 }
@@ -56,39 +56,6 @@ void ConfigImporter::open_config(const std::string &filename, std::ifstream &fil
     }
 }
 
-// Outputs contains information about the port number, id, and metric of adjacent routers.
-void ConfigImporter::set_outputs(std::string &outputsline) {
-    for (auto output : Utils::Strings::split(outputsline, ',')) {
-        std::vector<std::string> output_info = Utils::Strings::split(output, '-');
-        if (output_info.size() > 3) {
-            ConsoleLogger::error(4, "CONFIG");
-        }
-        OutputInterface oi;
-        // array of pointers to the unsigned ints in the oi struct
-        unsigned *oi_array[3] = {&oi.port_number, &oi.id, &oi.metric};
-        unsigned *p = oi_array[0];
-        for (auto var : output_info) {
-            assign_variable_as_int(p++, var);
-        }
-        outputs.push_back(oi);
-    }
-}
-
-// Input ports are the ports that the RIP daemon will be listening on.
-void ConfigImporter::set_input_ports(std::string &inputs) {
-    if (input_ports.empty()) {
-        std::vector<std::string> inputport_strings = Utils::Strings::split(inputs, ',');
-        input_ports.resize(inputport_strings.size(), 0);
-        int i = 0;
-        for (auto it = input_ports.begin(); it != input_ports.end(); ++it) {
-            unsigned *p = &(*it); // the address of the integer pointed to by the iterator
-            assign_variable_as_int(p, inputport_strings[i++]);
-        }
-    } else {
-        ConsoleLogger::warning(2, "CONFIG");
-    }
-}
-
 // RouterID is the unique id of the router in the network
 void ConfigImporter::set_routerId(std::string &id) {
     unsigned *p_routerID = &routerID;
@@ -99,7 +66,54 @@ void ConfigImporter::set_routerId(std::string &id) {
     }
 }
 
-// Set variable, throw error if cannot convert to integer, print warning if already set
+// Input ports are the ports that the RIP daemon will be listening on.
+void ConfigImporter::set_input_ports(std::string &inputs) {
+    if (input_ports.empty()) {
+        std::vector<std::string> inputport_strings = Utils::Strings::split(inputs, ',');
+        input_ports.resize(inputport_strings.size(), 0);
+        int i = 0;
+        for (auto it = input_ports.begin(); it != input_ports.end(); ++it) {
+            unsigned *p = &(*it); // the address of the unsigned int pointed to by the iterator
+            assign_variable_as_int(p, inputport_strings[i++]);
+        }
+    } else {
+        ConsoleLogger::warning(2, "CONFIG");
+    }
+}
+
+// Outputs contains information about the port number, id, and metric of adjacent routers.
+void ConfigImporter::set_outputs(std::string &outputsline) {
+    if (outputs.empty()) {
+        for (auto output : Utils::Strings::split(outputsline, ',')) {
+            std::vector<std::string> output_info = Utils::Strings::split(output, '-');
+            if (output_info.size() > 3) {
+                ConsoleLogger::error(4, "CONFIG");
+            }
+            OutputInterface oi;
+            // array of pointers to the unsigned ints in the oi struct
+            unsigned *oi_array[3] = {&oi.port_number, &oi.id, &oi.metric};
+            unsigned *p = oi_array[0];
+            for (auto var : output_info) {
+                assign_variable_as_int(p++, var);
+            }
+            outputs.push_back(oi);
+        }
+    } else {
+        ConsoleLogger::warning(2, "CONFIG");
+    }
+}
+
+// RIP timer that certain timed updates are based on
+void ConfigImporter::set_timer(std::string &_timer) {
+    unsigned *p_timer = &timer;
+    if (*p_timer == NULL) {
+        assign_variable_as_int(p_timer, _timer);
+    } else {
+        ConsoleLogger::warning(2, "CONFIG");
+    }
+}
+
+// Set variable, throw error if cannot convert to integer
 void ConfigImporter::assign_variable_as_int(unsigned *variable, std::string &s) {
     try {
         if (Utils::Strings::hasOnlyDigits(s)) {
