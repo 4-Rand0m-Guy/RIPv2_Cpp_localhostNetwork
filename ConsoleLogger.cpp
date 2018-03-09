@@ -28,6 +28,7 @@ const std::unordered_map<int, std::string> ConsoleLogger::error_messages({
                   "\ttimer"},
       {3, "Configuration parameters must be an unsigned integer."},
       {4, "Outputs should be a comma separated list in format: portNumber-routerId-metric"},
+      {5, "Configuration setting out of range. Must be between 0 and 64000."}
 });
 
 // errorcode maps to warning message

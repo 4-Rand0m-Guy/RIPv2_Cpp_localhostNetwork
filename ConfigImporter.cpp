@@ -130,7 +130,12 @@ void ConfigImporter::set_timer(std::string &_timer) {
 void ConfigImporter::assign_variable_as_int(unsigned *variable, std::string &s) {
     try {
         if (Utils::Strings::hasOnlyDigits(s)) {
-            *variable = std::stoi(s);
+            unsigned i = std::stoi(s);
+            if (i > 64000) {
+                ConsoleLogger::error(5, "CONFIG");
+            } else {
+                *variable = i;
+            }
         } else {
             throw std::invalid_argument("Not an integer.");
         }
