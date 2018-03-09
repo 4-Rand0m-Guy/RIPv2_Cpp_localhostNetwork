@@ -6,9 +6,9 @@
 #define RIP_OUTPUTINTERFACE_H
 
 struct OutputInterface {
-    int port_number;
-    int id;
-    int metric;
+    unsigned port_number;
+    unsigned id;
+    unsigned metric;
 };
 
 #endif //RIP_OUTPUTINTERFACE_H

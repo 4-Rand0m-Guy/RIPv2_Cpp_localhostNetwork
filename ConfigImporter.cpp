@@ -58,12 +58,20 @@ void ConfigImporter::open_config(const std::string &filename, std::ifstream &fil
 
 // Outputs contains information about the port number, id, and metric of adjacent routers.
 void ConfigImporter::set_outputs(std::string &outputsline) {
-// todo implement this method, possibly using OutputInterface Struct
-//    for (auto output : Utils::Strings::split(outputsline, ',')) {
-//        for (auto var : Utils::Strings::split(output, '-')) {
-//            OutputInterface outputInterface = {};
-//        }
-//    }
+    for (auto output : Utils::Strings::split(outputsline, ',')) {
+        std::vector<std::string> output_info = Utils::Strings::split(output, '-');
+        if (output_info.size() > 3) {
+            ConsoleLogger::error(4, "CONFIG");
+        }
+        OutputInterface oi;
+        // array of pointers to the unsigned ints in the oi struct
+        unsigned *oi_array[3] = {&oi.port_number, &oi.id, &oi.metric};
+        unsigned *p = oi_array[0];
+        for (auto var : output_info) {
+            assign_variable_as_int(p++, var);
+        }
+        outputs.push_back(oi);
+    }
 }
 
 // Input ports are the ports that the RIP daemon will be listening on.

@@ -10,7 +10,6 @@ class ConfigImporter {
         unsigned routerID = NULL;
         std::vector<unsigned> input_ports;
         std::vector<OutputInterface> outputs;
-//        std::vector<int*> outputs;
         unsigned timer = NULL;
         std::string get_filename(int argc, char **argv);
         void load_config(const std::string &filename);
