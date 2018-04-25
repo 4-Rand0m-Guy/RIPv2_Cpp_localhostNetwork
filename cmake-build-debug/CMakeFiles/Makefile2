@@ -45,10 +45,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.3986.16/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake"
+CMAKE_COMMAND = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.25/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake"
 
 # The command to remove a file.
-RM = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.3986.16/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -E remove -f
+RM = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.25/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =

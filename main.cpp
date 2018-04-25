@@ -1,7 +1,8 @@
 #include <string>
-#include "ConfigImporter.h"
-#include "ConsoleLogger.h"
-#include "Rip.h"
+#include "config/ConfigImporter.h"
+#include "config/ConsoleLogger.h"
+#include "rip/Rip.h"
+#include <iostream>
 
 int main(int argc, char **argv) {
     if (argc < 2) {
@@ -16,5 +17,6 @@ int main(int argc, char **argv) {
     ConfigImporter configImporter = ConfigImporter(filename);
     Configuration cfg = configImporter.get_configuration();
     Rip(cfg.routerID, cfg.input_ports, cfg.outputs, cfg.timer);
+    std::cout << "here" << std::endl;
     return 0;
 }

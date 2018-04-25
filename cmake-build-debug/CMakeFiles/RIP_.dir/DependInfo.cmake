@@ -4,13 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/johny/CLionProjects/RIP-/ConfigImporter.cpp" "/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir/ConfigImporter.cpp.o"
-  "/Users/johny/CLionProjects/RIP-/Configuration.cpp" "/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir/Configuration.cpp.o"
-  "/Users/johny/CLionProjects/RIP-/ConsoleLogger.cpp" "/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o"
-  "/Users/johny/CLionProjects/RIP-/OutputInterface.cpp" "/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir/OutputInterface.cpp.o"
-  "/Users/johny/CLionProjects/RIP-/Rip.cpp" "/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir/Rip.cpp.o"
-  "/Users/johny/CLionProjects/RIP-/Utils.cpp" "/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir/Utils.cpp.o"
+  "/Users/johny/CLionProjects/RIP-/config/ConfigImporter.cpp" "/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o"
+  "/Users/johny/CLionProjects/RIP-/config/Configuration.cpp" "/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir/config/Configuration.cpp.o"
+  "/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.cpp" "/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o"
+  "/Users/johny/CLionProjects/RIP-/config/OutputInterface.cpp" "/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o"
   "/Users/johny/CLionProjects/RIP-/main.cpp" "/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir/main.cpp.o"
+  "/Users/johny/CLionProjects/RIP-/rip/Rip.cpp" "/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir/rip/Rip.cpp.o"
+  "/Users/johny/CLionProjects/RIP-/utils/Utils.cpp" "/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir/utils/Utils.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/johny/CLionProjects/RIP-/ConfigImporter.cpp
+/Users/johny/CLionProjects/RIP-/config/ConfigImporter.cpp
 iostream
 -
 fstream
@@ -14,43 +14,43 @@ fstream
 cstring
 -
 ConfigImporter.h
-/Users/johny/CLionProjects/RIP-/ConfigImporter.h
+/Users/johny/CLionProjects/RIP-/config/ConfigImporter.h
 OutputInterface.h
-/Users/johny/CLionProjects/RIP-/OutputInterface.h
-Utils.h
-/Users/johny/CLionProjects/RIP-/Utils.h
+/Users/johny/CLionProjects/RIP-/config/OutputInterface.h
+../utils/Utils.h
+/Users/johny/CLionProjects/RIP-/utils/Utils.h
 ConsoleLogger.h
-/Users/johny/CLionProjects/RIP-/ConsoleLogger.h
+/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.h
 Configuration.h
-/Users/johny/CLionProjects/RIP-/Configuration.h
+/Users/johny/CLionProjects/RIP-/config/Configuration.h
 
-/Users/johny/CLionProjects/RIP-/ConfigImporter.h
+/Users/johny/CLionProjects/RIP-/config/ConfigImporter.h
 vector
 -
 OutputInterface.h
-/Users/johny/CLionProjects/RIP-/OutputInterface.h
+/Users/johny/CLionProjects/RIP-/config/OutputInterface.h
 Configuration.h
-/Users/johny/CLionProjects/RIP-/Configuration.h
+/Users/johny/CLionProjects/RIP-/config/Configuration.h
 
-/Users/johny/CLionProjects/RIP-/Configuration.cpp
+/Users/johny/CLionProjects/RIP-/config/Configuration.cpp
 Configuration.h
-/Users/johny/CLionProjects/RIP-/Configuration.h
+/Users/johny/CLionProjects/RIP-/config/Configuration.h
 
-/Users/johny/CLionProjects/RIP-/Configuration.h
+/Users/johny/CLionProjects/RIP-/config/Configuration.h
 vector
 -
 OutputInterface.h
-/Users/johny/CLionProjects/RIP-/OutputInterface.h
+/Users/johny/CLionProjects/RIP-/config/OutputInterface.h
 
-/Users/johny/CLionProjects/RIP-/ConsoleLogger.cpp
+/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.cpp
 unordered_map
 -
 iostream
 -
 ConsoleLogger.h
-/Users/johny/CLionProjects/RIP-/ConsoleLogger.h
+/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.h
 
-/Users/johny/CLionProjects/RIP-/ConsoleLogger.h
+/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.h
 string
 -
 unordered_map
@@ -58,23 +58,35 @@ unordered_map
 unordered_set
 -
 
-/Users/johny/CLionProjects/RIP-/OutputInterface.cpp
+/Users/johny/CLionProjects/RIP-/config/OutputInterface.cpp
 OutputInterface.h
-/Users/johny/CLionProjects/RIP-/OutputInterface.h
+/Users/johny/CLionProjects/RIP-/config/OutputInterface.h
 
-/Users/johny/CLionProjects/RIP-/OutputInterface.h
+/Users/johny/CLionProjects/RIP-/config/OutputInterface.h
 
-/Users/johny/CLionProjects/RIP-/Rip.cpp
+/Users/johny/CLionProjects/RIP-/main.cpp
+string
+-
+config/ConfigImporter.h
+/Users/johny/CLionProjects/RIP-/config/ConfigImporter.h
+config/ConsoleLogger.h
+/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.h
+rip/Rip.h
+/Users/johny/CLionProjects/RIP-/rip/Rip.h
+iostream
+-
+
+/Users/johny/CLionProjects/RIP-/rip/Rip.cpp
 Rip.h
-/Users/johny/CLionProjects/RIP-/Rip.h
+/Users/johny/CLionProjects/RIP-/rip/Rip.h
 
-/Users/johny/CLionProjects/RIP-/Rip.h
+/Users/johny/CLionProjects/RIP-/rip/Rip.h
 vector
 -
-OutputInterface.h
-/Users/johny/CLionProjects/RIP-/OutputInterface.h
+../config/OutputInterface.h
+/Users/johny/CLionProjects/RIP-/config/OutputInterface.h
 
-/Users/johny/CLionProjects/RIP-/Utils.cpp
+/Users/johny/CLionProjects/RIP-/utils/Utils.cpp
 algorithm
 -
 string
@@ -84,17 +96,7 @@ fstream
 vector
 -
 Utils.h
-/Users/johny/CLionProjects/RIP-/Utils.h
+/Users/johny/CLionProjects/RIP-/utils/Utils.h
 
-/Users/johny/CLionProjects/RIP-/Utils.h
-
-/Users/johny/CLionProjects/RIP-/main.cpp
-string
--
-ConfigImporter.h
-/Users/johny/CLionProjects/RIP-/ConfigImporter.h
-ConsoleLogger.h
-/Users/johny/CLionProjects/RIP-/ConsoleLogger.h
-Rip.h
-/Users/johny/CLionProjects/RIP-/Rip.h
+/Users/johny/CLionProjects/RIP-/utils/Utils.h
 

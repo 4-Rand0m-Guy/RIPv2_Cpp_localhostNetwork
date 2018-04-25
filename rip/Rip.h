@@ -3,7 +3,7 @@
 
 
 #include <vector>
-#include "OutputInterface.h"
+#include "../config/OutputInterface.h"
 
 class Rip {
     public:

@@ -34,10 +34,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.3986.16/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake"
+CMAKE_COMMAND = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.25/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake"
 
 # The command to remove a file.
-RM = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.3986.16/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -E remove -f
+RM = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.25/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -81,170 +81,170 @@ CMakeFiles/RIP_.dir/main.cpp.o.provides: CMakeFiles/RIP_.dir/main.cpp.o.requires
 CMakeFiles/RIP_.dir/main.cpp.o.provides.build: CMakeFiles/RIP_.dir/main.cpp.o
 
 
-CMakeFiles/RIP_.dir/ConfigImporter.cpp.o: CMakeFiles/RIP_.dir/flags.make
-CMakeFiles/RIP_.dir/ConfigImporter.cpp.o: ../ConfigImporter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/RIP_.dir/ConfigImporter.cpp.o"
-	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/ConfigImporter.cpp.o -c /Users/johny/CLionProjects/RIP-/ConfigImporter.cpp
+CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o: CMakeFiles/RIP_.dir/flags.make
+CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o: ../config/ConfigImporter.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o"
+	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o -c /Users/johny/CLionProjects/RIP-/config/ConfigImporter.cpp
 
-CMakeFiles/RIP_.dir/ConfigImporter.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/ConfigImporter.cpp.i"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/ConfigImporter.cpp > CMakeFiles/RIP_.dir/ConfigImporter.cpp.i
+CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.i"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/config/ConfigImporter.cpp > CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.i
 
-CMakeFiles/RIP_.dir/ConfigImporter.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/ConfigImporter.cpp.s"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/ConfigImporter.cpp -o CMakeFiles/RIP_.dir/ConfigImporter.cpp.s
+CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.s"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/config/ConfigImporter.cpp -o CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.s
 
-CMakeFiles/RIP_.dir/ConfigImporter.cpp.o.requires:
+CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o.requires:
 
-.PHONY : CMakeFiles/RIP_.dir/ConfigImporter.cpp.o.requires
+.PHONY : CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o.requires
 
-CMakeFiles/RIP_.dir/ConfigImporter.cpp.o.provides: CMakeFiles/RIP_.dir/ConfigImporter.cpp.o.requires
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/ConfigImporter.cpp.o.provides.build
-.PHONY : CMakeFiles/RIP_.dir/ConfigImporter.cpp.o.provides
+CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o.provides: CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o.requires
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o.provides.build
+.PHONY : CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o.provides
 
-CMakeFiles/RIP_.dir/ConfigImporter.cpp.o.provides.build: CMakeFiles/RIP_.dir/ConfigImporter.cpp.o
-
-
-CMakeFiles/RIP_.dir/OutputInterface.cpp.o: CMakeFiles/RIP_.dir/flags.make
-CMakeFiles/RIP_.dir/OutputInterface.cpp.o: ../OutputInterface.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/RIP_.dir/OutputInterface.cpp.o"
-	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/OutputInterface.cpp.o -c /Users/johny/CLionProjects/RIP-/OutputInterface.cpp
-
-CMakeFiles/RIP_.dir/OutputInterface.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/OutputInterface.cpp.i"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/OutputInterface.cpp > CMakeFiles/RIP_.dir/OutputInterface.cpp.i
-
-CMakeFiles/RIP_.dir/OutputInterface.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/OutputInterface.cpp.s"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/OutputInterface.cpp -o CMakeFiles/RIP_.dir/OutputInterface.cpp.s
-
-CMakeFiles/RIP_.dir/OutputInterface.cpp.o.requires:
-
-.PHONY : CMakeFiles/RIP_.dir/OutputInterface.cpp.o.requires
-
-CMakeFiles/RIP_.dir/OutputInterface.cpp.o.provides: CMakeFiles/RIP_.dir/OutputInterface.cpp.o.requires
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/OutputInterface.cpp.o.provides.build
-.PHONY : CMakeFiles/RIP_.dir/OutputInterface.cpp.o.provides
-
-CMakeFiles/RIP_.dir/OutputInterface.cpp.o.provides.build: CMakeFiles/RIP_.dir/OutputInterface.cpp.o
+CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o.provides.build: CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o
 
 
-CMakeFiles/RIP_.dir/Utils.cpp.o: CMakeFiles/RIP_.dir/flags.make
-CMakeFiles/RIP_.dir/Utils.cpp.o: ../Utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RIP_.dir/Utils.cpp.o"
-	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/Utils.cpp.o -c /Users/johny/CLionProjects/RIP-/Utils.cpp
+CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o: CMakeFiles/RIP_.dir/flags.make
+CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o: ../config/OutputInterface.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o"
+	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o -c /Users/johny/CLionProjects/RIP-/config/OutputInterface.cpp
 
-CMakeFiles/RIP_.dir/Utils.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/Utils.cpp.i"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/Utils.cpp > CMakeFiles/RIP_.dir/Utils.cpp.i
+CMakeFiles/RIP_.dir/config/OutputInterface.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/config/OutputInterface.cpp.i"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/config/OutputInterface.cpp > CMakeFiles/RIP_.dir/config/OutputInterface.cpp.i
 
-CMakeFiles/RIP_.dir/Utils.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/Utils.cpp.s"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/Utils.cpp -o CMakeFiles/RIP_.dir/Utils.cpp.s
+CMakeFiles/RIP_.dir/config/OutputInterface.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/config/OutputInterface.cpp.s"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/config/OutputInterface.cpp -o CMakeFiles/RIP_.dir/config/OutputInterface.cpp.s
 
-CMakeFiles/RIP_.dir/Utils.cpp.o.requires:
+CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o.requires:
 
-.PHONY : CMakeFiles/RIP_.dir/Utils.cpp.o.requires
+.PHONY : CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o.requires
 
-CMakeFiles/RIP_.dir/Utils.cpp.o.provides: CMakeFiles/RIP_.dir/Utils.cpp.o.requires
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Utils.cpp.o.provides.build
-.PHONY : CMakeFiles/RIP_.dir/Utils.cpp.o.provides
+CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o.provides: CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o.requires
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o.provides.build
+.PHONY : CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o.provides
 
-CMakeFiles/RIP_.dir/Utils.cpp.o.provides.build: CMakeFiles/RIP_.dir/Utils.cpp.o
-
-
-CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o: CMakeFiles/RIP_.dir/flags.make
-CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o: ../ConsoleLogger.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o"
-	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o -c /Users/johny/CLionProjects/RIP-/ConsoleLogger.cpp
-
-CMakeFiles/RIP_.dir/ConsoleLogger.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/ConsoleLogger.cpp.i"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/ConsoleLogger.cpp > CMakeFiles/RIP_.dir/ConsoleLogger.cpp.i
-
-CMakeFiles/RIP_.dir/ConsoleLogger.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/ConsoleLogger.cpp.s"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/ConsoleLogger.cpp -o CMakeFiles/RIP_.dir/ConsoleLogger.cpp.s
-
-CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o.requires:
-
-.PHONY : CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o.requires
-
-CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o.provides: CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o.requires
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o.provides.build
-.PHONY : CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o.provides
-
-CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o.provides.build: CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o
+CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o.provides.build: CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o
 
 
-CMakeFiles/RIP_.dir/Rip.cpp.o: CMakeFiles/RIP_.dir/flags.make
-CMakeFiles/RIP_.dir/Rip.cpp.o: ../Rip.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/RIP_.dir/Rip.cpp.o"
-	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/Rip.cpp.o -c /Users/johny/CLionProjects/RIP-/Rip.cpp
+CMakeFiles/RIP_.dir/utils/Utils.cpp.o: CMakeFiles/RIP_.dir/flags.make
+CMakeFiles/RIP_.dir/utils/Utils.cpp.o: ../utils/Utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RIP_.dir/utils/Utils.cpp.o"
+	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/utils/Utils.cpp.o -c /Users/johny/CLionProjects/RIP-/utils/Utils.cpp
 
-CMakeFiles/RIP_.dir/Rip.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/Rip.cpp.i"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/Rip.cpp > CMakeFiles/RIP_.dir/Rip.cpp.i
+CMakeFiles/RIP_.dir/utils/Utils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/utils/Utils.cpp.i"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/utils/Utils.cpp > CMakeFiles/RIP_.dir/utils/Utils.cpp.i
 
-CMakeFiles/RIP_.dir/Rip.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/Rip.cpp.s"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/Rip.cpp -o CMakeFiles/RIP_.dir/Rip.cpp.s
+CMakeFiles/RIP_.dir/utils/Utils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/utils/Utils.cpp.s"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/utils/Utils.cpp -o CMakeFiles/RIP_.dir/utils/Utils.cpp.s
 
-CMakeFiles/RIP_.dir/Rip.cpp.o.requires:
+CMakeFiles/RIP_.dir/utils/Utils.cpp.o.requires:
 
-.PHONY : CMakeFiles/RIP_.dir/Rip.cpp.o.requires
+.PHONY : CMakeFiles/RIP_.dir/utils/Utils.cpp.o.requires
 
-CMakeFiles/RIP_.dir/Rip.cpp.o.provides: CMakeFiles/RIP_.dir/Rip.cpp.o.requires
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Rip.cpp.o.provides.build
-.PHONY : CMakeFiles/RIP_.dir/Rip.cpp.o.provides
+CMakeFiles/RIP_.dir/utils/Utils.cpp.o.provides: CMakeFiles/RIP_.dir/utils/Utils.cpp.o.requires
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/utils/Utils.cpp.o.provides.build
+.PHONY : CMakeFiles/RIP_.dir/utils/Utils.cpp.o.provides
 
-CMakeFiles/RIP_.dir/Rip.cpp.o.provides.build: CMakeFiles/RIP_.dir/Rip.cpp.o
+CMakeFiles/RIP_.dir/utils/Utils.cpp.o.provides.build: CMakeFiles/RIP_.dir/utils/Utils.cpp.o
 
 
-CMakeFiles/RIP_.dir/Configuration.cpp.o: CMakeFiles/RIP_.dir/flags.make
-CMakeFiles/RIP_.dir/Configuration.cpp.o: ../Configuration.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/RIP_.dir/Configuration.cpp.o"
-	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/Configuration.cpp.o -c /Users/johny/CLionProjects/RIP-/Configuration.cpp
+CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o: CMakeFiles/RIP_.dir/flags.make
+CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o: ../config/ConsoleLogger.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o"
+	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o -c /Users/johny/CLionProjects/RIP-/config/ConsoleLogger.cpp
 
-CMakeFiles/RIP_.dir/Configuration.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/Configuration.cpp.i"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/Configuration.cpp > CMakeFiles/RIP_.dir/Configuration.cpp.i
+CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.i"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/config/ConsoleLogger.cpp > CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.i
 
-CMakeFiles/RIP_.dir/Configuration.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/Configuration.cpp.s"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/Configuration.cpp -o CMakeFiles/RIP_.dir/Configuration.cpp.s
+CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.s"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/config/ConsoleLogger.cpp -o CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.s
 
-CMakeFiles/RIP_.dir/Configuration.cpp.o.requires:
+CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o.requires:
 
-.PHONY : CMakeFiles/RIP_.dir/Configuration.cpp.o.requires
+.PHONY : CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o.requires
 
-CMakeFiles/RIP_.dir/Configuration.cpp.o.provides: CMakeFiles/RIP_.dir/Configuration.cpp.o.requires
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Configuration.cpp.o.provides.build
-.PHONY : CMakeFiles/RIP_.dir/Configuration.cpp.o.provides
+CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o.provides: CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o.requires
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o.provides.build
+.PHONY : CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o.provides
 
-CMakeFiles/RIP_.dir/Configuration.cpp.o.provides.build: CMakeFiles/RIP_.dir/Configuration.cpp.o
+CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o.provides.build: CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o
+
+
+CMakeFiles/RIP_.dir/rip/Rip.cpp.o: CMakeFiles/RIP_.dir/flags.make
+CMakeFiles/RIP_.dir/rip/Rip.cpp.o: ../rip/Rip.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/RIP_.dir/rip/Rip.cpp.o"
+	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/rip/Rip.cpp.o -c /Users/johny/CLionProjects/RIP-/rip/Rip.cpp
+
+CMakeFiles/RIP_.dir/rip/Rip.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/rip/Rip.cpp.i"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/rip/Rip.cpp > CMakeFiles/RIP_.dir/rip/Rip.cpp.i
+
+CMakeFiles/RIP_.dir/rip/Rip.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/rip/Rip.cpp.s"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/rip/Rip.cpp -o CMakeFiles/RIP_.dir/rip/Rip.cpp.s
+
+CMakeFiles/RIP_.dir/rip/Rip.cpp.o.requires:
+
+.PHONY : CMakeFiles/RIP_.dir/rip/Rip.cpp.o.requires
+
+CMakeFiles/RIP_.dir/rip/Rip.cpp.o.provides: CMakeFiles/RIP_.dir/rip/Rip.cpp.o.requires
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/Rip.cpp.o.provides.build
+.PHONY : CMakeFiles/RIP_.dir/rip/Rip.cpp.o.provides
+
+CMakeFiles/RIP_.dir/rip/Rip.cpp.o.provides.build: CMakeFiles/RIP_.dir/rip/Rip.cpp.o
+
+
+CMakeFiles/RIP_.dir/config/Configuration.cpp.o: CMakeFiles/RIP_.dir/flags.make
+CMakeFiles/RIP_.dir/config/Configuration.cpp.o: ../config/Configuration.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/RIP_.dir/config/Configuration.cpp.o"
+	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/config/Configuration.cpp.o -c /Users/johny/CLionProjects/RIP-/config/Configuration.cpp
+
+CMakeFiles/RIP_.dir/config/Configuration.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/config/Configuration.cpp.i"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/config/Configuration.cpp > CMakeFiles/RIP_.dir/config/Configuration.cpp.i
+
+CMakeFiles/RIP_.dir/config/Configuration.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/config/Configuration.cpp.s"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/config/Configuration.cpp -o CMakeFiles/RIP_.dir/config/Configuration.cpp.s
+
+CMakeFiles/RIP_.dir/config/Configuration.cpp.o.requires:
+
+.PHONY : CMakeFiles/RIP_.dir/config/Configuration.cpp.o.requires
+
+CMakeFiles/RIP_.dir/config/Configuration.cpp.o.provides: CMakeFiles/RIP_.dir/config/Configuration.cpp.o.requires
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/Configuration.cpp.o.provides.build
+.PHONY : CMakeFiles/RIP_.dir/config/Configuration.cpp.o.provides
+
+CMakeFiles/RIP_.dir/config/Configuration.cpp.o.provides.build: CMakeFiles/RIP_.dir/config/Configuration.cpp.o
 
 
 # Object files for target RIP_
 RIP__OBJECTS = \
 "CMakeFiles/RIP_.dir/main.cpp.o" \
-"CMakeFiles/RIP_.dir/ConfigImporter.cpp.o" \
-"CMakeFiles/RIP_.dir/OutputInterface.cpp.o" \
-"CMakeFiles/RIP_.dir/Utils.cpp.o" \
-"CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o" \
-"CMakeFiles/RIP_.dir/Rip.cpp.o" \
-"CMakeFiles/RIP_.dir/Configuration.cpp.o"
+"CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o" \
+"CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o" \
+"CMakeFiles/RIP_.dir/utils/Utils.cpp.o" \
+"CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o" \
+"CMakeFiles/RIP_.dir/rip/Rip.cpp.o" \
+"CMakeFiles/RIP_.dir/config/Configuration.cpp.o"
 
 # External object files for target RIP_
 RIP__EXTERNAL_OBJECTS =
 
 RIP_: CMakeFiles/RIP_.dir/main.cpp.o
-RIP_: CMakeFiles/RIP_.dir/ConfigImporter.cpp.o
-RIP_: CMakeFiles/RIP_.dir/OutputInterface.cpp.o
-RIP_: CMakeFiles/RIP_.dir/Utils.cpp.o
-RIP_: CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o
-RIP_: CMakeFiles/RIP_.dir/Rip.cpp.o
-RIP_: CMakeFiles/RIP_.dir/Configuration.cpp.o
+RIP_: CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o
+RIP_: CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o
+RIP_: CMakeFiles/RIP_.dir/utils/Utils.cpp.o
+RIP_: CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o
+RIP_: CMakeFiles/RIP_.dir/rip/Rip.cpp.o
+RIP_: CMakeFiles/RIP_.dir/config/Configuration.cpp.o
 RIP_: CMakeFiles/RIP_.dir/build.make
 RIP_: CMakeFiles/RIP_.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable RIP_"
@@ -256,12 +256,12 @@ CMakeFiles/RIP_.dir/build: RIP_
 .PHONY : CMakeFiles/RIP_.dir/build
 
 CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/main.cpp.o.requires
-CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/ConfigImporter.cpp.o.requires
-CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/OutputInterface.cpp.o.requires
-CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/Utils.cpp.o.requires
-CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o.requires
-CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/Rip.cpp.o.requires
-CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/Configuration.cpp.o.requires
+CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o.requires
+CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o.requires
+CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/utils/Utils.cpp.o.requires
+CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o.requires
+CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/rip/Rip.cpp.o.requires
+CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/config/Configuration.cpp.o.requires
 
 .PHONY : CMakeFiles/RIP_.dir/requires
 

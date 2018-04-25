@@ -1,11 +1,11 @@
 file(REMOVE_RECURSE
   "CMakeFiles/RIP_.dir/main.cpp.o"
-  "CMakeFiles/RIP_.dir/ConfigImporter.cpp.o"
-  "CMakeFiles/RIP_.dir/OutputInterface.cpp.o"
-  "CMakeFiles/RIP_.dir/Utils.cpp.o"
-  "CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o"
-  "CMakeFiles/RIP_.dir/Rip.cpp.o"
-  "CMakeFiles/RIP_.dir/Configuration.cpp.o"
+  "CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o"
+  "CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o"
+  "CMakeFiles/RIP_.dir/utils/Utils.cpp.o"
+  "CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o"
+  "CMakeFiles/RIP_.dir/rip/Rip.cpp.o"
+  "CMakeFiles/RIP_.dir/config/Configuration.cpp.o"
   "RIP_.pdb"
   "RIP_"
 )

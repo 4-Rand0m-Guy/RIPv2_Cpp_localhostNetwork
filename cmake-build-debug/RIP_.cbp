@@ -88,43 +88,43 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/ConfigImporter.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/ConfigImporter.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/ConfigImporter.h">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/ConfigImporter.h">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/Configuration.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/Configuration.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/Configuration.h">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/Configuration.h">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/ConsoleLogger.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/ConsoleLogger.h">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.h">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/OutputInterface.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/OutputInterface.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/OutputInterface.h">
-			<Option target="RIP_"/>
-		</Unit>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/Rip.cpp">
-			<Option target="RIP_"/>
-		</Unit>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/Rip.h">
-			<Option target="RIP_"/>
-		</Unit>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/Utils.cpp">
-			<Option target="RIP_"/>
-		</Unit>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/Utils.h">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/OutputInterface.h">
 			<Option target="RIP_"/>
 		</Unit>
 		<Unit filename="/Users/johny/CLionProjects/RIP-/main.cpp">
+			<Option target="RIP_"/>
+		</Unit>
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/Rip.cpp">
+			<Option target="RIP_"/>
+		</Unit>
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/Rip.h">
+			<Option target="RIP_"/>
+		</Unit>
+		<Unit filename="/Users/johny/CLionProjects/RIP-/utils/Utils.cpp">
+			<Option target="RIP_"/>
+		</Unit>
+		<Unit filename="/Users/johny/CLionProjects/RIP-/utils/Utils.h">
 			<Option target="RIP_"/>
 		</Unit>
 		<Unit filename="/Users/johny/CLionProjects/RIP-/CMakeLists.txt">

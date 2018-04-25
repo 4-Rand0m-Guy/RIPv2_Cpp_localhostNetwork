@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.3986.16/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake"
+CMAKE_COMMAND = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.25/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake"
 
 # The command to remove a file.
-RM = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.3986.16/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -E remove -f
+RM = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.25/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /Users/johny/CLionProjects/RIP-/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.3986.16/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.25/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	"/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.3986.16/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -E echo No\ interactive\ CMake\ dialog\ available.
+	"/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.25/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -123,167 +123,113 @@ RIP_/fast:
 	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/build
 .PHONY : RIP_/fast
 
-ConfigImporter.o: ConfigImporter.cpp.o
+config/ConfigImporter.o: config/ConfigImporter.cpp.o
 
-.PHONY : ConfigImporter.o
-
-# target to build an object file
-ConfigImporter.cpp.o:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/ConfigImporter.cpp.o
-.PHONY : ConfigImporter.cpp.o
-
-ConfigImporter.i: ConfigImporter.cpp.i
-
-.PHONY : ConfigImporter.i
-
-# target to preprocess a source file
-ConfigImporter.cpp.i:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/ConfigImporter.cpp.i
-.PHONY : ConfigImporter.cpp.i
-
-ConfigImporter.s: ConfigImporter.cpp.s
-
-.PHONY : ConfigImporter.s
-
-# target to generate assembly for a file
-ConfigImporter.cpp.s:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/ConfigImporter.cpp.s
-.PHONY : ConfigImporter.cpp.s
-
-Configuration.o: Configuration.cpp.o
-
-.PHONY : Configuration.o
+.PHONY : config/ConfigImporter.o
 
 # target to build an object file
-Configuration.cpp.o:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Configuration.cpp.o
-.PHONY : Configuration.cpp.o
+config/ConfigImporter.cpp.o:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.o
+.PHONY : config/ConfigImporter.cpp.o
 
-Configuration.i: Configuration.cpp.i
+config/ConfigImporter.i: config/ConfigImporter.cpp.i
 
-.PHONY : Configuration.i
+.PHONY : config/ConfigImporter.i
 
 # target to preprocess a source file
-Configuration.cpp.i:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Configuration.cpp.i
-.PHONY : Configuration.cpp.i
+config/ConfigImporter.cpp.i:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.i
+.PHONY : config/ConfigImporter.cpp.i
 
-Configuration.s: Configuration.cpp.s
+config/ConfigImporter.s: config/ConfigImporter.cpp.s
 
-.PHONY : Configuration.s
+.PHONY : config/ConfigImporter.s
 
 # target to generate assembly for a file
-Configuration.cpp.s:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Configuration.cpp.s
-.PHONY : Configuration.cpp.s
+config/ConfigImporter.cpp.s:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/ConfigImporter.cpp.s
+.PHONY : config/ConfigImporter.cpp.s
 
-ConsoleLogger.o: ConsoleLogger.cpp.o
+config/Configuration.o: config/Configuration.cpp.o
 
-.PHONY : ConsoleLogger.o
+.PHONY : config/Configuration.o
 
 # target to build an object file
-ConsoleLogger.cpp.o:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/ConsoleLogger.cpp.o
-.PHONY : ConsoleLogger.cpp.o
+config/Configuration.cpp.o:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/Configuration.cpp.o
+.PHONY : config/Configuration.cpp.o
 
-ConsoleLogger.i: ConsoleLogger.cpp.i
+config/Configuration.i: config/Configuration.cpp.i
 
-.PHONY : ConsoleLogger.i
+.PHONY : config/Configuration.i
 
 # target to preprocess a source file
-ConsoleLogger.cpp.i:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/ConsoleLogger.cpp.i
-.PHONY : ConsoleLogger.cpp.i
+config/Configuration.cpp.i:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/Configuration.cpp.i
+.PHONY : config/Configuration.cpp.i
 
-ConsoleLogger.s: ConsoleLogger.cpp.s
+config/Configuration.s: config/Configuration.cpp.s
 
-.PHONY : ConsoleLogger.s
+.PHONY : config/Configuration.s
 
 # target to generate assembly for a file
-ConsoleLogger.cpp.s:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/ConsoleLogger.cpp.s
-.PHONY : ConsoleLogger.cpp.s
+config/Configuration.cpp.s:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/Configuration.cpp.s
+.PHONY : config/Configuration.cpp.s
 
-OutputInterface.o: OutputInterface.cpp.o
+config/ConsoleLogger.o: config/ConsoleLogger.cpp.o
 
-.PHONY : OutputInterface.o
+.PHONY : config/ConsoleLogger.o
 
 # target to build an object file
-OutputInterface.cpp.o:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/OutputInterface.cpp.o
-.PHONY : OutputInterface.cpp.o
+config/ConsoleLogger.cpp.o:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o
+.PHONY : config/ConsoleLogger.cpp.o
 
-OutputInterface.i: OutputInterface.cpp.i
+config/ConsoleLogger.i: config/ConsoleLogger.cpp.i
 
-.PHONY : OutputInterface.i
+.PHONY : config/ConsoleLogger.i
 
 # target to preprocess a source file
-OutputInterface.cpp.i:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/OutputInterface.cpp.i
-.PHONY : OutputInterface.cpp.i
+config/ConsoleLogger.cpp.i:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.i
+.PHONY : config/ConsoleLogger.cpp.i
 
-OutputInterface.s: OutputInterface.cpp.s
+config/ConsoleLogger.s: config/ConsoleLogger.cpp.s
 
-.PHONY : OutputInterface.s
+.PHONY : config/ConsoleLogger.s
 
 # target to generate assembly for a file
-OutputInterface.cpp.s:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/OutputInterface.cpp.s
-.PHONY : OutputInterface.cpp.s
+config/ConsoleLogger.cpp.s:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.s
+.PHONY : config/ConsoleLogger.cpp.s
 
-Rip.o: Rip.cpp.o
+config/OutputInterface.o: config/OutputInterface.cpp.o
 
-.PHONY : Rip.o
+.PHONY : config/OutputInterface.o
 
 # target to build an object file
-Rip.cpp.o:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Rip.cpp.o
-.PHONY : Rip.cpp.o
+config/OutputInterface.cpp.o:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o
+.PHONY : config/OutputInterface.cpp.o
 
-Rip.i: Rip.cpp.i
+config/OutputInterface.i: config/OutputInterface.cpp.i
 
-.PHONY : Rip.i
-
-# target to preprocess a source file
-Rip.cpp.i:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Rip.cpp.i
-.PHONY : Rip.cpp.i
-
-Rip.s: Rip.cpp.s
-
-.PHONY : Rip.s
-
-# target to generate assembly for a file
-Rip.cpp.s:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Rip.cpp.s
-.PHONY : Rip.cpp.s
-
-Utils.o: Utils.cpp.o
-
-.PHONY : Utils.o
-
-# target to build an object file
-Utils.cpp.o:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Utils.cpp.o
-.PHONY : Utils.cpp.o
-
-Utils.i: Utils.cpp.i
-
-.PHONY : Utils.i
+.PHONY : config/OutputInterface.i
 
 # target to preprocess a source file
-Utils.cpp.i:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Utils.cpp.i
-.PHONY : Utils.cpp.i
+config/OutputInterface.cpp.i:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/OutputInterface.cpp.i
+.PHONY : config/OutputInterface.cpp.i
 
-Utils.s: Utils.cpp.s
+config/OutputInterface.s: config/OutputInterface.cpp.s
 
-.PHONY : Utils.s
+.PHONY : config/OutputInterface.s
 
 # target to generate assembly for a file
-Utils.cpp.s:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/Utils.cpp.s
-.PHONY : Utils.cpp.s
+config/OutputInterface.cpp.s:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/OutputInterface.cpp.s
+.PHONY : config/OutputInterface.cpp.s
 
 main.o: main.cpp.o
 
@@ -312,6 +258,60 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+rip/Rip.o: rip/Rip.cpp.o
+
+.PHONY : rip/Rip.o
+
+# target to build an object file
+rip/Rip.cpp.o:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/Rip.cpp.o
+.PHONY : rip/Rip.cpp.o
+
+rip/Rip.i: rip/Rip.cpp.i
+
+.PHONY : rip/Rip.i
+
+# target to preprocess a source file
+rip/Rip.cpp.i:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/Rip.cpp.i
+.PHONY : rip/Rip.cpp.i
+
+rip/Rip.s: rip/Rip.cpp.s
+
+.PHONY : rip/Rip.s
+
+# target to generate assembly for a file
+rip/Rip.cpp.s:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/Rip.cpp.s
+.PHONY : rip/Rip.cpp.s
+
+utils/Utils.o: utils/Utils.cpp.o
+
+.PHONY : utils/Utils.o
+
+# target to build an object file
+utils/Utils.cpp.o:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/utils/Utils.cpp.o
+.PHONY : utils/Utils.cpp.o
+
+utils/Utils.i: utils/Utils.cpp.i
+
+.PHONY : utils/Utils.i
+
+# target to preprocess a source file
+utils/Utils.cpp.i:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/utils/Utils.cpp.i
+.PHONY : utils/Utils.cpp.i
+
+utils/Utils.s: utils/Utils.cpp.s
+
+.PHONY : utils/Utils.s
+
+# target to generate assembly for a file
+utils/Utils.cpp.s:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/utils/Utils.cpp.s
+.PHONY : utils/Utils.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -321,27 +321,27 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... RIP_"
-	@echo "... ConfigImporter.o"
-	@echo "... ConfigImporter.i"
-	@echo "... ConfigImporter.s"
-	@echo "... Configuration.o"
-	@echo "... Configuration.i"
-	@echo "... Configuration.s"
-	@echo "... ConsoleLogger.o"
-	@echo "... ConsoleLogger.i"
-	@echo "... ConsoleLogger.s"
-	@echo "... OutputInterface.o"
-	@echo "... OutputInterface.i"
-	@echo "... OutputInterface.s"
-	@echo "... Rip.o"
-	@echo "... Rip.i"
-	@echo "... Rip.s"
-	@echo "... Utils.o"
-	@echo "... Utils.i"
-	@echo "... Utils.s"
+	@echo "... config/ConfigImporter.o"
+	@echo "... config/ConfigImporter.i"
+	@echo "... config/ConfigImporter.s"
+	@echo "... config/Configuration.o"
+	@echo "... config/Configuration.i"
+	@echo "... config/Configuration.s"
+	@echo "... config/ConsoleLogger.o"
+	@echo "... config/ConsoleLogger.i"
+	@echo "... config/ConsoleLogger.s"
+	@echo "... config/OutputInterface.o"
+	@echo "... config/OutputInterface.i"
+	@echo "... config/OutputInterface.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... rip/Rip.o"
+	@echo "... rip/Rip.i"
+	@echo "... rip/Rip.s"
+	@echo "... utils/Utils.o"
+	@echo "... utils/Utils.i"
+	@echo "... utils/Utils.s"
 .PHONY : help
 
 
