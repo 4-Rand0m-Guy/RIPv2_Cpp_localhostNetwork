@@ -73,6 +73,26 @@ class RIPRouteEntry {
          * Initialize timer for entry.
          */
         void init_timer();
+
+        /**
+         * Characters-to-Integer. Reads four chars (4 bytes) into an
+         * unsigned integer. Ensure that index is at least 4 indices
+         * from the end of the array.
+         *
+         * @param chars - array of chars
+         * @param index - index in the array to begin
+         * @return an unsigned integer
+         */
+        unsigned ch2uint(unsigned char* chars, int index);
+
+        /**
+         *
+         *
+         * @param ui
+         * @param buf
+         * @param index
+         */
+        void uint2ch(unsigned ui, unsigned char* buf, int index);
 };
 
 
