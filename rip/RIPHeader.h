@@ -9,10 +9,35 @@
  */
 class RIPHeader {
     public:
-        RIPHeader(unsigned char* buf);
-        RIPHeader(unsigned routerID);
-        void deserialize(unsigned char* buf);
-    void serialize(unsigned char * outbuf);
+
+        /**
+         * Construct with data from the network.
+         *
+         * @param data (pointer to unsigned char array[4])
+         */
+        RIPHeader(unsigned char* data);
+
+        /**
+         * Construct with data from the host.
+         *
+         * @param routerID (short) - ID of local router
+         */
+        RIPHeader(short routerID);
+
+        /**
+         * Deserialize char array of size four
+         * into RIPHeader.
+         *
+         * @param buffer (pointer to char array[4]) - the header data
+         */
+        void deserialize(unsigned char* buffer);
+
+        /**
+         * Serialize RIPHeader into four byte char array.
+         *
+         * @param buffer
+         */
+        void serialize(unsigned char* buffer);
     std::string toString();
     private:
         char command; // Two types of commands in RIP v1 and 2. 1 is type Request and 2 is Response.
