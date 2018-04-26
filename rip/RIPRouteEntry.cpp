@@ -25,7 +25,8 @@ RIPRouteEntry::RIPRouteEntry(short FFFF, short _authenticationType, char *passwo
 }
 
 void RIPRouteEntry::deserialize(unsigned char* outBuffer) {
-
+    afi = outBuffer[0] << 8 | outBuffer[1];
+    tag = outBuffer[2] << 8 | outBuffer[3];
 }
 
 void RIPRouteEntry::serialize(unsigned char* inBuffer) {
