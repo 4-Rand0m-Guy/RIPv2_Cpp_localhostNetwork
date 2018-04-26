@@ -112,12 +112,6 @@
 		<Unit filename="/Users/johny/CLionProjects/RIP-/config/OutputInterface.h">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/config/RIPRouteEntry.cpp">
-			<Option target="RIP_"/>
-		</Unit>
-		<Unit filename="/Users/johny/CLionProjects/RIP-/config/RIPRouteEntry.h">
-			<Option target="RIP_"/>
-		</Unit>
 		<Unit filename="/Users/johny/CLionProjects/RIP-/main.cpp">
 			<Option target="RIP_"/>
 		</Unit>
@@ -125,6 +119,12 @@
 			<Option target="RIP_"/>
 		</Unit>
 		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/RIPHeader.h">
+			<Option target="RIP_"/>
+		</Unit>
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/RIPRouteEntry.cpp">
+			<Option target="RIP_"/>
+		</Unit>
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/RIPRouteEntry.h">
 			<Option target="RIP_"/>
 		</Unit>
 		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/Rip.cpp">

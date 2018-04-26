@@ -7,7 +7,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/RIP_.dir/rip/Rip.cpp.o"
   "CMakeFiles/RIP_.dir/config/Configuration.cpp.o"
   "CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o"
-  "CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o"
+  "CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o"
   "RIP_.pdb"
   "RIP_"
 )

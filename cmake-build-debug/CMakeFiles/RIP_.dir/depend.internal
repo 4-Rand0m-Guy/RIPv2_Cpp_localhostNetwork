@@ -18,9 +18,6 @@ CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o
 CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o
  /Users/johny/CLionProjects/RIP-/config/OutputInterface.cpp
  /Users/johny/CLionProjects/RIP-/config/OutputInterface.h
-CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o
- /Users/johny/CLionProjects/RIP-/config/RIPRouteEntry.cpp
- /Users/johny/CLionProjects/RIP-/config/RIPRouteEntry.h
 CMakeFiles/RIP_.dir/main.cpp.o
  /Users/johny/CLionProjects/RIP-/config/ConfigImporter.h
  /Users/johny/CLionProjects/RIP-/config/Configuration.h
@@ -31,6 +28,9 @@ CMakeFiles/RIP_.dir/main.cpp.o
 CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o
  /Users/johny/CLionProjects/RIP-/rip/RIPHeader.cpp
  /Users/johny/CLionProjects/RIP-/rip/RIPHeader.h
+CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o
+ /Users/johny/CLionProjects/RIP-/rip/RIPRouteEntry.cpp
+ /Users/johny/CLionProjects/RIP-/rip/RIPRouteEntry.h
 CMakeFiles/RIP_.dir/rip/Rip.cpp.o
  /Users/johny/CLionProjects/RIP-/config/OutputInterface.h
  /Users/johny/CLionProjects/RIP-/rip/RIPHeader.h

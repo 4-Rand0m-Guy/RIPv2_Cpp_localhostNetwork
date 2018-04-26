@@ -249,28 +249,28 @@ CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o.provides: CMakeFiles/RIP_.dir/rip/RIPHea
 CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o.provides.build: CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o
 
 
-CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o: CMakeFiles/RIP_.dir/flags.make
-CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o: ../config/RIPRouteEntry.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o"
-	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o -c /Users/johny/CLionProjects/RIP-/config/RIPRouteEntry.cpp
+CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o: CMakeFiles/RIP_.dir/flags.make
+CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o: ../rip/RIPRouteEntry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o"
+	/usr/local/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o -c /Users/johny/CLionProjects/RIP-/rip/RIPRouteEntry.cpp
 
-CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.i"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/config/RIPRouteEntry.cpp > CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.i
+CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.i"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/johny/CLionProjects/RIP-/rip/RIPRouteEntry.cpp > CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.i
 
-CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.s"
-	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/config/RIPRouteEntry.cpp -o CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.s
+CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.s"
+	/usr/local/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/johny/CLionProjects/RIP-/rip/RIPRouteEntry.cpp -o CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.s
 
-CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o.requires:
+CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o.requires:
 
-.PHONY : CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o.requires
+.PHONY : CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o.requires
 
-CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o.provides: CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o.requires
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o.provides.build
-.PHONY : CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o.provides
+CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o.provides: CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o.requires
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o.provides.build
+.PHONY : CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o.provides
 
-CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o.provides.build: CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o
+CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o.provides.build: CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o
 
 
 # Object files for target RIP_
@@ -283,7 +283,7 @@ RIP__OBJECTS = \
 "CMakeFiles/RIP_.dir/rip/Rip.cpp.o" \
 "CMakeFiles/RIP_.dir/config/Configuration.cpp.o" \
 "CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o" \
-"CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o"
+"CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o"
 
 # External object files for target RIP_
 RIP__EXTERNAL_OBJECTS =
@@ -296,7 +296,7 @@ RIP_: CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o
 RIP_: CMakeFiles/RIP_.dir/rip/Rip.cpp.o
 RIP_: CMakeFiles/RIP_.dir/config/Configuration.cpp.o
 RIP_: CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o
-RIP_: CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o
+RIP_: CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o
 RIP_: CMakeFiles/RIP_.dir/build.make
 RIP_: CMakeFiles/RIP_.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable RIP_"
@@ -315,7 +315,7 @@ CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o.req
 CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/rip/Rip.cpp.o.requires
 CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/config/Configuration.cpp.o.requires
 CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o.requires
-CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o.requires
+CMakeFiles/RIP_.dir/requires: CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o.requires
 
 .PHONY : CMakeFiles/RIP_.dir/requires
 

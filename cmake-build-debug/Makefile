@@ -231,33 +231,6 @@ config/OutputInterface.cpp.s:
 	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/OutputInterface.cpp.s
 .PHONY : config/OutputInterface.cpp.s
 
-config/RIPRouteEntry.o: config/RIPRouteEntry.cpp.o
-
-.PHONY : config/RIPRouteEntry.o
-
-# target to build an object file
-config/RIPRouteEntry.cpp.o:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o
-.PHONY : config/RIPRouteEntry.cpp.o
-
-config/RIPRouteEntry.i: config/RIPRouteEntry.cpp.i
-
-.PHONY : config/RIPRouteEntry.i
-
-# target to preprocess a source file
-config/RIPRouteEntry.cpp.i:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.i
-.PHONY : config/RIPRouteEntry.cpp.i
-
-config/RIPRouteEntry.s: config/RIPRouteEntry.cpp.s
-
-.PHONY : config/RIPRouteEntry.s
-
-# target to generate assembly for a file
-config/RIPRouteEntry.cpp.s:
-	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.s
-.PHONY : config/RIPRouteEntry.cpp.s
-
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -311,6 +284,33 @@ rip/RIPHeader.s: rip/RIPHeader.cpp.s
 rip/RIPHeader.cpp.s:
 	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.s
 .PHONY : rip/RIPHeader.cpp.s
+
+rip/RIPRouteEntry.o: rip/RIPRouteEntry.cpp.o
+
+.PHONY : rip/RIPRouteEntry.o
+
+# target to build an object file
+rip/RIPRouteEntry.cpp.o:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o
+.PHONY : rip/RIPRouteEntry.cpp.o
+
+rip/RIPRouteEntry.i: rip/RIPRouteEntry.cpp.i
+
+.PHONY : rip/RIPRouteEntry.i
+
+# target to preprocess a source file
+rip/RIPRouteEntry.cpp.i:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.i
+.PHONY : rip/RIPRouteEntry.cpp.i
+
+rip/RIPRouteEntry.s: rip/RIPRouteEntry.cpp.s
+
+.PHONY : rip/RIPRouteEntry.s
+
+# target to generate assembly for a file
+rip/RIPRouteEntry.cpp.s:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.s
+.PHONY : rip/RIPRouteEntry.cpp.s
 
 rip/Rip.o: rip/Rip.cpp.o
 
@@ -387,15 +387,15 @@ help:
 	@echo "... config/OutputInterface.o"
 	@echo "... config/OutputInterface.i"
 	@echo "... config/OutputInterface.s"
-	@echo "... config/RIPRouteEntry.o"
-	@echo "... config/RIPRouteEntry.i"
-	@echo "... config/RIPRouteEntry.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
 	@echo "... rip/RIPHeader.o"
 	@echo "... rip/RIPHeader.i"
 	@echo "... rip/RIPHeader.s"
+	@echo "... rip/RIPRouteEntry.o"
+	@echo "... rip/RIPRouteEntry.i"
+	@echo "... rip/RIPRouteEntry.s"
 	@echo "... rip/Rip.o"
 	@echo "... rip/Rip.i"
 	@echo "... rip/Rip.s"
