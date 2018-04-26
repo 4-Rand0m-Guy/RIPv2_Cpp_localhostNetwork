@@ -31,7 +31,13 @@ private:
     /**
     * Function sets up the input sockets
     */
-    void initializeInputPorts();
+    std::vector<int> initializeInputPorts();
+
+    /**
+    * Function sends update to neighboring routers once time limit is reached.
+    * @param fdValue Value of one of the socket() call return values, will be used to assign sending port
+    */
+    void sendUpdate(int fdValue);
 
 
 };

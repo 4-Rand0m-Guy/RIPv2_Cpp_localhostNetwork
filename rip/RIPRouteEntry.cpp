@@ -65,7 +65,7 @@ void RIPRouteEntry::serialize(unsigned char* inBuffer) {
 }
 
 void RIPRouteEntry::init_timer() {
-    time_t time = std::time(0);
+    time = std::time(0);
 }
 
 std::string RIPRouteEntry::toString() {

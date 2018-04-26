@@ -4,6 +4,7 @@
 #include <cstring>
 #include <sstream>
 #include <chrono>
+#include <arpa/inet.h>
 #include "Rip.h"
 #include "RIPHeader.h"
 
@@ -16,12 +17,15 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
 }
 
 //Initialize the input ports (bind sockets etc)
-void Rip::initializeInputPorts() {
+std::vector<int> Rip::initializeInputPorts() {
+    std::vector<int> fdArray;
     for (auto sock: input_ports) {
         int s;
         if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
             perror("Cannot create a socket");
-            return;
+            exit(0);
+        } else {
+            fdArray.push_back(s);
         }
 
         struct sockaddr_in socketAddress{};
@@ -37,8 +41,8 @@ void Rip::initializeInputPorts() {
         } else {
             std::cout << "Successfully bound socket to port " << sock << std::endl;
         }
-
     }
+    return fdArray;
 }
 
 //Run function, handle the running of the daemon, events etc
@@ -48,16 +52,15 @@ void Rip::run() {
     int activity;
     struct timeval timeout{};
     fd_set readfds; //set of file descriptors to listen to sockets
-    initializeInputPorts();
     bool run = true;
-
+    std::vector<int> fdArray = initializeInputPorts();
     //enter the infinite loop
     while (run) {
         timeout.tv_sec = timer;
         timeout.tv_usec = 0;
         FD_ZERO(&readfds);
         //Add the current input sockets to the set of sockets to track for the select() function
-        for (auto sock: input_ports) {
+        for (auto sock: fdArray) {
             FD_SET(sock, &readfds);
             if (sock > max_sd) {
                 max_sd = sock;
@@ -65,13 +68,15 @@ void Rip::run() {
         }
         auto t1 = std::chrono::high_resolution_clock::now();
         activity = select(max_sd + 1, &readfds, NULL, NULL, &timeout);
-        if ((activity < 0) && (errno != EINTR)) {
+        if ((activity < 0) && (errno != EINTR)) { //something has gone wrong
             perror("Select error");
-        } else if (activity == 0) {
-            std::cout << "Timeout reached, no updates" << std::endl;
-            continue;
-        } else {
+        } else if (activity == 0) { //timeout reached with no activity
+            //std::cout << "Timeout reached, no updates" << std::endl;
+            sendUpdate(fdArray[0]);
+            //continue;
+        } else { //some kind of activity has occurred
             std::cout << "Implement update event please" << std::endl;
+            continue;
         }
 
     }
@@ -81,4 +86,26 @@ void Rip::run() {
 
 const std::vector<unsigned int> &Rip::getInput_ports() const {
     return input_ports;
+}
+
+//Function sends updates to neighbor routers
+void Rip::sendUpdate(int fdValue) {
+    struct sockaddr_in sendingSocket{};
+    auto * message = const_cast<char *>("Updating neighbors");
+
+    for (auto port: outputs) {
+        memset((char *) &sendingSocket, 0, sizeof(sendingSocket));
+        sendingSocket.sin_family = AF_INET;
+        sendingSocket.sin_port = static_cast<in_port_t>(port.port_number);
+        if (inet_aton("127.0.0.1", &sendingSocket.sin_addr) == 0) {
+            perror("inet_aton failed");
+        }
+
+        if (sendto(fdValue, message, 512, 0, reinterpret_cast<const sockaddr *>(&sendingSocket), sizeof
+        (sendingSocket)) == -1) {
+            perror("Sending packet failed");
+        } else {
+            std::cout << "Message sent" << std::endl;
+        }
+    }
 }
