@@ -18,6 +18,9 @@ CMakeFiles/RIP_.dir/config/ConsoleLogger.cpp.o: ../config/ConsoleLogger.h
 CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o: ../config/OutputInterface.cpp
 CMakeFiles/RIP_.dir/config/OutputInterface.cpp.o: ../config/OutputInterface.h
 
+CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o: ../config/RIPRouteEntry.cpp
+CMakeFiles/RIP_.dir/config/RIPRouteEntry.cpp.o: ../config/RIPRouteEntry.h
+
 CMakeFiles/RIP_.dir/main.cpp.o: ../config/ConfigImporter.h
 CMakeFiles/RIP_.dir/main.cpp.o: ../config/Configuration.h
 CMakeFiles/RIP_.dir/main.cpp.o: ../config/ConsoleLogger.h

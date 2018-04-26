@@ -11,7 +11,7 @@ class RIPHeader {
     public:
 
         /**
-         * Construct with data from the network.
+         * Construct RIPHeader with data from the network.
          *
          * @param data (pointer to unsigned char array[4])
          */

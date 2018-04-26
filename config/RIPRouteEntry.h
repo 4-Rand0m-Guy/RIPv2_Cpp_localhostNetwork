@@ -4,6 +4,13 @@
 
 class RIPRouteEntry {
     public:
+        /**
+         * Construct RIPRouteEntry with data from the network.
+         *
+         * @param data (pointer to unsigned char array)
+         */
+        RIPRouteEntry(unsigned char* data);
+
         RIPRouteEntry();
 };
 
