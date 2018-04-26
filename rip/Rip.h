@@ -31,10 +31,7 @@ private:
     */
     void initializeInputPorts();
 
-    /**
-     * Function sets up the output ports
-     */
-    void initializeOutputPorts();
+
 };
 
 

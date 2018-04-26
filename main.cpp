@@ -17,10 +17,6 @@ int main(int argc, char **argv) {
     ConfigImporter configImporter = ConfigImporter(filename);
     Configuration cfg = configImporter.get_configuration();
     Rip daemon = Rip(cfg.routerID, cfg.input_ports, cfg.outputs, cfg.timer);
-    std::cout << "Input ports for daemon = " << std::endl;
-    for (unsigned sock: daemon.getInput_ports()) {
-        std::cout << sock << std::endl;
-    }
     daemon.run();
     std::cout << "Daemon started" << std::endl;
     return 0;
