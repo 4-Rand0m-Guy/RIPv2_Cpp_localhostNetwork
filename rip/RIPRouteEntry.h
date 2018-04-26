@@ -37,14 +37,14 @@ class RIPRouteEntry {
         /**
          * Deserialize data into RIPRouteEntry.
          *
-         * @param outBuffer - the route entry data
+         * @param outBuffer - the serialized route entry data, 20 byte unsigned char array
          */
         void deserialize(unsigned char* outBuffer);
 
         /**
          * Serialize RIPRouteEntry into 20 byte Route entry.
          *
-         * @param inBuffer
+         * @param inBuffer - 20 byte array[20] of unsigned chars
          */
         void serialize(unsigned char* inBuffer);
 
