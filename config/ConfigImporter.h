@@ -9,7 +9,7 @@ class ConfigImporter {
         ConfigImporter(const std::string filename);
         Configuration get_configuration();
 private:
-        short routerID = NULL;
+        unsigned routerID = NULL;
         std::vector<unsigned> input_ports;
         std::vector<OutputInterface> outputs;
         unsigned timer = NULL;
