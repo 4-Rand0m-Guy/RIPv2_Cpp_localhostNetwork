@@ -5,6 +5,7 @@
 #include <sstream>
 #include <chrono>
 #include <arpa/inet.h>
+#include <cstdlib>
 #include "Rip.h"
 #include "RIPHeader.h"
 
@@ -23,7 +24,7 @@ std::vector<int> Rip::initializeInputPorts() {
         int s;
         if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
             perror("Cannot create a socket");
-            exit(0);
+            throw std::exception();
         } else {
             fdArray.push_back(s);
         }
@@ -35,9 +36,8 @@ std::vector<int> Rip::initializeInputPorts() {
         socketAddress.sin_port = static_cast<in_port_t>(sock);
 
         if (bind(s, (struct sockaddr *) &socketAddress, sizeof(socketAddress)) < 0) {
-            std::cout << "Binding socket: " << sock << std::endl;
             perror("Bind failed");
-            continue;
+            throw std::invalid_argument("Something went wrong binding, port reserved or in use");
         } else {
             std::cout << "Successfully bound socket to port " << sock << std::endl;
         }
@@ -53,7 +53,16 @@ void Rip::run() {
     struct timeval timeout{};
     fd_set readfds; //set of file descriptors to listen to sockets
     bool run = true;
-    std::vector<int> fdArray = initializeInputPorts();
+    std::vector<int> fdArray;
+    try {
+        fdArray = initializeInputPorts();
+    } catch (std::invalid_argument e) {
+        std::cout << e.what() << std::endl;
+        run = false;
+    } catch (std::exception){
+        std::cout << "Get rekt by this unknown bug" << std::endl;
+        run = false;
+    }
     //enter the infinite loop
     while (run) {
         timeout.tv_sec = timer;
@@ -70,9 +79,15 @@ void Rip::run() {
         activity = select(max_sd + 1, &readfds, NULL, NULL, &timeout);
         if ((activity < 0) && (errno != EINTR)) { //something has gone wrong
             perror("Select error");
+            run = false;
         } else if (activity == 0) { //timeout reached with no activity
             //std::cout << "Timeout reached, no updates" << std::endl;
-            sendUpdate(fdArray[0]);
+            try {
+                sendUpdate(fdArray[0]);
+            } catch (std::invalid_argument e) {
+                std::cout << e.what() << std::endl;
+                run = false;
+            }
             //continue;
         } else { //some kind of activity has occurred
             std::cout << "Implement update event please" << std::endl;
@@ -104,6 +119,7 @@ void Rip::sendUpdate(int fdValue) {
         if (sendto(fdValue, message, 512, 0, reinterpret_cast<const sockaddr *>(&sendingSocket), sizeof
         (sendingSocket)) == -1) {
             perror("Sending packet failed");
+            throw std::invalid_argument("Most likely something wrong with your fileDescriptors");
         } else {
             std::cout << "Message sent" << std::endl;
         }
