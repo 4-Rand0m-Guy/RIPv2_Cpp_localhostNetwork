@@ -75,7 +75,7 @@ class RIPRouteEntry {
         void init_timer();
 
         /**
-         * Characters-to-Integer. Reads four chars (4 bytes) into an
+         * Characters-to-Unsigned Integer. Reads four chars (4 bytes) into an
          * unsigned integer. Ensure that index is at least 4 indices
          * from the end of the array.
          *
@@ -86,11 +86,14 @@ class RIPRouteEntry {
         unsigned ch2uint(unsigned char* chars, int index);
 
         /**
+         * Unsigned Integer to Character. Pass an unsigned integer,
+         * a buffer (with at least 4 indices) and an index at least
+         * 4 indices from the end. The four bytes of the uint will
+         * be written to the buffer.
          *
-         *
-         * @param ui
-         * @param buf
-         * @param index
+         * @param ui - unsigned integer
+         * @param buf - buffer, pointer to an array of unsigned chars
+         * @param index - index in the buffer to convert from (needs 4 bytes)
          */
         void uint2ch(unsigned ui, unsigned char* buf, int index);
 };
