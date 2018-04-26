@@ -4,7 +4,7 @@
 #include "RIPHeader.h"
 #include "istream"
 
-RIPHeader::RIPHeader(unsigned routerID) {
+RIPHeader::RIPHeader(short routerID) {
     init_from_host(routerID);
 }
 

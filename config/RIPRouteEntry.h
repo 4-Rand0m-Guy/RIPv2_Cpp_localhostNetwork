@@ -3,7 +3,8 @@
 
 
 class RIPRouteEntry {
-
+    public:
+        RIPRouteEntry();
 };
 
 
