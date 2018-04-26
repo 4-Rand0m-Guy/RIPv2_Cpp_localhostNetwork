@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/johny/CLionProjects/RIP-/config/ConfigImporter.cpp
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/ConfigImporter.cpp
 iostream
 -
 fstream
@@ -14,43 +14,43 @@ fstream
 cstring
 -
 ConfigImporter.h
-/Users/johny/CLionProjects/RIP-/config/ConfigImporter.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/ConfigImporter.h
 OutputInterface.h
-/Users/johny/CLionProjects/RIP-/config/OutputInterface.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/OutputInterface.h
 ../utils/Utils.h
-/Users/johny/CLionProjects/RIP-/utils/Utils.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/utils/Utils.h
 ConsoleLogger.h
-/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/ConsoleLogger.h
 Configuration.h
-/Users/johny/CLionProjects/RIP-/config/Configuration.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/Configuration.h
 
-/Users/johny/CLionProjects/RIP-/config/ConfigImporter.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/ConfigImporter.h
 vector
 -
 OutputInterface.h
-/Users/johny/CLionProjects/RIP-/config/OutputInterface.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/OutputInterface.h
 Configuration.h
-/Users/johny/CLionProjects/RIP-/config/Configuration.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/Configuration.h
 
-/Users/johny/CLionProjects/RIP-/config/Configuration.cpp
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/Configuration.cpp
 Configuration.h
-/Users/johny/CLionProjects/RIP-/config/Configuration.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/Configuration.h
 
-/Users/johny/CLionProjects/RIP-/config/Configuration.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/Configuration.h
 vector
 -
 OutputInterface.h
-/Users/johny/CLionProjects/RIP-/config/OutputInterface.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/OutputInterface.h
 
-/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.cpp
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/ConsoleLogger.cpp
 unordered_map
 -
 iostream
 -
 ConsoleLogger.h
-/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/ConsoleLogger.h
 
-/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/ConsoleLogger.h
 string
 -
 unordered_map
@@ -58,29 +58,29 @@ unordered_map
 unordered_set
 -
 
-/Users/johny/CLionProjects/RIP-/config/OutputInterface.cpp
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/OutputInterface.cpp
 OutputInterface.h
-/Users/johny/CLionProjects/RIP-/config/OutputInterface.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/OutputInterface.h
 
-/Users/johny/CLionProjects/RIP-/config/OutputInterface.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/OutputInterface.h
 
-/Users/johny/CLionProjects/RIP-/config/RIPRouteEntry.cpp
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/RIPRouteEntry.cpp
 RIPRouteEntry.h
-/Users/johny/CLionProjects/RIP-/config/RIPRouteEntry.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/RIPRouteEntry.h
 
-/Users/johny/CLionProjects/RIP-/config/RIPRouteEntry.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/RIPRouteEntry.h
 
-/Users/johny/CLionProjects/RIP-/main.cpp
+/home/vernboss/Documents/Programming/COSC364/RIP-/main.cpp
 string
 -
 config/ConfigImporter.h
-/Users/johny/CLionProjects/RIP-/config/ConfigImporter.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/ConfigImporter.h
 config/ConsoleLogger.h
-/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/ConsoleLogger.h
 rip/Rip.h
-/Users/johny/CLionProjects/RIP-/rip/Rip.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/rip/Rip.h
 
-/Users/johny/CLionProjects/RIP-/rip/RIPHeader.cpp
+/home/vernboss/Documents/Programming/COSC364/RIP-/rip/RIPHeader.cpp
 sstream
 -
 cstring
@@ -88,29 +88,29 @@ cstring
 iostream
 -
 RIPHeader.h
-/Users/johny/CLionProjects/RIP-/rip/RIPHeader.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/rip/RIPHeader.h
 istream
-/Users/johny/CLionProjects/RIP-/rip/istream
+/home/vernboss/Documents/Programming/COSC364/RIP-/rip/istream
 
-/Users/johny/CLionProjects/RIP-/rip/RIPHeader.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/rip/RIPHeader.h
 istream
-/Users/johny/CLionProjects/RIP-/rip/istream
+/home/vernboss/Documents/Programming/COSC364/RIP-/rip/istream
 
-/Users/johny/CLionProjects/RIP-/rip/Rip.cpp
+/home/vernboss/Documents/Programming/COSC364/RIP-/rip/Rip.cpp
 iostream
 -
 Rip.h
-/Users/johny/CLionProjects/RIP-/rip/Rip.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/rip/Rip.h
 RIPHeader.h
-/Users/johny/CLionProjects/RIP-/rip/RIPHeader.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/rip/RIPHeader.h
 
-/Users/johny/CLionProjects/RIP-/rip/Rip.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/rip/Rip.h
 vector
 -
 ../config/OutputInterface.h
-/Users/johny/CLionProjects/RIP-/config/OutputInterface.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/config/OutputInterface.h
 
-/Users/johny/CLionProjects/RIP-/utils/Utils.cpp
+/home/vernboss/Documents/Programming/COSC364/RIP-/utils/Utils.cpp
 algorithm
 -
 string
@@ -120,7 +120,7 @@ fstream
 vector
 -
 Utils.h
-/Users/johny/CLionProjects/RIP-/utils/Utils.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/utils/Utils.h
 
-/Users/johny/CLionProjects/RIP-/utils/Utils.h
+/home/vernboss/Documents/Programming/COSC364/RIP-/utils/Utils.h
 
