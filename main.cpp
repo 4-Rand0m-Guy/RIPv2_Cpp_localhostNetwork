@@ -18,6 +18,5 @@ int main(int argc, char **argv) {
     Configuration cfg = configImporter.get_configuration();
     Rip daemon = Rip(cfg.routerID, cfg.input_ports, cfg.outputs, cfg.timer);
     daemon.run();
-    std::cout << "Daemon started" << std::endl;
     return 0;
 }

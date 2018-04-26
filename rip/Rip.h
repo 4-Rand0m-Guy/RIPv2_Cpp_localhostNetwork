@@ -4,6 +4,7 @@
 
 #include <vector>
 #include "../config/OutputInterface.h"
+#include "RIPRouteEntry.h"
 
 class Rip {
     public:
@@ -25,6 +26,7 @@ private:
         std::vector<unsigned> input_ports;
         std::vector<OutputInterface> outputs;
         unsigned timer;
+        std::vector<RIPRouteEntry> forwardingTable;
 
     /**
     * Function sets up the input sockets
