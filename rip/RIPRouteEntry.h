@@ -32,19 +32,19 @@ class RIPRouteEntry {
          * @param authenticationType - 2 (only simple password is supported)
          * @param password - the password
          */
-        RIPRouteEntry(short FFFF, short _authenticationType, char*password);
+        RIPRouteEntry(short FFFF, short _authenticationType, unsigned char* password);
 
         /**
          * Deserialize data into RIPRouteEntry.
          *
-         * @param outBuffer - the route entry data
+         * @param outBuffer - the serialized route entry data, 20 byte unsigned char array
          */
         void deserialize(unsigned char* outBuffer);
 
         /**
          * Serialize RIPRouteEntry into 20 byte Route entry.
          *
-         * @param inBuffer
+         * @param inBuffer - 20 byte array[20] of unsigned chars
          */
         void serialize(unsigned char* inBuffer);
 
@@ -65,7 +65,7 @@ class RIPRouteEntry {
         int metric; // cost of a path
 
         short authenticationType; // only type 2 (plain password) is supported
-        char* authentication; // the password
+        unsigned char authentication[16]; // the password
 
         time_t time;
 
@@ -73,6 +73,29 @@ class RIPRouteEntry {
          * Initialize timer for entry.
          */
         void init_timer();
+
+        /**
+         * Characters-to-Unsigned Integer. Reads four chars (4 bytes) into an
+         * unsigned integer. Ensure that index is at least 4 indices
+         * from the end of the array.
+         *
+         * @param chars - array of chars
+         * @param index - index in the array to begin
+         * @return an unsigned integer
+         */
+        unsigned ch2uint(unsigned char* chars, int index);
+
+        /**
+         * Unsigned Integer to Character. Pass an unsigned integer,
+         * a buffer (with at least 4 indices) and an index at least
+         * 4 indices from the end. The four bytes of the uint will
+         * be written to the buffer.
+         *
+         * @param ui - unsigned integer
+         * @param buf - buffer, pointer to an array of unsigned chars
+         * @param index - index in the buffer to convert from (needs 4 bytes)
+         */
+        void uint2ch(unsigned ui, unsigned char* buf, int index);
 };
 
 

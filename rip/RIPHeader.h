@@ -35,7 +35,7 @@ class RIPHeader {
         void deserialize(unsigned char* outBuffer);
 
         /**
-         * Serialize RIPHeader into four byte char array.
+         * Serialize RIPHeader into 4 byte char array.
          *
          * @param inBuffer - array to be filled
          */
