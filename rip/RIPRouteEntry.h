@@ -32,7 +32,7 @@ class RIPRouteEntry {
          * @param authenticationType - 2 (only simple password is supported)
          * @param password - the password
          */
-        RIPRouteEntry(short FFFF, short _authenticationType, char*password);
+        RIPRouteEntry(short FFFF, short _authenticationType, unsigned char* password);
 
         /**
          * Deserialize data into RIPRouteEntry.
@@ -65,7 +65,7 @@ class RIPRouteEntry {
         int metric; // cost of a path
 
         short authenticationType; // only type 2 (plain password) is supported
-        char* authentication; // the password
+        unsigned char authentication[16]; // the password
 
         time_t time;
 

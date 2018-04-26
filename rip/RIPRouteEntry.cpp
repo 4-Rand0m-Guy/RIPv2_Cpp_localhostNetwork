@@ -19,30 +19,47 @@ RIPRouteEntry::RIPRouteEntry(unsigned _address, unsigned _nextHop, unsigned _met
     toString();
 }
 
-RIPRouteEntry::RIPRouteEntry(short FFFF, short _authenticationType, char *password) {
+RIPRouteEntry::RIPRouteEntry(short FFFF, short _authenticationType, unsigned char* password) {
     afi = FFFF;
     authenticationType = _authenticationType;
-    authentication = password;
+    for (auto i = 0; i < 16; ++i) {
+        authentication[i] = password[i];
+    }
 }
 
 void RIPRouteEntry::deserialize(unsigned char* outBuffer) {
     afi = outBuffer[0] << 8 | outBuffer[1];
-    tag = outBuffer[2] << 8 | outBuffer[3];
-    address = ch2uint(outBuffer, 4);
-    subnetMask = ch2uint(outBuffer, 8);
-    nextHop = ch2uint(outBuffer, 12);
-    metric = ch2uint(outBuffer, 16);
+    if (afi == 65535) {
+        authenticationType = outBuffer[2] << 8 | outBuffer[3];
+        for (auto i = 4; i < 16; ++i) {
+            authentication[i-4] = outBuffer[i];
+        }
+    } else {
+        tag = outBuffer[2] << 8 | outBuffer[3];
+        address = ch2uint(outBuffer, 4);
+        subnetMask = ch2uint(outBuffer, 8);
+        nextHop = ch2uint(outBuffer, 12);
+        metric = ch2uint(outBuffer, 16);
+    }
 }
 
 void RIPRouteEntry::serialize(unsigned char* inBuffer) {
     unsigned char buffer[20];
     buffer[0] = (afi >> 8) & 0xff; buffer[1] = afi & 0xff;
-    buffer[2] = (tag >> 8) & 0xff; buffer[3] = tag & 0xff;
-    uint2ch(address, buffer, 4);
-    uint2ch(subnetMask, buffer, 8);
-    uint2ch(nextHop, buffer, 12);
-    uint2ch(metric, buffer, 16);
-    for (int i = 0; i < 20; ++i) {
+    if (afi == 65535) {
+        buffer[2] = (authenticationType >> 8) & 0xff; buffer[3] = authenticationType & 0xff;
+        for (auto i = 4; i < 20; ++i) {
+            buffer[i] = authentication[i-4];
+        }
+    } else {
+        buffer[2] = (tag >> 8) & 0xff;
+        buffer[3] = tag & 0xff;
+        uint2ch(address, buffer, 4);
+        uint2ch(subnetMask, buffer, 8);
+        uint2ch(nextHop, buffer, 12);
+        uint2ch(metric, buffer, 16);
+    }
+    for (auto i = 0; i < 20; ++i) {
         inBuffer[i] = buffer[i];
     }
 }
