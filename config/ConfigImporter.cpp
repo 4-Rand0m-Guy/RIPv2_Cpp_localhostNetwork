@@ -24,6 +24,10 @@ Configuration ConfigImporter::get_configuration() {
 }
 
 // reads config settings into program variables
+/**
+ *
+ * @param filename
+ */
 void ConfigImporter::load_config(const std::string &filename) {
     std::ifstream configfile;
     open_config(filename, configfile);

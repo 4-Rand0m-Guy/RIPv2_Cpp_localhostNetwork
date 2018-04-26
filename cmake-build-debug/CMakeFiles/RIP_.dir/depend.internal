@@ -25,8 +25,12 @@ CMakeFiles/RIP_.dir/main.cpp.o
  /Users/johny/CLionProjects/RIP-/config/OutputInterface.h
  /Users/johny/CLionProjects/RIP-/main.cpp
  /Users/johny/CLionProjects/RIP-/rip/Rip.h
+CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o
+ /Users/johny/CLionProjects/RIP-/rip/RIPHeader.cpp
+ /Users/johny/CLionProjects/RIP-/rip/RIPHeader.h
 CMakeFiles/RIP_.dir/rip/Rip.cpp.o
  /Users/johny/CLionProjects/RIP-/config/OutputInterface.h
+ /Users/johny/CLionProjects/RIP-/rip/RIPHeader.h
  /Users/johny/CLionProjects/RIP-/rip/Rip.cpp
  /Users/johny/CLionProjects/RIP-/rip/Rip.h
 CMakeFiles/RIP_.dir/utils/Utils.cpp.o

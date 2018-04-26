@@ -1,4 +1,6 @@
+#include <iostream>
 #include "Rip.h"
+#include "RIPHeader.h"
 
 Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<OutputInterface> _outputs, unsigned _timer /* = 30 */) {
     unsigned routerID = _routerID;

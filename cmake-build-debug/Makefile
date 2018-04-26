@@ -258,6 +258,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+rip/RIPHeader.o: rip/RIPHeader.cpp.o
+
+.PHONY : rip/RIPHeader.o
+
+# target to build an object file
+rip/RIPHeader.cpp.o:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o
+.PHONY : rip/RIPHeader.cpp.o
+
+rip/RIPHeader.i: rip/RIPHeader.cpp.i
+
+.PHONY : rip/RIPHeader.i
+
+# target to preprocess a source file
+rip/RIPHeader.cpp.i:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.i
+.PHONY : rip/RIPHeader.cpp.i
+
+rip/RIPHeader.s: rip/RIPHeader.cpp.s
+
+.PHONY : rip/RIPHeader.s
+
+# target to generate assembly for a file
+rip/RIPHeader.cpp.s:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.s
+.PHONY : rip/RIPHeader.cpp.s
+
 rip/Rip.o: rip/Rip.cpp.o
 
 .PHONY : rip/Rip.o
@@ -336,6 +363,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... rip/RIPHeader.o"
+	@echo "... rip/RIPHeader.i"
+	@echo "... rip/RIPHeader.s"
 	@echo "... rip/Rip.o"
 	@echo "... rip/Rip.i"
 	@echo "... rip/Rip.s"

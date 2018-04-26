@@ -115,6 +115,12 @@
 		<Unit filename="/Users/johny/CLionProjects/RIP-/main.cpp">
 			<Option target="RIP_"/>
 		</Unit>
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/RIPHeader.cpp">
+			<Option target="RIP_"/>
+		</Unit>
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/RIPHeader.h">
+			<Option target="RIP_"/>
+		</Unit>
 		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/Rip.cpp">
 			<Option target="RIP_"/>
 		</Unit>

@@ -73,12 +73,30 @@ config/ConsoleLogger.h
 /Users/johny/CLionProjects/RIP-/config/ConsoleLogger.h
 rip/Rip.h
 /Users/johny/CLionProjects/RIP-/rip/Rip.h
+
+/Users/johny/CLionProjects/RIP-/rip/RIPHeader.cpp
+sstream
+-
+cstring
+-
 iostream
 -
+RIPHeader.h
+/Users/johny/CLionProjects/RIP-/rip/RIPHeader.h
+istream
+/Users/johny/CLionProjects/RIP-/rip/istream
+
+/Users/johny/CLionProjects/RIP-/rip/RIPHeader.h
+istream
+/Users/johny/CLionProjects/RIP-/rip/istream
 
 /Users/johny/CLionProjects/RIP-/rip/Rip.cpp
+iostream
+-
 Rip.h
 /Users/johny/CLionProjects/RIP-/rip/Rip.h
+RIPHeader.h
+/Users/johny/CLionProjects/RIP-/rip/RIPHeader.h
 
 /Users/johny/CLionProjects/RIP-/rip/Rip.h
 vector

@@ -25,7 +25,11 @@ CMakeFiles/RIP_.dir/main.cpp.o: ../config/OutputInterface.h
 CMakeFiles/RIP_.dir/main.cpp.o: ../main.cpp
 CMakeFiles/RIP_.dir/main.cpp.o: ../rip/Rip.h
 
+CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o: ../rip/RIPHeader.cpp
+CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o: ../rip/RIPHeader.h
+
 CMakeFiles/RIP_.dir/rip/Rip.cpp.o: ../config/OutputInterface.h
+CMakeFiles/RIP_.dir/rip/Rip.cpp.o: ../rip/RIPHeader.h
 CMakeFiles/RIP_.dir/rip/Rip.cpp.o: ../rip/Rip.cpp
 CMakeFiles/RIP_.dir/rip/Rip.cpp.o: ../rip/Rip.h
 
