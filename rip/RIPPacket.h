@@ -54,6 +54,13 @@ class RIPPacket {
         void serialize(unsigned char* inBuffer);
 
         /**
+         * Returns the header.
+         *
+         * @return RIPHeader
+         */
+        RIPHeader getHeader();
+
+        /**
          * Returns a vector of all Route Entries in a packet.
          *
          * @return - vector<RIPRouteEntries>

@@ -56,6 +56,13 @@ void RIPPacket::addRoute(unsigned char * rte) {
     cur_len += 20;
 }
 
+RIPHeader RIPPacket::getHeader() {
+    return *header;
+}
+
+std::vector<RIPRouteEntry> RIPPacket::routes() {
+    return routeEntries;
+}
 
 std::string RIPPacket::toString() {
     std::cout << "1. " << header << std::endl;
