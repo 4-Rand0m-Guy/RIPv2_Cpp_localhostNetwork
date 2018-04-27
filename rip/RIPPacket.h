@@ -65,7 +65,6 @@ class RIPPacket {
         std::vector<RIPRouteEntry> routes; // max length 25
         unsigned char * message;
         int cur_len;
-        std::string st;
 };
 
 
