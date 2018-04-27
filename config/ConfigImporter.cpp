@@ -114,7 +114,6 @@ void ConfigImporter::set_outputs(std::string &outputsline) {
             std::cout << "Port number: " << oi.port_number << ", ID is : " << oi.id << " and metric is : " << oi.metric
                       << std::endl;
             outputs.push_back(oi);
-
         }
     } else {
         ConsoleLogger::warning(2, "CONFIG");

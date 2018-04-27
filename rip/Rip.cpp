@@ -136,7 +136,6 @@ void Rip::sendUpdate(int fdValue) {
         std::stringbuf buff;
         std::ostream stream(&buff);
         packet.serialize(stream);
-
         memset((char *) &sendingSocket, 0, sizeof(sendingSocket));
         sendingSocket.sin_family = AF_INET;
         sendingSocket.sin_port = static_cast<in_port_t>(port.port_number);
@@ -206,12 +205,14 @@ unsigned char * Rip::receive(unsigned int fd) {
     socklen_t addrLen = sizeof(senderAddr);
     ssize_t messageLen;
     unsigned char buff[512];
+    //receive update
     messageLen = recvfrom(fd, buff, 512, 0, (struct sockaddr*)&senderAddr, &addrLen);
     std::cout << "Received " << messageLen << " bytes" << std::endl;
     if (messageLen > 0) {
         buff[messageLen] = 0;
         std::cout << "Received message: " << buff << std::endl;
         std::cout << "Table is now" << std::endl;
+        RIPPacket message = RIPPacket(buff, static_cast<int>(messageLen));
         for (auto entry: forwardingTable) {
             std::cout << entry.toString() <<std::endl;
         }

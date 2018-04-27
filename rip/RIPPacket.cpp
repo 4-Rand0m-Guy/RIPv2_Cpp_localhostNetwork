@@ -1,12 +1,16 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include <netinet/in.h>
 #include "RIPPacket.h"
 
 RIPPacket::RIPPacket(unsigned char* data, int length) {
     message = data;
     cur_len = length;
-    deserialize(data, length);
+    std::stringbuf buf;
+    buf.pubsetbuf(reinterpret_cast<char *>(data), length);
+    std::istream is(&buf);
+    deserialize(is);
 }
 
 RIPPacket::RIPPacket(RIPHeader* _header) {
@@ -15,17 +19,13 @@ RIPPacket::RIPPacket(RIPHeader* _header) {
     _header->serialize(message);*/
 }
 
-RIPPacket::RIPPacket(RIPHeader *_header, std::vector<RIPRouteEntry> rtes) {
-    // todo: force max limit of rtes to 25
-    header = _header;
-    /*cur_len = 4 + rtes.size();
-    _header->serialize(message);
-    for (RIPRouteEntry rte : rtes) {
-        addRoute(rte);
-    }*/
-}
 
-void RIPPacket::deserialize(unsigned char *outBuffer, int length) {
+
+void RIPPacket::deserialize(std::istream &stream) {
+
+    stream >> header->command >> header->version >> header->routerID;
+    std::cout << "results " << header->toString() << std::endl;
+
     /*unsigned char hdr_arr[4] = {outBuffer[0],outBuffer[1],outBuffer[2],outBuffer[3]};
     RIPHeader hdr = RIPHeader(hdr_arr);
     *header = hdr;
@@ -41,11 +41,11 @@ void RIPPacket::deserialize(unsigned char *outBuffer, int length) {
 }
 
 void RIPPacket::serialize(std::ostream &stream) {
-    stream << header->getCommand() << header->getVersion() << header->getRouterID();
-    for (RIPRouteEntry entry: routeEntries) {
+    stream << header->getCommand() << header->getVersion() << htons(header->getRouterID());
+    /*for (RIPRouteEntry entry: routeEntries) {
         stream << entry.getAfi() << entry.getTag() << entry.getAddress() << entry.getSubnetMask() << entry.getNextHop
                 () << entry.getAuthentication() << entry.getMetric() << entry.getTime();
-    }
+    }*/
 
 }
 
