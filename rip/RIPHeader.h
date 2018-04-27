@@ -25,7 +25,7 @@ class RIPHeader {
          *
          * @param _routerID (unsigned short) - ID of local router
          */
-        RIPHeader(unsigned short _routerID);
+        RIPHeader(unsigned short     _routerID);
 
         /**
          * Deserialize char array of size four into RIPHeader.
@@ -50,9 +50,9 @@ class RIPHeader {
 
     private:
 
-        char* command = new char; // Two types of commands in RIP v1 and 2. 1 is type Request and 2 is Response.
-        char* version = new char; // RIP Version
-        unsigned short* routerID = new unsigned short; // ID of local Router
+        char * command = new char(); // Two types of commands in RIP v1 and 2. 1 is type Request and 2 is Response.
+        char * version = new char(); // RIP Version
+        unsigned short * routerID = new unsigned short(); // ID of local Router
 };
 
 

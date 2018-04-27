@@ -23,14 +23,21 @@ class RIPPacket {
          *
          * @param header - Rip Packet Header
          */
-        RIPPacket(RIPHeader _header);
+        RIPPacket(RIPHeader* _header);
 
         /**
-         * Add a route to the routing table.
+         * Add a route to the routing table with char array.
          *
          * @param rte - the serialized routing entry
          */
         void addRoute(unsigned char * rte);
+
+        /**
+         * Add a route to the routing table with RIPRouteEntry.
+         *
+         * @param rte - route entry
+         */
+        void addRoute(RIPRouteEntry rte);
 
         /**
          * Deserialize data into RIPPacket.
@@ -54,11 +61,11 @@ class RIPPacket {
         std::string toString();
 
     private:
-        RIPHeader* header = NULL;
+        RIPHeader* header = new RIPHeader(new unsigned char);
         std::vector<RIPRouteEntry> routes; // max length 25
         unsigned char * message;
         int cur_len;
-        int x;
+        std::string st;
 };
 
 

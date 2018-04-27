@@ -1,7 +1,6 @@
 #include <sstream>
 #include <cstring>
 #include <iostream>
-#include <assert.h>
 #include "RIPHeader.h"
 #include "istream"
 
@@ -31,9 +30,9 @@ void RIPHeader::serialize(unsigned char* inBuffer){
 
 std::string RIPHeader::toString() {
     std::stringstream fmt;
-    fmt << "| command " << *command
-        << " | version " << *version
-        << " | routerID " << *routerID << " | ";
+    fmt << "| command " << command
+        << " | version " << version
+        << " | routerID " << *routerID << " | " << std::endl;
     std::string s = fmt.str();
     return s;
 }

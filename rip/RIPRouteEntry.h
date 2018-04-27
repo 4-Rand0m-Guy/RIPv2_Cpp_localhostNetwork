@@ -1,6 +1,5 @@
 #ifndef RIP_RIPROUTEENTRY_H
 #define RIP_RIPROUTEENTRY_H
-
 #include <ctime>
 #include <string>
 
