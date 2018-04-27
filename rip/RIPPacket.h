@@ -45,7 +45,7 @@ class RIPPacket {
          *
          * @param outBuffer - the serialized RIPPacket data received from network, max length 504 byte array.
          */
-        void deserialize(unsigned char* outBuffer, int length);
+        void deserialize(std::istream &stream);
 
 
          /**
