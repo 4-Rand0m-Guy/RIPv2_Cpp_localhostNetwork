@@ -7,6 +7,7 @@
 #include <arpa/inet.h>
 #include <cstdlib>
 #include <random>
+#include <map>
 #include "Rip.h"
 #include "RIPHeader.h"
 
@@ -66,6 +67,7 @@ void Rip::run() {
         run = false;
     }
     //enter the infinite loop
+    auto t1 = std::chrono::high_resolution_clock::now();
     while (run) {
         timeout.tv_sec = timer;
         timeout.tv_usec = 0;
@@ -77,7 +79,6 @@ void Rip::run() {
                 max_sd = sock;
             }
         }
-        auto t1 = std::chrono::high_resolution_clock::now();
         activity = select(max_sd + 1, &readfds, nullptr, nullptr, &timeout);
         if ((activity < 0) && (errno != EINTR)) { //something has gone wrong
             perror("Select error");
@@ -85,6 +86,7 @@ void Rip::run() {
         } else if (activity == 0) { //timeout reached with no activity, send periodic update
             try {
                 sendUpdate(fdArray[0]);
+                t1 = std::chrono::high_resolution_clock::now();
             } catch (std::invalid_argument &e) {
                 std::cout << e.what() << std::endl;
                 run = false;
@@ -96,14 +98,15 @@ void Rip::run() {
                     receive(fd);
                 }
             }
-            if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - t1)
-                    .count() >= randomTimeGenerator()) {
+            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - t1)
+                    .count() >= timer * 1000) {
                 try {
                     sendUpdate(fdArray[0]);
                 } catch (std::invalid_argument &e) {
                     std::cout << e.what() << std::endl;
                     run = false;
                 }
+                t1 = std::chrono::high_resolution_clock::now();
             }
         }
     }
@@ -131,8 +134,6 @@ void Rip::sendUpdate(int fdValue) {
         (sendingSocket)) == -1) {
             perror("Sending packet failed");
             throw std::invalid_argument("Most likely something wrong with your fileDescriptors");
-        } else {
-            std::cout << "Message sent" << std::endl;
         }
     }
 }
@@ -146,10 +147,8 @@ void Rip::initializeTable() {
 }
 
 double Rip::randomTimeGenerator() {
-    std::default_random_engine generator;
-    std::uniform_real_distribution<double> distribution(0.8 * timer, 1.2 * timer);
-    double diceRoll = distribution(generator);
-    std::cout << diceRoll << std::endl;
+    double diceRoll = (0.8*timer) + (rand() / RAND_MAX / (1.2*timer - 0.8*timer));
+    std::cout << "Random = " << diceRoll << std::endl;
     return diceRoll;
 }
 
