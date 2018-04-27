@@ -42,6 +42,27 @@ class RIPHeader {
         void serialize(unsigned char* inBuffer);
 
         /**
+         * Get command type.
+         *
+         * @return (char) command
+         */
+        char getCommand();
+
+        /**
+         * Get version number.
+         *
+         * @return (char) version
+         */
+        char getVersion();
+
+        /**
+         * Get routerID
+         *
+         * @return (unsigned short) routerID
+         */
+        unsigned short getRouterID();
+
+        /**
          * Returns RIPHeader as a human-readable string.
          *
          * @return string

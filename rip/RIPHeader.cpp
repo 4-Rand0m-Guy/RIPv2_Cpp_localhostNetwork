@@ -28,6 +28,18 @@ void RIPHeader::serialize(unsigned char* inBuffer){
     }
 }
 
+char RIPHeader::getCommand() {
+    return *command;
+}
+
+char RIPHeader::getVersion() {
+    return *version;
+}
+
+unsigned short RIPHeader::getRouterID() {
+    return *routerID;
+}
+
 std::string RIPHeader::toString() {
     std::stringstream fmt;
     fmt << "| command " << command
