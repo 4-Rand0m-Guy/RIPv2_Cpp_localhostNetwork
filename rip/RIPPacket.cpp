@@ -15,6 +15,7 @@ RIPPacket::RIPPacket(RIPHeader* _header) {
 }
 
 RIPPacket::RIPPacket(RIPHeader *_header, std::vector<RIPRouteEntry> rtes) {
+    // todo: force max limit of rtes to 25
     header = _header;
     cur_len = 4 + rtes.size();
     _header->serialize(message);
@@ -65,8 +66,6 @@ std::vector<RIPRouteEntry> RIPPacket::routes() {
 }
 
 std::string RIPPacket::toString() {
-    std::cout << "1. " << header << std::endl;
-    std::cout << "2. " << header->toString() << std::endl;
     std::stringstream fmt;
     fmt << "+______________________________________+\n"
     << header->toString();
@@ -77,7 +76,5 @@ std::string RIPPacket::toString() {
     }
     fmt << std::endl;
     std::string s = fmt.str();
-    std::cout << s << std::endl;
-    std::cout << "here" << std::endl;
     return s;
 }
