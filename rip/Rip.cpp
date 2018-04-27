@@ -79,7 +79,6 @@ void Rip::run() {
                 max_sd = sock;
             }
         }
-        auto t1 = std::chrono::high_resolution_clock::now();
         activity = select(max_sd + 1, &readfds, nullptr, nullptr, &timeout);
         if ((activity < 0) && (errno != EINTR)) { //something has gone wrong
             perror("Select error");

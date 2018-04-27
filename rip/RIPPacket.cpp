@@ -37,11 +37,8 @@ void RIPPacket::addRoute(unsigned char * rte) {
 }
 
 std::string RIPPacket::toString() {
-    std::cout << "1. " << header << std::endl;
-    std::cout << "2. " << header->toString() << std::endl;
     std::stringstream fmt;
-    std::cout << "3. " << header << std::endl;
-    std::cout << "4. " << header->toString() << std::endl;
+    fmt << header->toString();
 
 //    fmt << header->toString() << "\n";
 
@@ -49,7 +46,5 @@ std::string RIPPacket::toString() {
 //        fmt << route.toString() << "\n\n";
 //    }
     std::string s = fmt.str();
-    std::cout << s << std::endl;
-    std::cout << "here" << std::endl;
     return s;
 }
