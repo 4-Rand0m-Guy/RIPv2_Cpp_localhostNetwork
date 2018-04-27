@@ -6,6 +6,7 @@
 #include <chrono>
 #include <arpa/inet.h>
 #include <cstdlib>
+#include <sys/select.h>
 #include "Rip.h"
 #include "RIPHeader.h"
 
