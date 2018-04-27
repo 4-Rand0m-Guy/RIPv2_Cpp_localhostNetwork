@@ -6,7 +6,11 @@
 #include <chrono>
 #include <arpa/inet.h>
 #include <cstdlib>
+<<<<<<< HEAD
 #include <sys/select.h>
+=======
+#include <random>
+>>>>>>> 2623a6e357e7e029e15f29c760efdc93bc4d5ab3
 #include "Rip.h"
 #include "RIPHeader.h"
 
@@ -16,14 +20,15 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     input_ports = _input_ports;
     outputs = _outputs;
     timer = _timer;
+    initializeTable();
 }
 
 //Initialize the input ports (bind sockets etc)
-std::vector<int> Rip::initializeInputPorts() {
-    std::vector<int> fdArray;
+std::vector<unsigned int> Rip::initializeInputPorts() {
+    std::vector<unsigned int> fdArray;
     for (auto sock: input_ports) {
-        int s;
-        if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+        unsigned int s;
+        if ((s = static_cast<unsigned int>(socket(AF_INET, SOCK_DGRAM, 0))) < 0) {
             perror("Cannot create a socket");
             throw std::exception();
         } else {
@@ -54,13 +59,13 @@ void Rip::run() {
     struct timeval timeout{};
     fd_set readfds; //set of file descriptors to listen to sockets
     bool run = true;
-    std::vector<int> fdArray;
+    std::vector<unsigned int> fdArray;
     try {
         fdArray = initializeInputPorts();
-    } catch (std::invalid_argument e) {
+    } catch (std::invalid_argument& e) {
         std::cout << e.what() << std::endl;
         run = false;
-    } catch (std::exception){
+    } catch (std::exception &e){
         std::cout << "Get rekt by this unknown bug" << std::endl;
         run = false;
     }
@@ -77,29 +82,38 @@ void Rip::run() {
             }
         }
         auto t1 = std::chrono::high_resolution_clock::now();
-        activity = select(max_sd + 1, &readfds, NULL, NULL, &timeout);
+        activity = select(max_sd + 1, &readfds, nullptr, nullptr, &timeout);
         if ((activity < 0) && (errno != EINTR)) { //something has gone wrong
             perror("Select error");
             run = false;
-        } else if (activity == 0) { //timeout reached with no activity
-            //std::cout << "Timeout reached, no updates" << std::endl;
+        } else if (activity == 0) { //timeout reached with no activity, send periodic update
             try {
                 sendUpdate(fdArray[0]);
-            } catch (std::invalid_argument e) {
+            } catch (std::invalid_argument &e) {
                 std::cout << e.what() << std::endl;
                 run = false;
             }
-            //continue;
         } else { //some kind of activity has occurred
-            std::cout << "Implement update event please" << std::endl;
-            continue;
+            //have we recently sent an update?
+            for (auto fd: fdArray) {
+                if (FD_ISSET(fd, &readfds)) {
+                    receive(fd);
+                }
+            }
+            if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - t1)
+                    .count() >= randomTimeGenerator()) {
+                try {
+                    sendUpdate(fdArray[0]);
+                } catch (std::invalid_argument &e) {
+                    std::cout << e.what() << std::endl;
+                    run = false;
+                }
+            }
         }
-
     }
-
 }
 
-
+//retrieve input ports, for debug purposes
 const std::vector<unsigned int> &Rip::getInput_ports() const {
     return input_ports;
 }
@@ -125,4 +139,39 @@ void Rip::sendUpdate(int fdValue) {
             std::cout << "Message sent" << std::endl;
         }
     }
+}
+
+//setup the table using neighbors from initial config file
+void Rip::initializeTable() {
+    for (auto out: outputs) {
+        RIPRouteEntry entry = RIPRouteEntry(out.id, out.id, out.metric);
+        forwardingTable.push_back(entry);
+    }
+}
+
+double Rip::randomTimeGenerator() {
+    std::default_random_engine generator;
+    std::uniform_real_distribution<double> distribution(0.8 * timer, 1.2 * timer);
+    double diceRoll = distribution(generator);
+    std::cout << diceRoll << std::endl;
+    return diceRoll;
+}
+
+void Rip::receive(unsigned int fd) {
+    struct sockaddr_in senderAddr{};
+    socklen_t addrLen = sizeof(senderAddr);
+    ssize_t messageLen;
+    unsigned char buff[512];
+
+    messageLen = recvfrom(fd, buff, 512, 0, (struct sockaddr*)&senderAddr, &addrLen);
+    std::cout << "Received " << messageLen << " bytes" << std::endl;
+    if (messageLen > 0) {
+        buff[messageLen] = 0;
+        std::cout << "Received message: " << buff << std::endl;
+        std::cout << "Table is now" << std::endl;
+        for (auto entry: forwardingTable) {
+            std::cout << entry.toString() <<std::endl;
+        }
+    }
+
 }

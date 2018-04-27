@@ -18,7 +18,6 @@ class RIPRouteEntry {
          * Invoke this constructor if creating an RIP message from a local router
          * to send elsewhere (e.g. an update message).
          *
-         * @param afi - Address Family Identifier (set to zero or 0xFFFF for authentication)
          * @param address - ID of destination router
          * @param nextHop - router ID of next Hop of route
          * @param metric - cost of route
