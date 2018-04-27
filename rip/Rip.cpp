@@ -16,6 +16,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     input_ports = _input_ports;
     outputs = _outputs;
     timer = _timer;
+    initializeTable();
 }
 
 //Initialize the input ports (bind sockets etc)
@@ -138,7 +139,10 @@ void Rip::sendUpdate(int fdValue) {
 
 //setup the table using neighbors from initial config file
 void Rip::initializeTable() {
-
+    for (auto out: outputs) {
+        RIPRouteEntry entry = RIPRouteEntry(out.id, out.id, out.metric);
+        forwardingTable.push_back(entry);
+    }
 }
 
 double Rip::randomTimeGenerator() {
@@ -160,6 +164,10 @@ void Rip::receive(unsigned int fd) {
     if (messageLen > 0) {
         buff[messageLen] = 0;
         std::cout << "Received message: " << buff << std::endl;
+        std::cout << "Table is now" << std::endl;
+        for (auto entry: forwardingTable) {
+            std::cout << entry.toString() <<std::endl;
+        }
     }
 
 }
