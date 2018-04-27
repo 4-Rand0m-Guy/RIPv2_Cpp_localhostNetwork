@@ -15,7 +15,7 @@ class RIPPacket {
          *
          * @param data (pointer to unsigned char array) max length of 504.
          */
-        RIPPacket(unsigned char * data);
+        RIPPacket(unsigned char * data, int length);
 
         /**
          * Invoke this constructor if creating an RIP message from a local router
@@ -28,16 +28,16 @@ class RIPPacket {
         /**
          * Add a route to the routing table.
          *
-         * @param rte - routing entry
+         * @param rte - the serialized routing entry
          */
-        void addRoute(RIPRouteEntry rte);
+        void addRoute(unsigned char * rte);
 
         /**
          * Deserialize data into RIPPacket.
          *
          * @param outBuffer - the serialized RIPPacket data received from network, max length 504 byte array.
          */
-        void deserialize(unsigned char* outBuffer);
+        void deserialize(unsigned char* outBuffer, int length);
 
         /**
          * Serialize RIPPacket into unsigned char array.
@@ -54,9 +54,11 @@ class RIPPacket {
         std::string toString();
 
     private:
-        RIPHeader* header;
+        RIPHeader* header = NULL;
         std::vector<RIPRouteEntry> routes; // max length 25
-        unsigned char* message;
+        unsigned char * message;
+        int cur_len;
+        int x;
 };
 
 
