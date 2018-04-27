@@ -126,7 +126,7 @@ void Rip::sendUpdate(int fdValue) {
 
     for (auto port: outputs) {
         RIPHeader hdr = createHeader();
-        RIPPacket message = RIPPacket(&hdr);
+        RIPPacket packet = RIPPacket(&hdr);
         for (RIPRouteEntry entry: forwardingTable) {
             RIPRouteEntry temp = entry;
             if (nextHopIsRouter(temp, port)) {
