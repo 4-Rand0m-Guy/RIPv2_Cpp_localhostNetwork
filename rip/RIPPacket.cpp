@@ -10,6 +10,8 @@ RIPPacket::RIPPacket(unsigned char* data, int length) {
 
 RIPPacket::RIPPacket(RIPHeader* _header) {
     header = _header;
+    cur_len = 4;
+    _header->serialize(message);
 }
 
 void RIPPacket::deserialize(unsigned char *outBuffer, int length) {
@@ -27,10 +29,18 @@ void RIPPacket::deserialize(unsigned char *outBuffer, int length) {
     }
 }
 
+void RIPPacket::serialize(unsigned char *inBuffer) {
+    inBuffer = message;
+}
 
+void RIPPacket::addRoute(RIPRouteEntry rte) {
+    unsigned char route[20];
+    rte.serialize(route);
+    addRoute(route);
+}
 
 void RIPPacket::addRoute(unsigned char * rte) {
-    routes.push_back(RIPRouteEntry(rte));
+    routeEntries.push_back(RIPRouteEntry(rte));
     unsigned char result[cur_len + 20];
     std::copy(message, message + cur_len, result);
     std::copy(rte, rte + 20, result + cur_len);
@@ -44,7 +54,7 @@ std::string RIPPacket::toString() {
     std::stringstream fmt;
     fmt << "+______________________________________+\n"
     << header->toString();
-    for (RIPRouteEntry route : routes) {
+    for (RIPRouteEntry route : routeEntries) {
         fmt << "+--------------------------------------+" << '\n'
         << route.toString() << "\n"
         << "+--------------------------------------+" << '\n';

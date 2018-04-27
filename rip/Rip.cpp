@@ -159,6 +159,9 @@ void Rip::initializeTable() {
     }
 }
 
+void processResponse(unsigned char * message) {
+    RIPPacket packet = RIPPacket(message, 504);
+}
 
 unsigned char * Rip::receive(unsigned int fd) {
     struct sockaddr_in senderAddr{};

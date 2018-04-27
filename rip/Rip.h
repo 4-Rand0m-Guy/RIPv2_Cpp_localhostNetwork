@@ -63,6 +63,17 @@ private:
     void initializeTable();
 
     /**
+     * Checks each routing table entry included in a message that was received
+     * from the network. If new routes are discovered it will attempt to
+     * add them to its own routing table. If a more optimal alternative
+     * path is discovered or an old path has been marked for expiration
+     * then appropriate changes are made accordingly.
+     *
+     * @param message (array of unsigned chars) - data received from network
+     */
+    void processResponse(unsigned char * message);
+
+    /**
      * Function receives message at the provided port and processes it
      * @param fd: File descriptor for the socket receiving data
      */
