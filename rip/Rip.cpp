@@ -122,6 +122,7 @@ const std::vector<unsigned int> &Rip::getInput_ports() const {
 //Function sends updates to neighbor routers
 void Rip::sendUpdate(int fdValue) {
     struct sockaddr_in sendingSocket{};
+    auto * message = const_cast<char *>("Updating neighbors");
 
     for (auto port: outputs) {
         RIPHeader hdr = createHeader();

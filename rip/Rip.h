@@ -35,6 +35,17 @@ private:
     std::vector<unsigned int> initializeInputPorts();
 
     /**
+     * Invoke to crafts an RIP update message. Parameter isTriggered
+     * has default value of false which implies a regular (timed)
+     * update message. If isTriggered is True then a Triggered Update
+     * Message will be crafted.
+     *
+     * Note: Split Horizon with poisoned reverse is implemented here.
+     *
+     * @param isTriggered
+     */
+    void craftUpdateMessage(bool isTriggered=false);
+    /**
     * Function sends update to neighboring routers once time limit is reached.
     * @param fdValue Value of one of the socket() call return values, will be used to assign sending port
     */
