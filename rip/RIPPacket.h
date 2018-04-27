@@ -26,6 +26,12 @@ class RIPPacket {
         RIPPacket(RIPHeader* _header);
 
         /**
+         * @param _header
+         * @param rtes
+         */
+        RIPPacket(RIPHeader* _header, std::vector<RIPRouteEntry> rtes);
+
+        /**
          * Add a route to the routing table with char array.
          *
          * @param rte - the serialized routing entry
