@@ -32,7 +32,7 @@ class Rip {
         *
         * @param message (array of unsigned chars) - data received from network
         */
-        void processResponse(unsigned char * message);
+        void processResponse(RIPPacket packet);
 
 private:
         unsigned routerID;
@@ -99,6 +99,23 @@ private:
         return value;
     }
 
+    /**
+     * Get the cost from host to neighbor.
+     *
+     * @param routerID
+     * @return cost
+     */
+    unsigned get_cost(unsigned routerID);
+
+    /**
+     * Gets a RIPRoutingEntry by routerID.
+     * Throws exception if does not exist.
+     *
+     * @throw exception if no matching router is in forwarding table
+     * @param routerID
+     * @return RIPRoutingEntry
+     */
+    RIPRouteEntry get_route(unsigned short routerID) throw();
 
 };
 

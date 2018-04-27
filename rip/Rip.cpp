@@ -11,6 +11,7 @@
 #include "Rip.h"
 #include "RIPHeader.h"
 #include "RIPPacket.h"
+#include "../config/ConsoleLogger.h"
 
 Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<OutputInterface> _outputs,
          unsigned _timer /* = 30 */) {
@@ -161,15 +162,38 @@ void Rip::initializeTable() {
     }
 }
 
-void Rip::processResponse(unsigned char* message) {
-    RIPPacket packet = RIPPacket(message, 504);
+void Rip::processResponse(RIPPacket packet) {
     RIPHeader header = packet.getHeader();
     unsigned short id = header.routerID;
-    std::vector<RIPRouteEntry> routingTableEnties = packet.routes();
-//    for (auto rte : routingTableEnties) {
-//
-//    }
 
+    if (id == routerID) {
+        return;
+    }
+
+    std::vector<RIPRouteEntry> routingTableEntries = packet.routes();
+
+    if (routingTableEntries.size() > 0) {
+        for (auto rte : routingTableEntries) {
+            if (0 <= rte.getMetric() > 16) {
+                // todo: log to console bad metric
+                continue;
+            }
+            int metric = std::min(rte.getMetric(),16);
+        }
+    }
+}
+
+unsigned get_cost(unsigned routerID) {
+
+}
+
+RIPRouteEntry Rip::get_route(unsigned short routerID) throw() {
+    for (auto route : forwardingTable) {
+        if (routerID == route.getAddress()) {
+            return route;
+        }
+    }
+    throw;
 }
 
 unsigned char * Rip::receive(unsigned int fd) {
