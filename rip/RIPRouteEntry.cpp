@@ -73,18 +73,18 @@ std::string RIPRouteEntry::toString() {
     std::stringstream fmt;
     if (afi == 65535) { // "0xFFFF (this indicates authentication entry"
         fmt << "timer: " << time_s
-            << "|  AFI: " << afi
-            << "  | authtype: " << authenticationType
-            << " |\n|       authentication       "
+            << "|     AFI: " << afi
+            << "     |    authtype: " << authenticationType
+            << "     |\n|       authentication       "
             << "|\n|            " << authentication << "            |";
     } else {
-        fmt << "|   AFI: " << afi
-            << "  | routetag: " << tag
-            << " |\n|       IP Address: " << address
-            << "     |\n|       subnet Mask: " << subnetMask
-            << "    |\n|       next hop: " << nextHop
-            << "       |\n|       metric: " << metric
-            << "         |";
+        fmt << "|      AFI: " << afi
+            << "     |    routetag:     " << tag
+            << " |\n|             IP Address: " << address
+            << "            |\n|             subnet Mask: " << subnetMask
+            << "           |\n|             next hop: " << nextHop
+            << "              |\n|             metric: " << metric
+            << "                |";
     }
     std::string s = fmt.str();
     return s;

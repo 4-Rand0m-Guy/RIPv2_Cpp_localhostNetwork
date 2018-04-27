@@ -8,15 +8,14 @@ RIPPacket::RIPPacket(unsigned char* data, int length) {
     deserialize(data, length);
 }
 
-RIPPacket::RIPPacket(RIPHeader _header) {
-    header = &_header;
+RIPPacket::RIPPacket(RIPHeader* _header) {
+    header = _header;
 }
 
 void RIPPacket::deserialize(unsigned char *outBuffer, int length) {
     unsigned char hdr_arr[4] = {outBuffer[0],outBuffer[1],outBuffer[2],outBuffer[3]};
     RIPHeader hdr = RIPHeader(hdr_arr);
-    header = &hdr;
-    header->toString();
+    *header = hdr;
     if (length > 4) {
         unsigned char entry[20];
         for (auto i = 4; i < 504; i +=4) {
@@ -28,23 +27,28 @@ void RIPPacket::deserialize(unsigned char *outBuffer, int length) {
     }
 }
 
-void RIPPacket::addRoute(unsigned char * rte) {
-    routes.push_back(RIPRouteEntry(rte));
-    unsigned char result[cur_len + 20];
-    std::copy(message, message + cur_len, result);
-    std::copy(rte, rte + 20, result + cur_len);
-    cur_len += 20;
+
+
+void RIPPacket::addRoute(RIPRouteEntry rte) {
+    unsigned char route[20];
+    rte.serialize(route);
+    addRoute(route);
 }
 
 std::string RIPPacket::toString() {
+    std::cout << "1. " << header << std::endl;
+    std::cout << "2. " << header->toString() << std::endl;
     std::stringstream fmt;
-    fmt << header->toString();
-
-//    fmt << header->toString() << "\n";
-
-//    for (RIPRouteEntry route : routes) {
-//        fmt << route.toString() << "\n\n";
-//    }
+    fmt << "+______________________________________+\n"
+    << header->toString();
+    for (RIPRouteEntry route : routes) {
+        fmt << "+--------------------------------------+" << '\n'
+        << route.toString() << "\n"
+        << "+--------------------------------------+" << '\n';
+    }
+    fmt << std::endl;
     std::string s = fmt.str();
+    std::cout << s << std::endl;
+    std::cout << "here" << std::endl;
     return s;
 }
