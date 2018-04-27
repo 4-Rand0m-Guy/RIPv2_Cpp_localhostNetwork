@@ -85,8 +85,8 @@ void ConfigImporter::set_input_ports(std::string &inputs) {
         std::vector<std::string> inputport_strings = Utils::Strings::split(inputs, ',');
         input_ports.resize(inputport_strings.size(), 0);
         int i = 0;
-        for (auto it = input_ports.begin(); it != input_ports.end(); ++it) {
-            unsigned *p = &(*it); // the address of the unsigned int pointed to by the iterator
+        for (unsigned int &input_port : input_ports) {
+            unsigned *p = &input_port; // the address of the unsigned int pointed to by the iterator
             assign_variable_as_int(p, inputport_strings[i++]);
         }
     } else {
@@ -136,7 +136,7 @@ void ConfigImporter::set_timer(std::string &_timer) {
 void ConfigImporter::assign_variable_as_int(unsigned *variable, std::string &s) {
     try {
         if (Utils::Strings::hasOnlyDigits(s)) {
-            unsigned i = std::stoi(s);
+            auto i = static_cast<unsigned int>(std::stoi(s));
             if (i > 64000) {
                 ConsoleLogger::error(5, "CONFIG");
             } else {
