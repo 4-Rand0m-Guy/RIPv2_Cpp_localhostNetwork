@@ -1,3 +1,0 @@
-/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/CMakeFiles/RIP_.dir
