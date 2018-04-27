@@ -50,7 +50,7 @@ std::vector<unsigned int> Rip::initializeInputPorts() {
 
 //Run function, handle the running of the daemon, events etc
 void Rip::run() {
-    std::cout << "Daemon running" << std::endl;
+    std::cout << "Daemon " << routerID << " running" << std::endl;
     int max_sd = 0; //max socket address (highest port value in the set of ports to listen to)
     int activity;
     struct timeval timeout{};
