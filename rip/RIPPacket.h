@@ -38,6 +38,7 @@ class RIPPacket {
          */
         void addRoute(unsigned char * rte);
 
+        void addRoute(RIPRouteEntry rte);
 
         /**
          * Deserialize data into RIPPacket.
@@ -54,13 +55,6 @@ class RIPPacket {
         void serialize(unsigned char* inBuffer);
 
         /**
-         * Returns the header.
-         *
-         * @return RIPHeader
-         */
-        RIPHeader getHeader();
-
-        /**
          * Returns a vector of all Route Entries in a packet.
          *
          * @return - vector<RIPRouteEntries>
@@ -74,11 +68,16 @@ class RIPPacket {
          */
         std::string toString();
 
+        RIPHeader getHeader();
+
     private:
         RIPHeader* header = new RIPHeader(new unsigned char);
         std::vector<RIPRouteEntry> routeEntries; // max length 25
         unsigned char * message;
         int cur_len;
+
+
+
 };
 
 
