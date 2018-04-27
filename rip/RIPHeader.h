@@ -10,9 +10,9 @@
 class RIPHeader {
 
     public:
-        char * command = new char(); // Two types of commands in RIP v1 and 2. 1 is type Request and 2 is Response.
-        char * version = new char(); // RIP Version
-        unsigned short * routerID = new unsigned short(); // ID of local Rout
+        unsigned char command;// = new unsigned char(); // Two types of commands in RIP v1 and 2. 1 is type Request and 2 is Response.
+        unsigned char version; // = new char(); // RIP Version
+        unsigned short routerID; // = new unsigned short(); // ID of local Rout
 
         /**
          * Invoke this constructor if creating an RIP message with data that was
@@ -37,12 +37,21 @@ class RIPHeader {
          */
         void deserialize(unsigned char* outBuffer);
 
+        unsigned char * deserialize2();
+
         /**
          * Serialize RIPHeader into 4 byte char array.
          *
          * @param inBuffer - array to be filled
          */
         void serialize(unsigned char* inBuffer);
+
+        /**
+        * Serialize RIPHeader into 4 byte char array.
+        *
+        * @param inBuffer - array to be filled
+        */
+        unsigned char * serialize2();
 
         /**
          * Returns RIPHeader as a human-readable string.
