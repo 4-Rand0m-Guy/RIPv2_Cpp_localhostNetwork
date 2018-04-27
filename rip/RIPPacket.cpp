@@ -14,6 +14,15 @@ RIPPacket::RIPPacket(RIPHeader* _header) {
     _header->serialize(message);
 }
 
+RIPPacket::RIPPacket(RIPHeader *_header, std::vector<RIPRouteEntry> rtes) {
+    header = _header;
+    cur_len = 4 + rtes.size();
+    _header->serialize(message);
+    for (RIPRouteEntry rte : rtes) {
+        addRoute(rte);
+    }
+}
+
 void RIPPacket::deserialize(unsigned char *outBuffer, int length) {
     unsigned char hdr_arr[4] = {outBuffer[0],outBuffer[1],outBuffer[2],outBuffer[3]};
     RIPHeader hdr = RIPHeader(hdr_arr);
