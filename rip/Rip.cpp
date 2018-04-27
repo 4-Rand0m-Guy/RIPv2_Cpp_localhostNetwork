@@ -117,10 +117,15 @@ const std::vector<unsigned int> &Rip::getInput_ports() const {
     return input_ports;
 }
 
+void Rip::craftUpdateMessage(bool isTriggered) {
+    // todo: implement this function with split horizon and poisoned reverse
+}
+
 //Function sends updates to neighbor routers
 void Rip::sendUpdate(int fdValue) {
     struct sockaddr_in sendingSocket{};
     auto * message = const_cast<char *>("Updating neighbors");
+    craftUpdateMessage(false);
 
     for (auto port: outputs) {
         memset((char *) &sendingSocket, 0, sizeof(sendingSocket));
