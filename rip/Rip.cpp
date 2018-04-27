@@ -94,8 +94,10 @@ void Rip::run() {
         } else { //some kind of activity has occurred
             //have we recently sent an update?
             for (auto fd: fdArray) {
+                unsigned char *data;
                 if (FD_ISSET(fd, &readfds)) {
-                    receive(fd);
+                    data = receive(fd);
+
                 }
             }
             if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - t1)
@@ -154,12 +156,11 @@ double Rip::randomTimeGenerator() {
     return diceRoll;
 }
 
-void Rip::receive(unsigned int fd) {
+unsigned char * Rip::receive(unsigned int fd) {
     struct sockaddr_in senderAddr{};
     socklen_t addrLen = sizeof(senderAddr);
     ssize_t messageLen;
     unsigned char buff[512];
-
     messageLen = recvfrom(fd, buff, 512, 0, (struct sockaddr*)&senderAddr, &addrLen);
     std::cout << "Received " << messageLen << " bytes" << std::endl;
     if (messageLen > 0) {
@@ -170,5 +171,6 @@ void Rip::receive(unsigned int fd) {
             std::cout << entry.toString() <<std::endl;
         }
     }
-
+    unsigned char * value = buff;
+    return value;
 }

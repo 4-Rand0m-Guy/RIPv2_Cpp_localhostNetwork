@@ -54,7 +54,7 @@ private:
      * Function receives message at the provided port and processes it
      * @param fd: File descriptor for the socket receiving data
      */
-    void receive(unsigned int fd);
+    unsigned char * receive(unsigned int fd);
 
 
 };
