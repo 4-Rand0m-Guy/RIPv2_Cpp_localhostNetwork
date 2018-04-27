@@ -6,8 +6,8 @@
 #include <chrono>
 #include <arpa/inet.h>
 #include <cstdlib>
+#include <sys/select.h>
 #include <random>
-#include <map>
 #include "Rip.h"
 #include "RIPHeader.h"
 
@@ -79,6 +79,7 @@ void Rip::run() {
                 max_sd = sock;
             }
         }
+        auto t1 = std::chrono::high_resolution_clock::now();
         activity = select(max_sd + 1, &readfds, nullptr, nullptr, &timeout);
         if ((activity < 0) && (errno != EINTR)) { //something has gone wrong
             perror("Select error");
@@ -134,6 +135,8 @@ void Rip::sendUpdate(int fdValue) {
         (sendingSocket)) == -1) {
             perror("Sending packet failed");
             throw std::invalid_argument("Most likely something wrong with your fileDescriptors");
+        } else {
+            std::cout << "Message sent" << std::endl;
         }
     }
 }

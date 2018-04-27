@@ -16,7 +16,7 @@ RIPRouteEntry::RIPRouteEntry(unsigned _address, unsigned _nextHop, unsigned _met
     nextHop = _nextHop;
     metric = _metric;
 //    init_timer();
-    toString();
+
 }
 
 RIPRouteEntry::RIPRouteEntry(short FFFF, short _authenticationType, unsigned char* password) {

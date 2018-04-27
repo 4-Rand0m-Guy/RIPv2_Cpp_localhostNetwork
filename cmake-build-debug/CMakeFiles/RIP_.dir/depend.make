@@ -23,12 +23,25 @@ CMakeFiles/RIP_.dir/main.cpp.o: ../config/Configuration.h
 CMakeFiles/RIP_.dir/main.cpp.o: ../config/ConsoleLogger.h
 CMakeFiles/RIP_.dir/main.cpp.o: ../config/OutputInterface.h
 CMakeFiles/RIP_.dir/main.cpp.o: ../main.cpp
+<<<<<<< HEAD
+CMakeFiles/RIP_.dir/main.cpp.o: ../rip/RIPHeader.h
+CMakeFiles/RIP_.dir/main.cpp.o: ../rip/RIPPacket.h
+=======
+>>>>>>> 2623a6e357e7e029e15f29c760efdc93bc4d5ab3
 CMakeFiles/RIP_.dir/main.cpp.o: ../rip/RIPRouteEntry.h
 CMakeFiles/RIP_.dir/main.cpp.o: ../rip/Rip.h
 
 CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o: ../rip/RIPHeader.cpp
 CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.o: ../rip/RIPHeader.h
 
+<<<<<<< HEAD
+CMakeFiles/RIP_.dir/rip/RIPPacket.cpp.o: ../rip/RIPHeader.h
+CMakeFiles/RIP_.dir/rip/RIPPacket.cpp.o: ../rip/RIPPacket.cpp
+CMakeFiles/RIP_.dir/rip/RIPPacket.cpp.o: ../rip/RIPPacket.h
+CMakeFiles/RIP_.dir/rip/RIPPacket.cpp.o: ../rip/RIPRouteEntry.h
+
+=======
+>>>>>>> 2623a6e357e7e029e15f29c760efdc93bc4d5ab3
 CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o: ../rip/RIPRouteEntry.cpp
 CMakeFiles/RIP_.dir/rip/RIPRouteEntry.cpp.o: ../rip/RIPRouteEntry.h
 

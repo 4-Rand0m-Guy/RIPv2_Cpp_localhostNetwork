@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/vernboss/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.70/bin/cmake/bin/cmake
+CMAKE_COMMAND = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.25/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake"
 
 # The command to remove a file.
-RM = /home/vernboss/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.70/bin/cmake/bin/cmake -E remove -f
+RM = "/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.25/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vernboss/Documents/Programming/COSC364/RIP-
+CMAKE_SOURCE_DIR = /Users/johny/CLionProjects/RIP-
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/johny/CLionProjects/RIP-/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/vernboss/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.70/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.25/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/vernboss/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.70/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	"/Users/johny/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.25/CLion 2018.1 EAP.app/Contents/bin/cmake/bin/cmake" -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/CMakeFiles /home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles /Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/johny/CLionProjects/RIP-/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -285,6 +285,33 @@ rip/RIPHeader.cpp.s:
 	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/RIPHeader.cpp.s
 .PHONY : rip/RIPHeader.cpp.s
 
+rip/RIPPacket.o: rip/RIPPacket.cpp.o
+
+.PHONY : rip/RIPPacket.o
+
+# target to build an object file
+rip/RIPPacket.cpp.o:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/RIPPacket.cpp.o
+.PHONY : rip/RIPPacket.cpp.o
+
+rip/RIPPacket.i: rip/RIPPacket.cpp.i
+
+.PHONY : rip/RIPPacket.i
+
+# target to preprocess a source file
+rip/RIPPacket.cpp.i:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/RIPPacket.cpp.i
+.PHONY : rip/RIPPacket.cpp.i
+
+rip/RIPPacket.s: rip/RIPPacket.cpp.s
+
+.PHONY : rip/RIPPacket.s
+
+# target to generate assembly for a file
+rip/RIPPacket.cpp.s:
+	$(MAKE) -f CMakeFiles/RIP_.dir/build.make CMakeFiles/RIP_.dir/rip/RIPPacket.cpp.s
+.PHONY : rip/RIPPacket.cpp.s
+
 rip/RIPRouteEntry.o: rip/RIPRouteEntry.cpp.o
 
 .PHONY : rip/RIPRouteEntry.o
@@ -393,6 +420,9 @@ help:
 	@echo "... rip/RIPHeader.o"
 	@echo "... rip/RIPHeader.i"
 	@echo "... rip/RIPHeader.s"
+	@echo "... rip/RIPPacket.o"
+	@echo "... rip/RIPPacket.i"
+	@echo "... rip/RIPPacket.s"
 	@echo "... rip/RIPRouteEntry.o"
 	@echo "... rip/RIPRouteEntry.i"
 	@echo "... rip/RIPRouteEntry.s"
