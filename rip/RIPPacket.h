@@ -32,12 +32,6 @@ class RIPPacket {
          */
         void addRoute(unsigned char * rte);
 
-        /**
-         * Add a route to the routing table with RIPRouteEntry.
-         *
-         * @param rte - route entry
-         */
-        void addRoute(RIPRouteEntry rte);
 
         /**
          * Deserialize data into RIPPacket.
