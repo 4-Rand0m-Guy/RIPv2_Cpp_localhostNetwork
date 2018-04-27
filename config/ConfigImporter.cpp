@@ -104,14 +104,15 @@ void ConfigImporter::set_outputs(std::string &outputsline) {
             }
             OutputInterface oi{};
             // array of pointers to the unsigned ints in the oi struct
-            unsigned *oi_array[3] = {&oi.port_number, &oi.id, &oi.metric};
-            unsigned *p = oi_array[0];
-            for (auto var : output_info) {
-                assign_variable_as_int(p, var);
-                p++;
-            }
+            unsigned* oi_array[3];
+            oi_array[0] = &oi.port_number; oi_array[1] = &oi.metric; oi_array[2] = &oi.id;
+
+            assign_variable_as_int(&oi.port_number, output_info[0]);
+            assign_variable_as_int(&oi.metric, output_info[1]);
+            assign_variable_as_int(&oi.id, output_info[2]);
+
             std::cout << "Port number: " << oi.port_number << ", ID is : " << oi.id << " and metric is : " << oi.metric
-                                                                       << std::endl;
+                      << std::endl;
             outputs.push_back(oi);
         }
     } else {
