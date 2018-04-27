@@ -5,6 +5,7 @@
 #include <vector>
 #include "../config/OutputInterface.h"
 #include "RIPRouteEntry.h"
+#include "RIPHeader.h"
 
 class Rip {
     public:
@@ -56,7 +57,27 @@ private:
      */
     unsigned char * receive(unsigned int fd);
 
+    /**
+     * Function creates a RIP packet header to prepare sending a packet
+     * @param routerID: The unique router ID that the
+     * @return
+     */
+    RIPHeader createHeader();
 
+    /**
+     * Function checks if the next hop to a destination is the router about to be messaged. This for the
+     * split-horizon with poison-reverse implementation
+     * @param entry: A route entry from the table
+     * @param output: Output interface to determine which neighbor is about to be messaged
+     * @return bool: True if the next hop is the router to be messaged
+     */
+    bool nextHopIsRouter(RIPRouteEntry entry, OutputInterface output) {
+        bool value =false;
+        if (entry.getNextHop() == output.id) {
+            value = true;
+        }
+        return value;
+    }
 };
 
 

@@ -25,7 +25,7 @@ class RIPHeader {
          *
          * @param _routerID (unsigned short) - ID of local router
          */
-        RIPHeader(unsigned short     _routerID);
+        RIPHeader(unsigned short _routerID);
 
         /**
          * Deserialize char array of size four into RIPHeader.

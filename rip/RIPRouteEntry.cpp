@@ -101,3 +101,11 @@ void RIPRouteEntry::uint2ch(unsigned ui, unsigned char* buf, int index) {
     buf[index+2] = (ui >> 8) & 0xFF;
     buf[index+3] = ui & 0xFF;
 }
+
+int RIPRouteEntry::getNextHop() const {
+    return nextHop;
+}
+
+void RIPRouteEntry::setMetric(int metric) {
+    RIPRouteEntry::metric = metric;
+}

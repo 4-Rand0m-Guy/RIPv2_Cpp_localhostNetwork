@@ -53,18 +53,21 @@ class RIPRouteEntry {
          */
         std::string toString();
 
-    private:
+        int getNextHop() const;
+
+        void setMetric(int metric);
+
+private:
+    // cost of a path
         // unused fields are included for thoroughness and conformity to correct route entry table size
         unsigned short afi; // Address Family Identifier
         unsigned short tag; // Route Tag
         int address; // Address of remote router (Router IDs are being used)
         int subnetMask; // unused
-        int nextHop; // Address (ie routerID) of immediate router in a path
-        int metric; // cost of a path
-
+        int nextHop;
         short authenticationType; // only type 2 (plain password) is supported
         unsigned char authentication[16]; // the password
-
+        int metric;
         time_t time;
 
         /**

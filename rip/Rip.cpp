@@ -10,6 +10,7 @@
 #include <random>
 #include "Rip.h"
 #include "RIPHeader.h"
+#include "RIPPacket.h"
 
 Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<OutputInterface> _outputs,
          unsigned _timer /* = 30 */) {
@@ -97,7 +98,6 @@ void Rip::run() {
                 unsigned char *data;
                 if (FD_ISSET(fd, &readfds)) {
                     data = receive(fd);
-
                 }
             }
             if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - t1)
@@ -122,9 +122,17 @@ const std::vector<unsigned int> &Rip::getInput_ports() const {
 //Function sends updates to neighbor routers
 void Rip::sendUpdate(int fdValue) {
     struct sockaddr_in sendingSocket{};
-    auto * message = const_cast<char *>("Updating neighbors");
 
     for (auto port: outputs) {
+        RIPHeader hdr = createHeader();
+        RIPPacket message = RIPPacket(&hdr);
+        for (RIPRouteEntry entry: forwardingTable) {
+            RIPRouteEntry temp = entry;
+            if (nextHopIsRouter(temp, port)) {
+                temp.setMetric(16);
+            }
+        }
+
         memset((char *) &sendingSocket, 0, sizeof(sendingSocket));
         sendingSocket.sin_family = AF_INET;
         sendingSocket.sin_port = static_cast<in_port_t>(port.port_number);
@@ -150,11 +158,6 @@ void Rip::initializeTable() {
     }
 }
 
-double Rip::randomTimeGenerator() {
-    double diceRoll = (0.8*timer) + (rand() / RAND_MAX / (1.2*timer - 0.8*timer));
-    std::cout << "Random = " << diceRoll << std::endl;
-    return diceRoll;
-}
 
 unsigned char * Rip::receive(unsigned int fd) {
     struct sockaddr_in senderAddr{};
@@ -172,5 +175,10 @@ unsigned char * Rip::receive(unsigned int fd) {
         }
     }
     unsigned char * value = buff;
+    return value;
+}
+
+RIPHeader Rip::createHeader() {
+    RIPHeader value = RIPHeader(static_cast<unsigned short>(routerID));
     return value;
 }
