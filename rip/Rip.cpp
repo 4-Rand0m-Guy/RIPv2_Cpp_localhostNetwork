@@ -122,7 +122,6 @@ const std::vector<unsigned int> &Rip::getInput_ports() const {
 //Function sends updates to neighbor routers
 void Rip::sendUpdate(int fdValue) {
     struct sockaddr_in sendingSocket{};
-    unsigned char message[512];
     for (auto port: outputs) {
         RIPHeader hdr = createHeader();
         RIPPacket packet = RIPPacket(&hdr);
@@ -133,7 +132,10 @@ void Rip::sendUpdate(int fdValue) {
             }
             packet.addRoute(temp);
         }
-        packet.serialize(message);
+        std::stringbuf buff;
+        std::ostream stream(&buff);
+        packet.serialize(stream);
+
         memset((char *) &sendingSocket, 0, sizeof(sendingSocket));
         sendingSocket.sin_family = AF_INET;
         sendingSocket.sin_port = static_cast<in_port_t>(port.port_number);
@@ -141,7 +143,7 @@ void Rip::sendUpdate(int fdValue) {
             perror("inet_aton failed");
         }
 
-        if (sendto(fdValue, message, 512, 0, reinterpret_cast<const sockaddr *>(&sendingSocket), sizeof
+        if (sendto(fdValue, &stream, 512, 0, reinterpret_cast<const sockaddr *>(&sendingSocket), sizeof
         (sendingSocket)) == -1) {
             perror("Sending packet failed");
             throw std::invalid_argument("Most likely something wrong with your fileDescriptors");
@@ -162,7 +164,7 @@ void Rip::initializeTable() {
 void Rip::processResponse(unsigned char* message) {
     RIPPacket packet = RIPPacket(message, 504);
     RIPHeader header = packet.getHeader();
-    unsigned short id = *header.routerID;
+    unsigned short id = header.routerID;
     std::vector<RIPRouteEntry> routingTableEnties = packet.routes();
 //    for (auto rte : routingTableEnties) {
 //

@@ -1,5 +1,6 @@
 #include <sstream>
 #include <iostream>
+#include <fstream>
 #include "RIPPacket.h"
 
 RIPPacket::RIPPacket(unsigned char* data, int length) {
@@ -10,22 +11,22 @@ RIPPacket::RIPPacket(unsigned char* data, int length) {
 
 RIPPacket::RIPPacket(RIPHeader* _header) {
     header = _header;
-    cur_len = 4;
-    _header->serialize(message);
+    /*cur_len = 4;
+    _header->serialize(message);*/
 }
 
 RIPPacket::RIPPacket(RIPHeader *_header, std::vector<RIPRouteEntry> rtes) {
     // todo: force max limit of rtes to 25
     header = _header;
-    cur_len = 4 + rtes.size();
+    /*cur_len = 4 + rtes.size();
     _header->serialize(message);
     for (RIPRouteEntry rte : rtes) {
         addRoute(rte);
-    }
+    }*/
 }
 
 void RIPPacket::deserialize(unsigned char *outBuffer, int length) {
-    unsigned char hdr_arr[4] = {outBuffer[0],outBuffer[1],outBuffer[2],outBuffer[3]};
+    /*unsigned char hdr_arr[4] = {outBuffer[0],outBuffer[1],outBuffer[2],outBuffer[3]};
     RIPHeader hdr = RIPHeader(hdr_arr);
     *header = hdr;
     if (length > 4) {
@@ -36,26 +37,22 @@ void RIPPacket::deserialize(unsigned char *outBuffer, int length) {
                 addRoute(entry);
             }
         }
-    }
+    }*/
 }
 
-void RIPPacket::serialize(unsigned char *inBuffer) {
-    inBuffer = message;
+void RIPPacket::serialize(std::ostream &stream) {
+    stream << header->getCommand() << header->getVersion() << header->getRouterID();
+    for (RIPRouteEntry entry: routeEntries) {
+        stream << entry.getAfi() << entry.getTag() << entry.getAddress() << entry.getSubnetMask() << entry.getNextHop
+                () << entry.getAuthentication() << entry.getMetric() << entry.getTime();
+    }
+
 }
 
 void RIPPacket::addRoute(RIPRouteEntry rte) {
-    unsigned char route[20];
-    rte.serialize(route);
-    addRoute(route);
+    routeEntries.push_back(rte);
 }
 
-void RIPPacket::addRoute(unsigned char * rte) {
-    routeEntries.push_back(RIPRouteEntry(rte));
-    unsigned char result[cur_len + 20];
-    std::copy(message, message + cur_len, result);
-    std::copy(rte, rte + 20, result + cur_len);
-    cur_len += 20;
-}
 
 RIPHeader RIPPacket::getHeader() {
     return *header;
@@ -78,3 +75,4 @@ std::string RIPPacket::toString() {
     std::string s = fmt.str();
     return s;
 }
+

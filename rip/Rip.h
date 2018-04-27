@@ -6,6 +6,7 @@
 #include "../config/OutputInterface.h"
 #include "RIPRouteEntry.h"
 #include "RIPHeader.h"
+#include "RIPPacket.h"
 
 class Rip {
     public:
@@ -62,11 +63,6 @@ private:
     */
     void sendUpdate(int fdValue);
 
-    /**
-     * Function generates a random time value in the range 0.8*timer and 1.2*timer
-     * @return Double: Value of the random time in (s)
-     */
-    double randomTimeGenerator();
 
     /**
      * Function sets up the routing table ot it's initial state using the neighbors found in the config file and metrics
@@ -102,6 +98,8 @@ private:
         }
         return value;
     }
+
+
 };
 
 

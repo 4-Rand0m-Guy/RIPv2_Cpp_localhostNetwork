@@ -53,11 +53,23 @@ class RIPHeader {
         */
         unsigned char * serialize2();
 
-        /**
-         * Returns RIPHeader as a human-readable string.
-         *
-         * @return string
-         */
+    unsigned char getCommand() const;
+
+    void setCommand(unsigned char command);
+
+    unsigned char getVersion() const;
+
+    void setVersion(unsigned char version);
+
+    unsigned short getRouterID() const;
+
+    void setRouterID(unsigned short routerID);
+
+    /**
+     * Returns RIPHeader as a human-readable string.
+     *
+     * @return string
+     */
         std::string toString();
 };
 

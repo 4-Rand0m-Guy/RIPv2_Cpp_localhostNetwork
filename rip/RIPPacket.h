@@ -47,12 +47,13 @@ class RIPPacket {
          */
         void deserialize(unsigned char* outBuffer, int length);
 
-        /**
-         * Serialize RIPPacket into unsigned char array.
-         *
-         * @param inBuffer - array of unsigned chars
+
+         /**
+         * Function to help craft messages for RIP updates
+         * @param packet a packet to be put into serialized vector
+         * @return
          */
-        void serialize(unsigned char* inBuffer);
+         void serialize(std::ostream &stream);
 
         /**
          * Returns a vector of all Route Entries in a packet.

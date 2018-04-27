@@ -4,7 +4,7 @@
 #include "RIPRouteEntry.h"
 
 RIPRouteEntry::RIPRouteEntry(unsigned char *data) {
-    deserialize(data);
+//    deserialize();
 //    init_timer();
 }
 
@@ -27,8 +27,9 @@ RIPRouteEntry::RIPRouteEntry(short FFFF, short _authenticationType, unsigned cha
     }
 }
 
-void RIPRouteEntry::deserialize(unsigned char* outBuffer) {
-    afi = outBuffer[0] << 8 | outBuffer[1];
+void RIPRouteEntry::deserialize(std::istream &stream) {
+    stream >> afi >> tag >> address >> subnetMask >> nextHop >> metric;
+    /*afi = outBuffer[0] << 8 | outBuffer[1];
     if (afi == 65535) {
         authenticationType = outBuffer[2] << 8 | outBuffer[3];
         for (auto i = 4; i < 16; ++i) {
@@ -40,11 +41,12 @@ void RIPRouteEntry::deserialize(unsigned char* outBuffer) {
         subnetMask = ch2uint(outBuffer, 8);
         nextHop = ch2uint(outBuffer, 12);
         metric = ch2uint(outBuffer, 16);
-    }
+    }*/
 }
 
-void RIPRouteEntry::serialize(unsigned char* inBuffer) {
-    unsigned char buffer[20];
+void RIPRouteEntry::serialize(std::ostream &stream) {
+    stream << afi << tag << address << subnetMask << nextHop << metric;
+    /*unsigned char buffer[20];
     buffer[0] = (afi >> 8) & 0xff; buffer[1] = afi & 0xff;
     if (afi == 65535) {
         buffer[2] = (authenticationType >> 8) & 0xff; buffer[3] = authenticationType & 0xff;
@@ -61,7 +63,7 @@ void RIPRouteEntry::serialize(unsigned char* inBuffer) {
     }
     for (auto i = 0; i < 20; ++i) {
         inBuffer[i] = buffer[i];
-    }
+    }*/
 }
 
 void RIPRouteEntry::init_timer() {
@@ -108,4 +110,64 @@ int RIPRouteEntry::getNextHop() const {
 
 void RIPRouteEntry::setMetric(int metric) {
     RIPRouteEntry::metric = metric;
+}
+
+unsigned short RIPRouteEntry::getAfi() const {
+    return afi;
+}
+
+void RIPRouteEntry::setAfi(unsigned short afi) {
+    RIPRouteEntry::afi = afi;
+}
+
+unsigned short RIPRouteEntry::getTag() const {
+    return tag;
+}
+
+void RIPRouteEntry::setTag(unsigned short tag) {
+    RIPRouteEntry::tag = tag;
+}
+
+int RIPRouteEntry::getAddress() const {
+    return address;
+}
+
+void RIPRouteEntry::setAddress(int address) {
+    RIPRouteEntry::address = address;
+}
+
+int RIPRouteEntry::getSubnetMask() const {
+    return subnetMask;
+}
+
+void RIPRouteEntry::setSubnetMask(int subnetMask) {
+    RIPRouteEntry::subnetMask = subnetMask;
+}
+
+void RIPRouteEntry::setNextHop(int nextHop) {
+    RIPRouteEntry::nextHop = nextHop;
+}
+
+short RIPRouteEntry::getAuthenticationType() const {
+    return authenticationType;
+}
+
+void RIPRouteEntry::setAuthenticationType(short authenticationType) {
+    RIPRouteEntry::authenticationType = authenticationType;
+}
+
+const unsigned char *RIPRouteEntry::getAuthentication() const {
+    return authentication;
+}
+
+int RIPRouteEntry::getMetric() const {
+    return metric;
+}
+
+time_t RIPRouteEntry::getTime() const {
+    return time;
+}
+
+void RIPRouteEntry::setTime(time_t time) {
+    RIPRouteEntry::time = time;
 }

@@ -37,20 +37,50 @@ class RIPRouteEntry {
          *
          * @param outBuffer - the serialized route entry data, 20 byte unsigned char array
          */
-        void deserialize(unsigned char* outBuffer);
+        void deserialize(std::istream &stream);
 
         /**
          * Serialize RIPRouteEntry into 20 byte Route entry.
          *
          * @param inBuffer - 20 byte array[20] of unsigned chars
          */
-        void serialize(unsigned char* inBuffer);
+        void serialize(std::ostream &stream);
 
-        /**
-         * Returns RIPRouteEntry as a human-readable string.
-         *
-         * @return string
-         */
+    unsigned short getAfi() const;
+
+    void setAfi(unsigned short afi);
+
+    unsigned short getTag() const;
+
+    void setTag(unsigned short tag);
+
+    int getAddress() const;
+
+    void setAddress(int address);
+
+    int getSubnetMask() const;
+
+    void setSubnetMask(int subnetMask);
+
+    void setNextHop(int nextHop);
+
+    short getAuthenticationType() const;
+
+    void setAuthenticationType(short authenticationType);
+
+    const unsigned char *getAuthentication() const;
+
+    int getMetric() const;
+
+    time_t getTime() const;
+
+    void setTime(time_t time);
+
+    /**
+     * Returns RIPRouteEntry as a human-readable string.
+     *
+     * @return string
+     */
         std::string toString();
 
         int getNextHop() const;
