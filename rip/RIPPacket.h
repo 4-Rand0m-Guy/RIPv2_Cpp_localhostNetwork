@@ -38,11 +38,6 @@ class RIPPacket {
          */
         void addRoute(unsigned char * rte);
 
-        /**
-         * Add a route to the routing table with RIPRouteEntry.
-         *
-         * @param rte - route entry
-         */
         void addRoute(RIPRouteEntry rte);
 
         /**
@@ -60,13 +55,6 @@ class RIPPacket {
         void serialize(unsigned char* inBuffer);
 
         /**
-         * Returns the header.
-         *
-         * @return RIPHeader
-         */
-        RIPHeader getHeader();
-
-        /**
          * Returns a vector of all Route Entries in a packet.
          *
          * @return - vector<RIPRouteEntries>
@@ -80,11 +68,16 @@ class RIPPacket {
          */
         std::string toString();
 
+        RIPHeader getHeader();
+
     private:
         RIPHeader* header = new RIPHeader(new unsigned char);
         std::vector<RIPRouteEntry> routeEntries; // max length 25
         unsigned char * message;
         int cur_len;
+
+
+
 };
 
 
