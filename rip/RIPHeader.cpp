@@ -5,8 +5,8 @@
 #include "istream"
 
 RIPHeader::RIPHeader(unsigned short _routerID) {
-    command = '2'; // Only type 2 is supported.
-    version = '2'; // RIP Version v2
+    command = '2'; // Only command 2 (Response) is supported.
+    version = '2'; // RIP Version 2
     routerID = _routerID;
 }
 
