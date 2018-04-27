@@ -110,8 +110,8 @@ void ConfigImporter::set_outputs(std::string &outputsline) {
                 assign_variable_as_int(p, var);
                 p++;
             }
-//            std::cout << "Port number: " << oi.port_number << ", ID is : " << oi.id << " and metric is : " << oi.metric
-//                                                                       << std::endl;
+            std::cout << "Port number: " << oi.port_number << ", ID is : " << oi.id << " and metric is : " << oi.metric
+                                                                       << std::endl;
             outputs.push_back(oi);
         }
     } else {
