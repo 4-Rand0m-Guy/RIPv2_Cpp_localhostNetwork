@@ -29,11 +29,14 @@ void RIPPacket::deserialize(unsigned char *outBuffer, int length) {
 
 
 
-void RIPPacket::addRoute(RIPRouteEntry rte) {
-    unsigned char route[20];
-    rte.serialize(route);
-    addRoute(route);
+void RIPPacket::addRoute(unsigned char * rte) {
+    routes.push_back(RIPRouteEntry(rte));
+    unsigned char result[cur_len + 20];
+    std::copy(message, message + cur_len, result);
+    std::copy(rte, rte + 20, result + cur_len);
+    cur_len += 20;
 }
+
 
 std::string RIPPacket::toString() {
     std::cout << "1. " << header << std::endl;
