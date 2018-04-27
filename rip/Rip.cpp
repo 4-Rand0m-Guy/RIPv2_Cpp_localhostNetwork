@@ -159,8 +159,15 @@ void Rip::initializeTable() {
     }
 }
 
-void processResponse(unsigned char * message) {
+void Rip::processResponse(unsigned char* message) {
     RIPPacket packet = RIPPacket(message, 504);
+    RIPHeader header = packet.getHeader();
+    unsigned short id = *header.routerID;
+    std::vector<RIPRouteEntry> routingTableEnties = packet.routes();
+//    for (auto rte : routingTableEnties) {
+//
+//    }
+
 }
 
 unsigned char * Rip::receive(unsigned int fd) {
