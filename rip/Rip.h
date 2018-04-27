@@ -105,7 +105,7 @@ private:
      * @param routerID
      * @return cost
      */
-    unsigned get_cost(unsigned routerID);
+    unsigned get_cost(unsigned routerID) throw();
 
     /**
      * Gets a RIPRoutingEntry by routerID.

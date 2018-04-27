@@ -178,13 +178,18 @@ void Rip::processResponse(RIPPacket packet) {
                 // todo: log to console bad metric
                 continue;
             }
-            int metric = std::min(rte.getMetric(),16);
+//            int metric = std::min(rte.getMetric() + get_cost(routerID),16);
         }
     }
 }
 
-unsigned get_cost(unsigned routerID) {
-
+unsigned Rip::get_cost(unsigned routerID) throw() {
+    for (OutputInterface iface : outputs) {
+        if (routerID == iface.id) {
+            return iface.metric;
+        }
+    }
+    throw;
 }
 
 RIPRouteEntry Rip::get_route(unsigned short routerID) throw() {
