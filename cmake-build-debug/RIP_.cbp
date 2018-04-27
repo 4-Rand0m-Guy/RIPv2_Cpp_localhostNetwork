@@ -8,140 +8,144 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug"/>
+				<Option working_dir="/Users/johny/CLionProjects/RIP-/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug"/>
+				<Option working_dir="/Users/johny/CLionProjects/RIP-/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug"/>
+				<Option working_dir="/Users/johny/CLionProjects/RIP-/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="RIP_">
-				<Option output="/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/RIP_" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug"/>
+				<Option output="/Users/johny/CLionProjects/RIP-/cmake-build-debug/RIP_" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/johny/CLionProjects/RIP-/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/Cellar/gcc/7.3.0/lib/gcc/7/gcc/x86_64-apple-darwin16.7.0/7.3.0/../../../../../../include/c++/7.3.0"/>
+					<Add directory="/usr/local/Cellar/gcc/7.3.0/lib/gcc/7/gcc/x86_64-apple-darwin16.7.0/7.3.0/../../../../../../include/c++/7.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/usr/local/Cellar/gcc/7.3.0/lib/gcc/7/gcc/x86_64-apple-darwin16.7.0/7.3.0/../../../../../../include/c++/7.3.0/backward"/>
+					<Add directory="/usr/local/Cellar/gcc/7.3.0/lib/gcc/7/gcc/x86_64-apple-darwin16.7.0/7.3.0/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/local/Cellar/gcc/7.3.0/include"/>
+					<Add directory="/usr/local/Cellar/gcc/7.3.0/lib/gcc/7/gcc/x86_64-apple-darwin16.7.0/7.3.0/include-fixed"/>
 					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 RIP_"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 RIP_"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="RIP_/fast">
-				<Option output="/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/RIP_" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug"/>
+				<Option output="/Users/johny/CLionProjects/RIP-/cmake-build-debug/RIP_" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/johny/CLionProjects/RIP-/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/Cellar/gcc/7.3.0/lib/gcc/7/gcc/x86_64-apple-darwin16.7.0/7.3.0/../../../../../../include/c++/7.3.0"/>
+					<Add directory="/usr/local/Cellar/gcc/7.3.0/lib/gcc/7/gcc/x86_64-apple-darwin16.7.0/7.3.0/../../../../../../include/c++/7.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/usr/local/Cellar/gcc/7.3.0/lib/gcc/7/gcc/x86_64-apple-darwin16.7.0/7.3.0/../../../../../../include/c++/7.3.0/backward"/>
+					<Add directory="/usr/local/Cellar/gcc/7.3.0/lib/gcc/7/gcc/x86_64-apple-darwin16.7.0/7.3.0/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/local/Cellar/gcc/7.3.0/include"/>
+					<Add directory="/usr/local/Cellar/gcc/7.3.0/lib/gcc/7/gcc/x86_64-apple-darwin16.7.0/7.3.0/include-fixed"/>
 					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 RIP_/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vernboss/Documents/Programming/COSC364/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 RIP_/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/johny/CLionProjects/RIP-/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/config/ConfigImporter.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/ConfigImporter.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/config/ConfigImporter.h">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/ConfigImporter.h">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/config/Configuration.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/Configuration.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/config/Configuration.h">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/Configuration.h">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/config/ConsoleLogger.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/config/ConsoleLogger.h">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/ConsoleLogger.h">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/config/OutputInterface.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/OutputInterface.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/config/OutputInterface.h">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/config/OutputInterface.h">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/main.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/main.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/rip/RIPHeader.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/RIPHeader.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/rip/RIPHeader.h">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/RIPHeader.h">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/rip/RIPPacket.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/RIPPacket.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/rip/RIPPacket.h">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/RIPPacket.h">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/rip/RIPRouteEntry.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/RIPRouteEntry.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/rip/RIPRouteEntry.h">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/RIPRouteEntry.h">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/rip/Rip.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/Rip.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/rip/Rip.h">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/rip/Rip.h">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/utils/Utils.cpp">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/utils/Utils.cpp">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/utils/Utils.h">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/utils/Utils.h">
 			<Option target="RIP_"/>
 		</Unit>
-		<Unit filename="/home/vernboss/Documents/Programming/COSC364/RIP-/CMakeLists.txt">
+		<Unit filename="/Users/johny/CLionProjects/RIP-/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
