@@ -3,4 +3,4 @@ project(RIP_)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(RIP_ main.cpp config/ConfigImporter.cpp config/ConfigImporter.h config/OutputInterface.cpp config/OutputInterface.h utils/Utils.cpp utils/Utils.h config/ConsoleLogger.cpp config/ConsoleLogger.h rip/Rip.cpp rip/Rip.h config/Configuration.cpp config/Configuration.h rip/RIPHeader.cpp rip/RIPHeader.h rip/RIPRouteEntry.cpp rip/RIPRouteEntry.h rip/RIPPacket.cpp rip/RIPPacket.h)
+add_executable(RIP_ main.cpp config/ConfigImporter.cpp config/ConfigImporter.h config/OutputInterface.cpp config/OutputInterface.h utils/Utils.cpp utils/Utils.h config/ConsoleLogger.cpp config/ConsoleLogger.h rip/Rip.cpp rip/Rip.h config/Configuration.cpp config/Configuration.h rip/rip_client_server.cpp rip/rip_client_server.h)
