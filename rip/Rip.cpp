@@ -59,6 +59,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
             if (time_elapsed > intervals.base * 1000) {
                 std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
                 sendUpdate();
+                outer_timer = std::chrono::steady_clock::now();
             }
         } else {
             time_elapsed = duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
