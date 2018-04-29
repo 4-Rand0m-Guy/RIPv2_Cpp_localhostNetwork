@@ -275,6 +275,11 @@ private:
      * @return True (Valid) False otherwise
      */
     bool validate_packet(Packet packet);
+
+    /**
+     * Function handles sending triggered updates
+     */
+    void sendUpdate();
 };
 
 

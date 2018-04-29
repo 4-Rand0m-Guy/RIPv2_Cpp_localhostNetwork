@@ -58,14 +58,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
                                                                          outer_timer).count();
             if (time_elapsed > intervals.base * 1000) {
                 std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
-                for (int i = 0; i < clients.size(); i++) {
-                    size_t size = (routingTable.size() * RTE_SIZE) + HEADER_SIZE; //exclude route to neighbor router
-                    char message[size];
-                    generate_response(message, static_cast<int>(size));
-                    send_message(i, message, size);
-                }
-                std::cout << "Updated" << std::endl;
-                outer_timer = std::chrono::steady_clock::now();
+                sendUpdate();
             }
         } else {
             time_elapsed = duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
@@ -82,15 +75,8 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
             }
             if (time_elapsed > intervals.base * 1000) {
                 std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
-                for (int i = 0; i < clients.size(); i++ ) {
-                    size_t size = (routingTable.size() * RTE_SIZE) + HEADER_SIZE; //exclude route to neighbor router
-                    char message[size];
-                    generate_response(message, static_cast<int>(size));
-                    send_message(i, message, size);
-                }
-                std::cout << "Updated" << std::endl;
+                sendUpdate();
                 outer_timer = std::chrono::steady_clock::now();
-
             }
 
         }
@@ -340,6 +326,16 @@ bool Rip::validate_packet(Packet packet) {
         }
     }
     return false;
+}
+
+void Rip::sendUpdate() {
+    for (int i = 0; i < clients.size(); i++ ) {
+        size_t size = (routingTable.size() * RTE_SIZE) + HEADER_SIZE; //exclude route to neighbor router
+        char message[size];
+        generate_response(message, static_cast<int>(size));
+        send_message(i, message, size);
+    }
+    std::cout << "Updated" << std::endl;
 }
 
 
