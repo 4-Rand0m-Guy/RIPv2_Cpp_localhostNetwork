@@ -164,6 +164,7 @@ private:
      * @param isTriggered
      */
     char* generate_response(char* msg, int size, bool isTriggered=false);
+
     /**
     * Function sets up the input sockets
     */
@@ -198,6 +199,7 @@ private:
      * @return bool: True if the next hop is the router to be messaged
      */
     bool nextHopIsRouter(Route_table_entry entry, OutputInterface output);
+
 
     /**
      * Get the cost from host to neighbor.
