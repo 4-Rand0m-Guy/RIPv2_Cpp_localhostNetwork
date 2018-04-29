@@ -8,7 +8,6 @@
 #include <cstdlib>
 #include <sys/select.h>
 #include <random>
-#include <i386/types.h>
 #include <stdint.h>
 #include "Rip.h"
 #include "../config/ConsoleLogger.h"
@@ -26,20 +25,44 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     outputs = _outputs;
     timer = _timer;
     init();
-
+    std::cout << "Running daemon ID: " << routerID << std::endl;
     /*
      *
      * REST OF THIS FUNCTION IS TEST AND SHOULD BE DELETED OR REFACTORED INTO OTHER METHODS
      * */
 
     char received[DGRAM_SIZE];
-    Server *server1 = servers.at(0);
-    Client* client = clients.at(0);
-    clock_t begin_time = std::clock();
-    while(1) {
+    int max_fd = servers.at(0)->get_socket();
+    fd_set sock_set;
+    struct timeval timeout{};
+    bool run = true;
+    while(run) {
+        timeout.tv_sec = timer;
+        timeout.tv_usec = 0;
         size_t size = (routingTable.size() * RTE_SIZE) + HEADER_SIZE;
         char message[size];
-        int bytes_recv = server1->recv(received, DGRAM_SIZE);
+        FD_ZERO(&sock_set);
+        for (Server* server: servers) {
+            FD_SET(server->get_socket(), &sock_set);
+            if (server->get_socket() > max_fd) {
+                max_fd = server->get_socket();
+            }
+        }
+        int activity = select(max_fd + 1, &sock_set, nullptr, nullptr, &timeout);
+        if ((activity < 0) && (errno != EINTR)) {
+            perror("Select error");
+            run = false;
+        } else if (activity == 0){
+            //todo timout occured
+            std::cout << "Timed out" << std::endl;
+            for (Client* client: clients) {
+                generate_response(message, static_cast<int>(size));
+                send_message(client->get_port(), message, size);
+            }
+        } else {
+            std::cout << "receive something" << std::endl;
+        }
+        /*int bytes_recv = server1->recv(received, DGRAM_SIZE);
         if (bytes_recv > 0) {
             std::cout << "bytes recv: " << bytes_recv << std::endl;
             Packet packet = deserialize_rip_message(received, bytes_recv);
@@ -51,7 +74,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
             generate_response(message, size);
             send_message(0, message, size);
             begin_time = std::clock();
-        };
+        };*/
     }
 }
 
