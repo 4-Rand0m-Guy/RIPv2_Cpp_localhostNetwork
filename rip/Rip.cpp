@@ -7,7 +7,6 @@
 #include <cstdlib>
 #include <sys/select.h>
 #include <random>
-#include <i386/types.h>
 #include <stdint.h>
 #include "Rip.h"
 #include "../config/ConsoleLogger.h"
@@ -23,22 +22,78 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     routerID = _routerID;
     input_ports = _input_ports;
     outputs = _outputs;
-    timer = 1;
+<<<<<<< HEAD
+=======
+    timer = _timer;
     init(timer);
+    std::cout << "Running daemon ID: " << routerID << std::endl;
+>>>>>>> c9a1d3316729f324a5bc0f38eb2580088fc710f0
     /*
      *
      * REST OF THIS FUNCTION IS TEST AND SHOULD BE DELETED OR REFACTORED INTO OTHER METHODS
      * */
 
+<<<<<<< HEAD
+=======
+    char received[DGRAM_SIZE];
+    int max_fd = servers.at(0)->get_socket();
+    fd_set sock_set;
+    struct timeval timeout{};
+    bool run = true;
+    while(run) {
+        timeout.tv_sec = timer;
+        timeout.tv_usec = 0;
 
-    Route_table_entry e;
-    e.destination = 4;
-    e.timeout_tmr = steady_clock::now();
-    e.route_changed = 0;
-    e.marked_as_garbage = 0;
+        FD_ZERO(&sock_set);
+        for (Server* server: servers) {
+            FD_SET(server->get_socket(), &sock_set);
+            if (server->get_socket() > max_fd) {
+                max_fd = server->get_socket();
+            }
+        }
+        int activity = select(max_fd + 1, &sock_set, nullptr, nullptr, &timeout);
+        if ((activity < 0) && (errno != EINTR)) {
+            perror("Select error");
+            run = false;
+        } else if (activity == 0){
+            //todo refine
+            for (int i = 0; i < clients.size(); i++ ) {
+                size_t size = ((routingTable.size() - 1) * RTE_SIZE) + HEADER_SIZE;
+                char message[size];
+                generate_response(message, static_cast<int>(size));
+                std::cout << "Printing client sockets" << std::endl;
+                for (Client* client: clients) {
+                    std::cout << client->get_socket() << std::endl;
+                }
+                send_message(i, message, size);
+            }
+        } else {
+            //todo refine and implement RIP
+            for (Server* server: servers) {
+                if (FD_ISSET(server->get_socket(), &sock_set)) {
+                    int bytes_received = server->recv(received, DGRAM_SIZE);
+                    if (bytes_received > 0) {
+                        std::cout << "bytes recv: " << bytes_received << std::endl;
+                        Packet packet = deserialize_rip_message(received, bytes_received);
+                    }
+                }
+            }
 
-    while(1) {
-        check_timers();
+        }
+        /*int bytes_recv = server1->recv(received, DGRAM_SIZE);
+        if (bytes_recv > 0) {
+            std::cout << "bytes recv: " << bytes_recv << std::endl;
+            Packet packet = deserialize_rip_message(received, bytes_recv);
+        }
+
+        if ((float( std::clock() - begin_time ) /  CLOCKS_PER_SEC) > 5.0) {
+            std::cout << "sending: "<< std::endl;
+            char message[size];
+            generate_response(message, size);
+            send_message(0, message, size);
+            begin_time = std::clock();
+        };*/
+>>>>>>> c9a1d3316729f324a5bc0f38eb2580088fc710f0
     }
 }
 
@@ -97,7 +152,8 @@ void Rip::initializeTable() {
 
 /* SENDS A SINGLE MESSAGE TO A UDP SOCKET */
 void Rip::send_message(int fd, char* message, size_t size) {
-    Client* client = clients.at(fd);
+    std::cout << "reached send function" << std::endl;
+    Client* client = clients.at(static_cast<unsigned long>(fd));
     int bytes_sent = client->send(message, size);
     if (bytes_sent < 0) {
         fprintf(stderr, "socket(%i) failed: %s\n", fd, strerror(errno));
@@ -106,12 +162,26 @@ void Rip::send_message(int fd, char* message, size_t size) {
     }
 }
 
-
 char* Rip::generate_response(char* message, int size, bool isTriggered) {
+<<<<<<< HEAD
+=======
+    // todo implement isTrigger functionality i.e. routesChanged , implement split horizon with poisson reverse
+>>>>>>> c9a1d3316729f324a5bc0f38eb2580088fc710f0
     char* p_message = message;
     p_message = add_header(p_message);
     for (Route_table_entry entry : routingTable) {
-        p_message = add_RTE(p_message, entry);
+        for (OutputInterface out: outputs) {
+            if (nextHopIsRouter(entry, out)) {              //The metric for neighbour needs to be 16 in this case
+                if (entry.destination != entry.nexthop) {   //Neighbor knows this router is accessible when it
+                    // receives packet, no need to include direct link
+                    struct Route_table_entry temp = entry;
+                    temp.metric = 16;
+                    p_message = add_RTE(p_message, temp);
+                }
+            } else {
+                p_message = add_RTE(p_message, entry);
+            }
+        }
     }
 }
 
@@ -212,115 +282,6 @@ void Rip::print_entry(struct Rip_entry entry) {
     printf("| metric: %i       |\n", entry.metric);
 }
 
-//Run function, handle the running of the daemon, events etc
-//void Rip::run() {
-//    std::cout << "Daemon " << routerID << " running" << std::endl;
-//    int max_sd = 0; //max socket address (highest port value in the set of ports to listen to)
-//    int activity;
-//    struct timeval timeout{};
-//    fd_set readfds; //set of file descriptors to listen to sockets
-//    bool run = true;
-//    std::vector<unsigned int> fdArray;
-//    try {
-//        fdArray = initializeInputPorts();
-//    } catch (std::invalid_argument& e) {
-//        std::cout << e.what() << std::endl;
-//        run = false;
-//    } catch (std::exception &e){
-//        std::cout << "Get rekt by this unknown bug" << std::endl;
-//        run = false;
-//    }
-//    //enter the infinite loop
-//    auto t1 = std::chrono::high_resolution_clock::now();
-//    while (run) {
-//        timeout.tv_sec = timer;
-//        timeout.tv_usec = 0;
-//        FD_ZERO(&readfds);
-//        //Add the current input sockets to the set of sockets to track for the select() function
-//        for (auto sock: fdArray) {
-//            FD_SET(sock, &readfds);
-//            if (sock > max_sd) {
-//                max_sd = sock;
-//            }
-//        }
-//        activity = select(max_sd + 1, &readfds, nullptr, nullptr, &timeout);
-//        if ((activity < 0) && (errno != EINTR)) { //something has gone wrong
-//            perror("Select error");
-//            run = false;
-//        } else if (activity == 0) { //timeout reached with no activity, send periodic update
-//            try {
-//                sendUpdate(fdArray[0]);
-//                t1 = std::chrono::high_resolution_clock::now();
-//            } catch (std::invalid_argument &e) {
-//                std::cout << e.what() << std::endl;
-//                run = false;
-//            }
-//        } else { //some kind of activity has occurred
-//            //have we recently sent an update?
-//            for (auto fd: fdArray) {
-//                unsigned char *data;
-//                if (FD_ISSET(fd, &readfds)) {
-//                    data = receive(fd);
-//                }
-//            }
-//            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - t1)
-//                    .count() >= timer * 1000) {
-//                try {
-//                    sendUpdate(fdArray[0]);
-//                } catch (std::invalid_argument &e) {
-//                    std::cout << e.what() << std::endl;
-//                    run = false;
-//                }
-//                t1 = std::chrono::high_resolution_clock::now();
-//            }
-//        }
-//    }
-//}
-
-//Function sends updates to neighbor routers
-//void Rip::sendUpdate(int fdValue, char* message) {
-//    struct sockaddr_in sendingSocket{};
-//    for (auto port: outputs) {
-//        RIPHeader hdr = createHeader();
-//        RIPPacket packet = RIPPacket(&hdr);
-//        for (RIPRouteEntry entry: forwardingTable) {
-//            RIPRouteEntry temp = entry;
-//            if (nextHopIsRouter(temp, port)) {
-//                temp.setMetric(16);
-//            }
-//            packet.addRoute(temp);
-//        }
-//        std::stringbuf buff;
-//        std::ostream stream(&buff);
-//        packet.serialize(stream);
-//        memset((char *) &sendingSocket, 0, sizeof(sendingSocket));
-//        sendingSocket.sin_family = AF_INET;
-//        sendingSocket.sin_port = static_cast<in_port_t>(port.port_number);
-//        if (inet_aton("127.0.0.1", &sendingSocket.sin_addr) == 0) {
-//            perror("inet_aton failed");
-//        }
-//
-//        struct rip_header rh;
-//        struct rip_header rh2;
-//
-//
-//        rh.command = 1;
-//        rh.version = 2;
-//        rh._zero = 3;
-//
-//        memset(message, '\0', 1024);
-//        message = RIPPacket::add_rip_header_to_packet(message, rh);
-//        RIPPacket::decode_rip_message(message, &rh2);
-//
-//        if (sendto(fdValue, &stream, 512, 0, reinterpret_cast<const sockaddr *>(&sendingSocket), sizeof
-//        (sendingSocket)) == -1) {
-//            perror("Sending packet failed");
-//            throw std::invalid_argument("Most likely something wrong with your fileDescriptors");
-//        } else {
-//            std::cout << "Message sent" << std::endl;
-//        }
-//    }
-//}
 
 unsigned Rip::get_cost(unsigned routerID) throw() {
     for (OutputInterface iface : outputs) {
@@ -340,12 +301,23 @@ Route_table_entry Rip::get_entry(short routerID) throw() {
     throw;
 }
 
-bool nextHopIsRouter(Route_table_entry entry, OutputInterface output) {
+
+bool Rip::nextHopIsRouter(Route_table_entry entry, OutputInterface output) {
     bool value =false;
     if (entry.nexthop == output.id) {
     value = true;
     }
     return value;
+}
+
+void Rip::processPacket(Rip_packet *packet) {
+    for (Entry packet_entry: packet->entries) {
+        for (Route_table_entry entry: routingTable) {
+            if (packet_entry.ipaddress == entry.destination) {
+
+            }
+        }
+    }
 }
 
 
