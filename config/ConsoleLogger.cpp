@@ -23,7 +23,7 @@ const std::unordered_map<int, std::string> ConsoleLogger::error_messages({
       {1, "Unable to open configuration file. Ensure that the file exists and is readable."},
       {2, "Some mandatory parameters are missing. Check the configuration file.\n"
                   "\033[1mMandatory parameters:\033[0m\n"
-                  "\trouter-id\n\tinput-ports\n\toutputs\n"
+                  "\trouter-id\n\tinput-ports\n\tinterfaces\n"
                   "\033[1mOptional parameters:\033[0m\n"
                   "\ttimer"},
       {3, "Configuration parameters must be an unsigned integer."},

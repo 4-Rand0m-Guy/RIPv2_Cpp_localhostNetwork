@@ -21,7 +21,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
 
     routerID = _routerID;
     input_ports = _input_ports;
-    outputs = _outputs;
+    interfaces = _outputs;
 
     init(timer);
     std::cout << "Running daemon ID: " << routerID << std::endl;
@@ -103,7 +103,7 @@ void Rip::init(unsigned basetimer) {
     intervals.garbage_collection = basetimer * 6;
 
 
-    for (auto o: outputs) {
+    for (auto o: interfaces) {
         output_ports.push_back(o.port_number);
     }
     initializeServers();
@@ -139,7 +139,7 @@ void Rip::initializeClients() {
 
 //setup the table using neighbors from initial config file
 void Rip::initializeTable() {
-    for (auto out: outputs) {
+    for (auto out: interfaces) {
         Route_table_entry entry;
         entry.destination = out.id;
         entry.metric = out.metric;
@@ -168,7 +168,7 @@ char* Rip::generate_response(char* message, int size, bool isTriggered) {
         Route_table_entry temp = entry;
         bool is_dest = false;
         bool is_next_hop = false;
-        for (OutputInterface out: outputs) {
+        for (OutputInterface out: interfaces) {
             if (nextHopIsRouter(entry, out)) {              //The metric for neighbour needs to be 16 in this case
                 is_next_hop = true;
             }
@@ -277,16 +277,6 @@ void Rip::print_entry(struct Rip_entry entry) {
     printf("| metric: %i       |\n", entry.metric);
 }
 
-
-unsigned Rip::get_cost(unsigned routerID) throw() {
-    for (OutputInterface iface : outputs) {
-        if (routerID == iface.id) {
-            return iface.metric;
-        }
-    }
-    throw;
-}
-
 Route_table_entry Rip::get_entry(short routerID) throw() {
     for (auto route : routingTable) {
         if (routerID == route.destination) {
@@ -296,6 +286,14 @@ Route_table_entry Rip::get_entry(short routerID) throw() {
     throw;
 }
 
+int Rip::get_cost(int routerID){
+    for (OutputInterface iface : interfaces) {
+        if (routerID == iface.id) {
+            return iface.metric;
+        }
+    }
+    throw;
+}
 
 bool Rip::nextHopIsRouter(Route_table_entry entry, OutputInterface output) {
     bool value =false;
@@ -305,14 +303,31 @@ bool Rip::nextHopIsRouter(Route_table_entry entry, OutputInterface output) {
     return value;
 }
 
-void Rip::processPacket(Rip_packet *packet) {
-    for (Entry packet_entry: packet->entries) {
-        for (Route_table_entry entry: routingTable) {
-            if (packet_entry.ipaddress == entry.destination) {
-
-            }
+void Rip::processPacket(Packet *packet) {
+    if (validate_packet(*packet)) {
+        for (Entry entry: packet->entries) {
+            entry.metric = std::min(entry.metric + get_cost(packet->header.routerID), INFINITY);
+            read_entry(entry);
         }
+    } else {
+        std::cout << "Invalid packet. Dropped." << std::endl;
     }
 }
+
+void Rip::read_entry(Rip_entry entry) {
+
+}
+
+
+bool Rip::validate_packet(Packet packet) {
+    for (auto ifaces : interfaces) {
+        if (packet.header.routerID == ifaces.id) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 
 

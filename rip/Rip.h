@@ -5,7 +5,7 @@
 #define RIP_VERSION '2'
 #define HEADER_SIZE 4
 #define RTE_SIZE 20
-#define INFINITY 16;
+#define INFINITY 16
 
 #include <map>
 #include <vector>
@@ -109,9 +109,8 @@ class Rip {
 private:
     unsigned routerID;
     std::vector<unsigned> input_ports;
-    std::vector<OutputInterface> outputs;
+    std::vector<OutputInterface> interfaces;
     struct Timer_Intervals intervals;
-//////////////////////////////////////////////
     std::vector<Route_table_entry> routingTable;
     std::vector<rip_client_server::rip_server*> servers;
     std::vector<rip_client_server::rip_client*> clients;
@@ -186,6 +185,7 @@ private:
      * @param entry
      */
     void handle_timeout_expiry(Route_table_entry entry);
+
     /**
      * Prints rip entry to console.
      *
@@ -212,6 +212,24 @@ private:
      */
     char* generate_response(char* msg, int size, bool isTriggered=false);
 
+
+    /**
+     * Get metric of peer router by its routerID.
+     *
+     * @param routerID
+     * @return the metric
+     */
+    int get_cost(int routerID) throw();
+
+    /**
+    * Gets a RIPRoutingEntry by routerID.
+    * Throws exception if does not exist.
+    *
+    * @throw exception if no matching router is in forwarding table
+    * @param routerID
+    * @return RIPRoutingEntry
+    */
+    Route_table_entry get_entry(short routerID) throw();
 
     /**
     * Function sends update to neighboring routers once time limit is reached.
@@ -242,24 +260,21 @@ private:
      */
     void processPacket(Rip_packet* packet);
 
-    /**
-     * Get the cost from host to neighbor.
-     *
-     * @param routerID
-     * @return cost
-     */
-    unsigned get_cost(unsigned routerID) throw();
 
     /**
-     * Gets a RIPRoutingEntry by routerID.
-     * Throws exception if does not exist.
+     * Reads an RIP entry to determine if any further action should be taken.
      *
-     * @throw exception if no matching router is in forwarding table
-     * @param routerID
-     * @return RIPRoutingEntry
+     * @param entry - the RIP packey entry
      */
-    Route_table_entry get_entry(short routerID) throw();
+    void read_entry(Rip_entry entry);
 
+    /**
+     * Validates packet is valid.
+     *
+     * @param packet
+     * @return True (Valid) False otherwise
+     */
+    bool validate_packet(Packet packet);
 };
 
 
