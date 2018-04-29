@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <sys/select.h>
 #include <random>
-#include <stdint.h>
+#include <utility> #include <stdint.h>
 #include "Rip.h"
 #include "../config/ConsoleLogger.h"
 #include "rip_client_server.h"
@@ -20,8 +20,8 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
          unsigned timer /* = 30 */) {
 
     routerID = _routerID;
-    input_ports = _input_ports;
-    interfaces = _outputs;
+    input_ports = std::move(_input_ports);
+    interfaces = std::move(_outputs);
 
     init(timer);
     std::cout << "Running daemon ID: " << routerID << std::endl;
@@ -39,8 +39,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     while(run) {
         timeout.tv_sec = 0;
         timeout.tv_usec = 5000000;
-        auto time_elapsed = duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
-                                                                     outer_timer).count();
+        long time_elapsed;
         FD_ZERO(&sock_set);
         for (Server* server: servers) {
             FD_SET(server->get_socket(), &sock_set);
