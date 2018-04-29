@@ -48,10 +48,10 @@ void ConfigImporter::load_config(const std::string &filename) {
                     set_routerId(value);
                 } else if (key == "input-ports") {
                     set_input_ports(value);
-                } else if (key == "interfaces") {
+                } else if (key == "outputs") {
                     set_outputs(value);
                 } else if (key == "timer") {
-                     set_timer(value);
+                    set_timer(value);
                 } else {
                     ConsoleLogger::warning(1, "CONFIG");
                 }
