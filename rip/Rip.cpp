@@ -25,10 +25,6 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
 
     init(timer);
     std::cout << "Running daemon ID: " << routerID << std::endl;
-    /*std::cout << "Clients are:" << std::endl;
-    for (Client* client: clients) {
-        std::cout << client->get_socket() << std::endl;
-    }*/
     /*
      *
      * REST OF THIS FUNCTION IS TEST AND SHOULD BE DELETED OR REFACTORED INTO OTHER METHODS
@@ -57,7 +53,6 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
         } else if (activity == 0){
             //todo refine
             for (int i = 0; i < clients.size(); i++ ) {
-                std::cout << clients.size() << std::endl;
                 size_t size = (routingTable.size() * RTE_SIZE) + HEADER_SIZE; //exclude route to neighbor router
                 char message[size];
                 generate_response(message, static_cast<int>(size));
@@ -165,7 +160,7 @@ char* Rip::generate_response(char* message, int size, bool isTriggered) {
     char* p_message = message;
     p_message = add_header(p_message);
     for (Route_table_entry entry : routingTable) {
-        Route_table_entry temp = entry;
+        struct Route_table_entry temp{};
         bool is_dest = false;
         bool is_next_hop = false;
         for (OutputInterface out: interfaces) {
@@ -174,7 +169,8 @@ char* Rip::generate_response(char* message, int size, bool isTriggered) {
             }
         }
         if (is_next_hop) {
-            entry.metric = 16;
+            temp.metric = 16;
+
         }
         p_message = add_RTE(p_message, temp);
     }
@@ -286,7 +282,7 @@ Route_table_entry Rip::get_entry(short routerID) throw() {
     throw;
 }
 
-int Rip::get_cost(int routerID){
+int Rip::get_cost(int routerID) throw(){
     for (OutputInterface iface : interfaces) {
         if (routerID == iface.id) {
             return iface.metric;
@@ -327,7 +323,5 @@ bool Rip::validate_packet(Packet packet) {
     }
     return false;
 }
-
-
 
 
