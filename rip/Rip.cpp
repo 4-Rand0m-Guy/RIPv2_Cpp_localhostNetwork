@@ -22,19 +22,14 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     routerID = _routerID;
     input_ports = _input_ports;
     outputs = _outputs;
-<<<<<<< HEAD
-=======
-    timer = _timer;
+
     init(timer);
     std::cout << "Running daemon ID: " << routerID << std::endl;
->>>>>>> c9a1d3316729f324a5bc0f38eb2580088fc710f0
     /*
      *
      * REST OF THIS FUNCTION IS TEST AND SHOULD BE DELETED OR REFACTORED INTO OTHER METHODS
      * */
 
-<<<<<<< HEAD
-=======
     char received[DGRAM_SIZE];
     int max_fd = servers.at(0)->get_socket();
     fd_set sock_set;
@@ -93,7 +88,6 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
             send_message(0, message, size);
             begin_time = std::clock();
         };*/
->>>>>>> c9a1d3316729f324a5bc0f38eb2580088fc710f0
     }
 }
 
@@ -163,10 +157,6 @@ void Rip::send_message(int fd, char* message, size_t size) {
 }
 
 char* Rip::generate_response(char* message, int size, bool isTriggered) {
-<<<<<<< HEAD
-=======
-    // todo implement isTrigger functionality i.e. routesChanged , implement split horizon with poisson reverse
->>>>>>> c9a1d3316729f324a5bc0f38eb2580088fc710f0
     char* p_message = message;
     p_message = add_header(p_message);
     for (Route_table_entry entry : routingTable) {
