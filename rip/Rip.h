@@ -39,7 +39,7 @@ typedef struct Rip_entry {
      */
     short afi;
     short tag;
-    int ipaddress;
+    int address;
     int subnetmask;
     int nextHop;
     int metric;
@@ -132,7 +132,15 @@ private:
      * @param entry - Route Table Entry to glean information from for the rip entry
      * @return the new message with another RTE included at bottom
      */
-    char* add_RTE(char *message, struct Route_table_entry entry);
+    char* add_rip_entry(char *message, struct Route_table_entry entry);
+
+    /**
+     * Adds another route entry to the routing table using information
+     * from an RIP entry.
+     *
+     * @param entry - route entry.
+     */
+    void add_route_table_entry(Rip_entry entry, int nextHop);
 
     /**
      * Checks if update, timeout, or garbage collection timer
@@ -266,7 +274,7 @@ private:
      *
      * @param entry - the RIP packey entry
      */
-    void read_entry(Rip_entry entry);
+    void read_entry(Rip_entry entry, int originating_address);
 
     /**
      * Validates packet is valid.

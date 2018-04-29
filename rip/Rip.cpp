@@ -102,7 +102,6 @@ void Rip::init(unsigned basetimer) {
     intervals.timeout= basetimer * 4;
     intervals.garbage_collection = basetimer * 6;
 
-
     for (auto o: interfaces) {
         output_ports.push_back(o.port_number);
     }
@@ -176,7 +175,7 @@ char* Rip::generate_response(char* message, int size, bool isTriggered) {
             temp.metric = 16;
 
         }
-        p_message = add_RTE(p_message, temp);
+        p_message = add_rip_entry(p_message, temp);
     }
 }
 
@@ -190,11 +189,11 @@ char* Rip::add_header(char* message) {
     return message;
 }
 
-char* Rip::add_RTE(char* message, struct Route_table_entry entry) {
+char* Rip::add_rip_entry(char *message, struct Route_table_entry entry) {
     Rip_entry rentry;
     rentry.afi = 0;
     rentry.tag = 0;
-    rentry.ipaddress = entry.destination;
+    rentry.address = entry.destination;
     rentry.subnetmask = 0;
     rentry.nextHop = entry.nexthop;
     rentry.metric = entry.metric;
@@ -202,6 +201,19 @@ char* Rip::add_RTE(char* message, struct Route_table_entry entry) {
     memcpy(message, (void *)&rentry, sizeof(rentry));
     tempmessage += sizeof(rentry);
     return tempmessage;
+}
+
+void Rip::add_route_table_entry(Rip_entry entry, int nextHop) {
+    Route_table_entry RTE;
+    RTE.destination = entry.address;
+    RTE.metric = entry.metric;
+    RTE.nexthop = nextHop;
+    RTE.timeout_tmr = steady_clock::now();
+    RTE.route_changed = 1;
+    RTE.marked_as_garbage = 0;
+    routingTable.push_back(RTE);
+    printf("New route to %i via %i has been added...", RTE.destination, RTE.nexthop);
+    // todo signal to trigger an update
 }
 
 Rip_packet Rip::deserialize_rip_message(char* message, int bytes_received) {
@@ -247,7 +259,7 @@ void Rip::handle_garbage_collection(Route_table_entry entry) {
     for (it = routingTable.begin(); it != routingTable.end(); ++it) {
         if (entry.destination == (*it).destination && entry.marked_as_garbage == 1) {
             routingTable.erase(it);
-            printf("Stale route to %i via %i has been pruned...", entry.destination, entry.nexthop);
+            printf("Stale route to %i via %i has been pruned...\n", entry.destination, entry.nexthop);
         }
     }
 }
@@ -257,7 +269,7 @@ void Rip::handle_timeout_expiry(Route_table_entry entry) {
     entry.marked_as_garbage = 1;
     entry.route_changed = 1;
     entry.metric = INFINITY;
-    printf("Route to %i via %i has gone stale and been marked as garbage...", entry.destination, entry.nexthop);
+    printf("Route to %i via %i has gone stale and been marked as garbage...\n", entry.destination, entry.nexthop);
 }
 
 void Rip::print_header(struct Rip_header header) {
@@ -271,7 +283,7 @@ void Rip::print_entry(struct Rip_entry entry) {
     printf("\n[ RIP Route Entry ]\n");
     printf("| afi: %hi ", entry.afi);
     printf("| tag: %hi |\n", entry.tag);
-    printf("| ipaddress: %i    |\n", entry.ipaddress);
+    printf("| address: %i    |\n", entry.address);
     printf("| subnetmask: %i   |\n", entry.subnetmask);
     printf("| nextHop: %i      |\n", entry.nextHop);
     printf("| metric: %i       |\n", entry.metric);
@@ -283,16 +295,16 @@ Route_table_entry Rip::get_entry(short routerID) throw() {
             return route;
         }
     }
-    throw;
+    throw(0);
 }
 
-int Rip::get_cost(int routerID) throw(){
+int Rip::get_cost(int routerID) throw() {
     for (OutputInterface iface : interfaces) {
         if (routerID == iface.id) {
             return iface.metric;
         }
     }
-    throw;
+    throw(0);
 }
 
 bool Rip::nextHopIsRouter(Route_table_entry entry, OutputInterface output) {
@@ -307,15 +319,28 @@ void Rip::processPacket(Packet *packet) {
     if (validate_packet(*packet)) {
         for (Entry entry: packet->entries) {
             entry.metric = std::min(entry.metric + get_cost(packet->header.routerID), INFINITY);
-            read_entry(entry);
+            read_entry(entry, packet->header.routerID);
         }
     } else {
         std::cout << "Invalid packet. Dropped." << std::endl;
     }
 }
 
-void Rip::read_entry(Rip_entry entry) {
-
+void Rip::read_entry(Rip_entry entry, int originating_address) {
+    try {
+        Route_table_entry RTE = get_entry(entry.address);
+        /**
+         *
+         *
+         * //todo: this entire code block
+         *
+         *
+         */
+    } catch (int e) {
+        if (entry.metric < INFINITY) {
+            add_route_table_entry(entry, originating_address);
+        }
+    }
 }
 
 
