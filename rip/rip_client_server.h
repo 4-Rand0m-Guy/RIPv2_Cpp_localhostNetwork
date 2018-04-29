@@ -97,7 +97,10 @@ namespace rip_client_server {
              */
             std::string  get_addr() const;
 
-            /**
+            int send(const char *msg, size_t size);
+
+
+        /**
              *  Received a data if there is data to receive.
              *
              *  NOTE: The server is NON-BLOCKING meaning it will check for data and
