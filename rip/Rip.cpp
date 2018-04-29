@@ -35,10 +35,12 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     fd_set sock_set;
     struct timeval timeout{};
     bool run = true;
+    auto outer_timer = std::chrono::steady_clock::now();
     while(run) {
-        timeout.tv_sec = timer;
-        timeout.tv_usec = 0;
-
+        timeout.tv_sec = 0;
+        timeout.tv_usec = 5000000;
+        auto time_elapsed = duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
+                                                                     outer_timer).count();
         FD_ZERO(&sock_set);
         for (Server* server: servers) {
             FD_SET(server->get_socket(), &sock_set);
@@ -50,19 +52,24 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
         if ((activity < 0) && (errno != EINTR)) {
             perror("Select error");
             run = false;
-        } else if (activity == 0){
+        } else if (activity == 0){          //timeout for select, no updates received
             //todo refine
-            for (int i = 0; i < clients.size(); i++ ) {
-                size_t size = (routingTable.size() * RTE_SIZE) + HEADER_SIZE; //exclude route to neighbor router
-                char message[size];
-                generate_response(message, static_cast<int>(size));
-                /*std::cout << "Printing client sockets" << std::endl;
-                for (Client* client: clients) {
-                    std::cout << client->get_socket() << std::endl;
-                }*/
-                send_message(i, message, size);
+            time_elapsed = duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
+                                                                         outer_timer).count();
+            if (time_elapsed > intervals.base * 1000) {
+                std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
+                for (int i = 0; i < clients.size(); i++) {
+                    size_t size = (routingTable.size() * RTE_SIZE) + HEADER_SIZE; //exclude route to neighbor router
+                    char message[size];
+                    generate_response(message, static_cast<int>(size));
+                    send_message(i, message, size);
+                }
+                std::cout << "Updated" << std::endl;
+                outer_timer = std::chrono::steady_clock::now();
             }
         } else {
+            time_elapsed = duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
+                                                                         outer_timer).count();
             //todo refine and implement RIP
             for (Server* server: servers) {
                 if (FD_ISSET(server->get_socket(), &sock_set)) {
@@ -72,6 +79,18 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
                         Packet packet = deserialize_rip_message(received, bytes_received);
                     }
                 }
+            }
+            if (time_elapsed > intervals.base * 1000) {
+                std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
+                for (int i = 0; i < clients.size(); i++ ) {
+                    size_t size = (routingTable.size() * RTE_SIZE) + HEADER_SIZE; //exclude route to neighbor router
+                    char message[size];
+                    generate_response(message, static_cast<int>(size));
+                    send_message(i, message, size);
+                }
+                std::cout << "Updated" << std::endl;
+                outer_timer = std::chrono::steady_clock::now();
+
             }
 
         }
@@ -146,14 +165,13 @@ void Rip::initializeTable() {
 
 /* SENDS A SINGLE MESSAGE TO A UDP SOCKET */
 void Rip::send_message(int fd, char* message, size_t size) {
-    std::cout << "reached send function" << std::endl;
     Client* client = clients.at(static_cast<unsigned long>(fd));
     int bytes_sent = client->send(message, size);
     if (bytes_sent < 0) {
         fprintf(stderr, "socket(%i) failed: %s\n", fd, strerror(errno));
-    } else {
+    } /*else {
         printf("%i bytes sent...\n", bytes_sent); // todo: get router id by fd
-    }
+    }*/
 }
 
 char* Rip::generate_response(char* message, int size, bool isTriggered) {
@@ -205,12 +223,12 @@ Rip_packet Rip::deserialize_rip_message(char* message, int bytes_received) {
     packet.header = *(Header*) message;
     message += HEADER_SIZE;
     int entry_size = RTE_SIZE;
-    print_header(packet.header);
+    //print_header(packet.header);
     for (int current_byte = HEADER_SIZE; current_byte < bytes_received; current_byte+=RTE_SIZE) {
         Rip_entry rte = *(Rip_entry*) message;
         message += entry_size;
         packet.entries.push_back(rte);
-        print_entry(rte);
+        //print_entry(rte);
     }
     return packet;
 }
