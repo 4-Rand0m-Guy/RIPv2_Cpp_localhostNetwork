@@ -26,6 +26,10 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     timer = _timer;
     init();
     std::cout << "Running daemon ID: " << routerID << std::endl;
+    /*std::cout << "Clients are:" << std::endl;
+    for (Client* client: clients) {
+        std::cout << client->get_socket() << std::endl;
+    }*/
     /*
      *
      * REST OF THIS FUNCTION IS TEST AND SHOULD BE DELETED OR REFACTORED INTO OTHER METHODS
@@ -54,13 +58,14 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
         } else if (activity == 0){
             //todo refine
             for (int i = 0; i < clients.size(); i++ ) {
-                size_t size = ((routingTable.size() - 1) * RTE_SIZE) + HEADER_SIZE;
+                std::cout << clients.size() << std::endl;
+                size_t size = (routingTable.size() * RTE_SIZE) + HEADER_SIZE; //exclude route to neighbor router
                 char message[size];
                 generate_response(message, static_cast<int>(size));
-                std::cout << "Printing client sockets" << std::endl;
+                /*std::cout << "Printing client sockets" << std::endl;
                 for (Client* client: clients) {
                     std::cout << client->get_socket() << std::endl;
-                }
+                }*/
                 send_message(i, message, size);
             }
         } else {
@@ -156,18 +161,18 @@ char* Rip::generate_response(char* message, int size, bool isTriggered) {
     char* p_message = message;
     p_message = add_header(p_message);
     for (Route_table_entry entry : routingTable) {
+        Route_table_entry temp = entry;
+        bool is_dest = false;
+        bool is_next_hop = false;
         for (OutputInterface out: outputs) {
             if (nextHopIsRouter(entry, out)) {              //The metric for neighbour needs to be 16 in this case
-                if (entry.destination != entry.nexthop) {   //Neighbor knows this router is accessible when it
-                    // receives packet, no need to include direct link
-                    struct Route_table_entry temp = entry;
-                    temp.metric = 16;
-                    p_message = add_RTE(p_message, temp);
-                }
-            } else {
-                p_message = add_RTE(p_message, entry);
+                is_next_hop = true;
             }
         }
+        if (is_next_hop) {
+            entry.metric = 16;
+        }
+        p_message = add_RTE(p_message, temp);
     }
 }
 
