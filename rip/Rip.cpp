@@ -116,7 +116,7 @@ void Rip::initializeServers() {
         try {
             Server *server = new Server(HOST, *it);
             servers.push_back(server);
-        } catch (Rip_error e) {
+        } catch (Rip_error &e) {
             it = input_ports.erase(it);
             perror(e.what());
         }
@@ -129,7 +129,7 @@ void Rip::initializeClients() {
         try {
             Client *client = new Client(HOST, *it);
             clients.push_back(client);
-        } catch (Rip_error e) {
+        } catch (Rip_error &e) {
             it = output_ports.erase(it);
             perror(e.what());
         }
@@ -164,7 +164,6 @@ char* Rip::generate_response(char* message, int size, bool isTriggered) {
     p_message = add_header(p_message);
     for (Route_table_entry entry : routingTable) {
         struct Route_table_entry temp{};
-        bool is_dest = false;
         bool is_next_hop = false;
         for (OutputInterface out: interfaces) {
             if (nextHopIsRouter(entry, out)) {              //The metric for neighbour needs to be 16 in this case
@@ -180,17 +179,17 @@ char* Rip::generate_response(char* message, int size, bool isTriggered) {
 }
 
 char* Rip::add_header(char* message) {
-    Rip_header header;
+    Rip_header header{};
     header.command = '2'; // REQUEST unsupported
     header.version = RIP_VERSION;
-    header.routerID = routerID;
+    header.routerID = static_cast<short>(routerID);
     memcpy(message, (void *)&header, sizeof(header));
     message += sizeof(header);
     return message;
 }
 
 char* Rip::add_rip_entry(char *message, struct Route_table_entry entry) {
-    Rip_entry rentry;
+    Rip_entry rentry{};
     rentry.afi = 0;
     rentry.tag = 0;
     rentry.address = entry.destination;
@@ -289,22 +288,22 @@ void Rip::print_entry(struct Rip_entry entry) {
     printf("| metric: %i       |\n", entry.metric);
 }
 
-Route_table_entry Rip::get_entry(short routerID) throw() {
+Route_table_entry Rip::get_entry(short routerID) noexcept {
     for (auto route : routingTable) {
         if (routerID == route.destination) {
             return route;
         }
     }
-    throw(0);
+    throw;
 }
 
-int Rip::get_cost(int routerID) throw() {
+int Rip::get_cost(int routerID) noexcept {
     for (OutputInterface iface : interfaces) {
         if (routerID == iface.id) {
             return iface.metric;
         }
     }
-    throw(0);
+    throw;
 }
 
 bool Rip::nextHopIsRouter(Route_table_entry entry, OutputInterface output) {
@@ -328,7 +327,7 @@ void Rip::processPacket(Packet *packet) {
 
 void Rip::read_entry(Rip_entry entry, int originating_address) {
     try {
-        Route_table_entry RTE = get_entry(entry.address);
+        Route_table_entry RTE = get_entry(static_cast<short>(entry.address));
         /**
          *
          *
