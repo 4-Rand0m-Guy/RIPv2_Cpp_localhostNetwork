@@ -5,13 +5,24 @@
 #define RIP_VERSION '2'
 #define HEADER_SIZE 4
 #define RTE_SIZE 20
+#define INFINITY 16;
 
 #include <map>
 #include <vector>
+#include <chrono>
 #include "../config/OutputInterface.h"
 #include "rip_client_server.h"
 
+
+
 typedef char byte;
+
+typedef std::chrono::seconds seconds;
+typedef std::chrono::steady_clock::time_point time_point;
+using std::chrono::steady_clock;
+using std::chrono::duration;
+using std::chrono::duration_cast;
+
 
 typedef struct Rip_header {
     /**
@@ -50,10 +61,24 @@ typedef struct Route_table_entry {
     int destination;
     int metric;
     int nexthop;
-    byte routechanged;		/*route change flag */
-    void *timeout_tmr;
-    void *garbage_tmr;
+
+    time_point timeout_tmr;
+    time_point garbage_tmr;
+
+    byte route_changed;		/*route change flag */
+    byte marked_as_garbage; /* Marked as garbage flag */
 } RTE;
+
+typedef struct Timer_Intervals {
+    int base;
+    int timeout;
+    int garbage_collection;
+};
+
+typedef struct Timers {
+    time_point update;
+    time_point check;
+};
 
 class Rip {
     public:
@@ -82,44 +107,15 @@ class Rip {
         void processResponse(Rip_packet packet);
 
 private:
-        unsigned routerID;
-        std::vector<unsigned> input_ports;
-        std::vector<OutputInterface> outputs;
-        unsigned timer;
+    unsigned routerID;
+    std::vector<unsigned> input_ports;
+    std::vector<OutputInterface> outputs;
+    struct Timer_Intervals intervals;
 //////////////////////////////////////////////
     std::vector<Route_table_entry> routingTable;
     std::vector<rip_client_server::rip_server*> servers;
     std::vector<rip_client_server::rip_client*> clients;
     std::vector<int> output_ports;
-
-
-    /**
-     * Initialize. Loads configuration settings, initalizes instance variables,
-     * client and server sockets, and starts up the RIP daemon (todo)
-     */
-    void init();
-
-    /**
-     * Initialize sockets for the receiving of UDP packets. Available servers
-     * can be accessed in the private instance variable servers.
-     */
-    void initializeServers();
-
-    /**
-     * Initialize sockets for the sending of UDP packets. Available clients
-     * can be accessed in the private instance variable clients.
-     */
-    void initializeClients();
-
-    /**
-     * Use this method on messages received from a socket on the network.
-     * This converts a message of byte data to an Rip_packet.
-     *
-     * @param message - raw data straight off the socket
-     * @param size - number of bytes received from socket.
-     * @return struct Rip_packet
-     */
-    Rip_packet deserialize_rip_message(char *message, int size);
 
     /**
      * Adds a header to a yet so far empty message.
@@ -139,6 +135,57 @@ private:
      */
     char* add_RTE(char *message, struct Route_table_entry entry);
 
+    /**
+     * Checks if update, timeout, or garbage collection timer
+     * have timed out and takes action accordingly (e.g removing a
+     * stale route entry if the garbage collection timer has expired).
+     */
+    void check_timers();
+
+    /**
+     * Initialize. Loads configuration settings, initalizes instance variables,
+     * client and server sockets, and starts up the RIP daemon (todo)
+     */
+    void init(unsigned timer);
+
+    /**
+     * Initialize sockets for the receiving of UDP packets. Available servers
+     * can be accessed in the private instance variable servers.
+     */
+    void initializeServers();
+
+    /**
+     * Initialize sockets for the sending of UDP packets. Available clients
+     * can be accessed in the private instance variable clients.
+     */
+    void initializeClients();
+
+    void initializeTimeout();
+
+    /**
+     * Use this method on messages received from a socket on the network.
+     * This converts a message of byte data to an Rip_packet.
+     *
+     * @param message - raw data straight off the socket
+     * @param size - number of bytes received from socket.
+     * @return struct Rip_packet
+     */
+    Rip_packet deserialize_rip_message(char *message, int size);
+
+    /**
+     * Removes stale route table entries (RTE) whose garbage collection
+     * timers have expired.
+     *
+     * @param entry - RTE poised for removal
+     */
+    void handle_garbage_collection(Route_table_entry entry);
+
+    /**
+     * Marks entry as stale and initializes garbage collection timer.
+     *
+     * @param entry
+     */
+    void handle_timeout_expiry(Route_table_entry entry);
     /**
      * Prints rip entry to console.
      *

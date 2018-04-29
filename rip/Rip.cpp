@@ -3,7 +3,6 @@
 #include <netinet/in.h>
 #include <cstring>
 #include <sstream>
-#include <chrono>
 #include <arpa/inet.h>
 #include <cstdlib>
 #include <sys/select.h>
@@ -19,43 +18,37 @@ using Client = rip_client_server::rip_client;
 using Rip_error = rip_client_server::rip_client_server_runtime_error;
 
 Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<OutputInterface> _outputs,
-         unsigned _timer /* = 30 */) {
+         unsigned timer /* = 30 */) {
 
     routerID = _routerID;
     input_ports = _input_ports;
     outputs = _outputs;
-    timer = _timer;
-    init();
-
+    timer = 1;
+    init(timer);
     /*
      *
      * REST OF THIS FUNCTION IS TEST AND SHOULD BE DELETED OR REFACTORED INTO OTHER METHODS
      * */
 
-    char received[DGRAM_SIZE];
-    Server *server1 = servers.at(0);
-    Client* client = clients.at(0);
-    clock_t begin_time = std::clock();
-    while(1) {
-        size_t size = (routingTable.size() * RTE_SIZE) + HEADER_SIZE;
-        char message[size];
-        int bytes_recv = server1->recv(received, DGRAM_SIZE);
-        if (bytes_recv > 0) {
-            std::cout << "bytes recv: " << bytes_recv << std::endl;
-            Packet packet = deserialize_rip_message(received, bytes_recv);
-        }
 
-        if ((float( std::clock() - begin_time ) /  CLOCKS_PER_SEC) > 5.0) {
-            std::cout << "sending: "<< std::endl;
-            char message[size];
-            generate_response(message, size);
-            send_message(0, message, size);
-            begin_time = std::clock();
-        };
+    Route_table_entry e;
+    e.destination = 4;
+    e.timeout_tmr = steady_clock::now();
+    e.route_changed = 0;
+    e.marked_as_garbage = 0;
+
+    while(1) {
+        check_timers();
     }
 }
 
-void Rip::init() {
+void Rip::init(unsigned basetimer) {
+
+    intervals.base = basetimer;
+    intervals.timeout= basetimer * 4;
+    intervals.garbage_collection = basetimer * 6;
+
+
     for (auto o: outputs) {
         output_ports.push_back(o.port_number);
     }
@@ -97,7 +90,7 @@ void Rip::initializeTable() {
         entry.destination = out.id;
         entry.metric = out.metric;
         entry.nexthop = out.id;
-        entry.routechanged = 0;
+        entry.route_changed = 0;
         routingTable.push_back(entry);
     }
 }
@@ -115,7 +108,6 @@ void Rip::send_message(int fd, char* message, size_t size) {
 
 
 char* Rip::generate_response(char* message, int size, bool isTriggered) {
-    // todo implement isTrigger functionality i.e. routesChanged
     char* p_message = message;
     p_message = add_header(p_message);
     for (Route_table_entry entry : routingTable) {
@@ -123,7 +115,7 @@ char* Rip::generate_response(char* message, int size, bool isTriggered) {
     }
 }
 
-char* Rip::add_header(char *message) {
+char* Rip::add_header(char* message) {
     Rip_header header;
     header.command = '2'; // REQUEST unsupported
     header.version = RIP_VERSION;
@@ -133,7 +125,7 @@ char* Rip::add_header(char *message) {
     return message;
 }
 
-char* Rip::add_RTE(char *message, struct Route_table_entry entry) {
+char* Rip::add_RTE(char* message, struct Route_table_entry entry) {
     Rip_entry rentry;
     rentry.afi = 0;
     rentry.tag = 0;
@@ -147,7 +139,7 @@ char* Rip::add_RTE(char *message, struct Route_table_entry entry) {
     return tempmessage;
 }
 
-Rip_packet Rip::deserialize_rip_message(char *message, int bytes_received) {
+Rip_packet Rip::deserialize_rip_message(char* message, int bytes_received) {
     Packet packet;
     packet.header = *(Header*) message;
     message += HEADER_SIZE;
@@ -160,6 +152,47 @@ Rip_packet Rip::deserialize_rip_message(char *message, int bytes_received) {
         print_entry(rte);
     }
     return packet;
+}
+
+void Rip::check_timers() {
+    time_point current_time = steady_clock::now();
+    for (Route_table_entry entry : routingTable) {
+        long long time_elapsed;
+        if (entry.destination == routerID) {
+            continue;
+        }
+        if (entry.marked_as_garbage != 1) {
+            time_elapsed = duration_cast<seconds>(current_time - entry.timeout_tmr).count();
+            std::cout << "timeout elapse: " <<  time_elapsed << std::endl;
+            if (time_elapsed > intervals.timeout) {
+                handle_timeout_expiry(entry);
+            }
+        } else {
+            time_elapsed = duration_cast<seconds>(current_time - entry.garbage_tmr).count();
+            std::cout << "garbage elapse: " <<  time_elapsed << std::endl;
+            if (time_elapsed > intervals.garbage_collection) {
+                handle_garbage_collection(entry);
+            }
+        }
+    }
+}
+
+void Rip::handle_garbage_collection(Route_table_entry entry) {
+    std::vector<Route_table_entry>::iterator it;
+    for (it = routingTable.begin(); it != routingTable.end(); ++it) {
+        if (entry.destination == (*it).destination && entry.marked_as_garbage == 1) {
+            routingTable.erase(it);
+            printf("Stale route to %i via %i has been pruned...", entry.destination, entry.nexthop);
+        }
+    }
+}
+
+void Rip::handle_timeout_expiry(Route_table_entry entry) {
+    entry.garbage_tmr = steady_clock::now();
+    entry.marked_as_garbage = 1;
+    entry.route_changed = 1;
+    entry.metric = INFINITY;
+    printf("Route to %i via %i has gone stale and been marked as garbage...", entry.destination, entry.nexthop);
 }
 
 void Rip::print_header(struct Rip_header header) {
