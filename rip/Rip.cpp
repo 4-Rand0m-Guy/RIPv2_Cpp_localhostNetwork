@@ -53,14 +53,23 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
             perror("Select error");
             run = false;
         } else if (activity == 0){
-            //todo timout occured
-            std::cout << "Timed out" << std::endl;
-            for (Client* client: clients) {
+            //todo refine
+            for (int i = 0; i < clients.size(); i++ ) {
                 generate_response(message, static_cast<int>(size));
-                send_message(client->get_port(), message, size);
+                send_message(i, message, size);
             }
         } else {
-            std::cout << "receive something" << std::endl;
+            //todo refine and implement RIP
+            for (Server* server: servers) {
+                if (FD_ISSET(server->get_socket(), &sock_set)) {
+                    int bytes_received = server->recv(received, DGRAM_SIZE);
+                    if (bytes_received > 0) {
+                        std::cout << "bytes recv: " << bytes_received << std::endl;
+                        Packet packet = deserialize_rip_message(received, bytes_received);
+                    }
+                }
+            }
+
         }
         /*int bytes_recv = server1->recv(received, DGRAM_SIZE);
         if (bytes_recv > 0) {
@@ -127,7 +136,7 @@ void Rip::initializeTable() {
 
 /* SENDS A SINGLE MESSAGE TO A UDP SOCKET */
 void Rip::send_message(int fd, char* message, size_t size) {
-    Client* client = clients.at(fd);
+    Client* client = clients.at(static_cast<unsigned long>(fd));
     int bytes_sent = client->send(message, size);
     if (bytes_sent < 0) {
         fprintf(stderr, "socket(%i) failed: %s\n", fd, strerror(errno));
