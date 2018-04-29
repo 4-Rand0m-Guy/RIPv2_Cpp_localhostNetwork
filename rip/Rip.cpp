@@ -54,9 +54,13 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
         } else if (activity == 0){
             //todo refine
             for (int i = 0; i < clients.size(); i++ ) {
-                size_t size = (routingTable.size() * RTE_SIZE) + HEADER_SIZE;
+                size_t size = ((routingTable.size() - 1) * RTE_SIZE) + HEADER_SIZE;
                 char message[size];
                 generate_response(message, static_cast<int>(size));
+                std::cout << "Printing client sockets" << std::endl;
+                for (Client* client: clients) {
+                    std::cout << client->get_socket() << std::endl;
+                }
                 send_message(i, message, size);
             }
         } else {
@@ -137,6 +141,7 @@ void Rip::initializeTable() {
 
 /* SENDS A SINGLE MESSAGE TO A UDP SOCKET */
 void Rip::send_message(int fd, char* message, size_t size) {
+    std::cout << "reached send function" << std::endl;
     Client* client = clients.at(static_cast<unsigned long>(fd));
     int bytes_sent = client->send(message, size);
     if (bytes_sent < 0) {
@@ -145,7 +150,6 @@ void Rip::send_message(int fd, char* message, size_t size) {
         printf("%i bytes sent...\n", bytes_sent); // todo: get router id by fd
     }
 }
-
 
 char* Rip::generate_response(char* message, int size, bool isTriggered) {
     // todo implement isTrigger functionality i.e. routesChanged , implement split horizon with poisson reverse
@@ -164,7 +168,6 @@ char* Rip::generate_response(char* message, int size, bool isTriggered) {
                 p_message = add_RTE(p_message, entry);
             }
         }
-
     }
 }
 
@@ -250,6 +253,16 @@ bool Rip::nextHopIsRouter(Route_table_entry entry, OutputInterface output) {
     value = true;
     }
     return value;
+}
+
+void Rip::processPacket(Rip_packet *packet) {
+    for (Entry packet_entry: packet->entries) {
+        for (Route_table_entry entry: routingTable) {
+            if (packet_entry.ipaddress == entry.destination) {
+
+            }
+        }
+    }
 }
 
 

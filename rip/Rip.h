@@ -165,11 +165,6 @@ private:
      */
     char* generate_response(char* msg, int size, bool isTriggered=false);
 
-    /**
-    * Function sets up the input sockets
-    */
-    std::vector<unsigned int> initializeInputPorts();
-
 
     /**
     * Function sends update to neighboring routers once time limit is reached.
@@ -184,13 +179,6 @@ private:
     void initializeTable();
 
 
-
-    /**
-     * Function receives message at the provided port and processes it
-     * @param fd: File descriptor for the socket receiving data
-     */
-    unsigned char * receive(unsigned int fd);
-
     /**
      * Function checks if the next hop to a destination is the router about to be messaged. This for the
      * split-horizon with poison-reverse implementation
@@ -200,6 +188,12 @@ private:
      */
     bool nextHopIsRouter(Route_table_entry entry, OutputInterface output);
 
+    /**
+     * Function goes through the received packet, checks what routes it contains, updates the daemons table as
+     * necessary.
+     * @param packet
+     */
+    void processPacket(Rip_packet* packet);
 
     /**
      * Get the cost from host to neighbor.

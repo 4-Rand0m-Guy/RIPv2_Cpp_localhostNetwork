@@ -17,8 +17,6 @@ int main(int argc, char **argv) {
     ConfigImporter configImporter = ConfigImporter(filename);
     Configuration cfg = configImporter.get_configuration();
     Rip daemon = Rip(cfg.routerID, cfg.input_ports, cfg.outputs, cfg.timer);
-//    daemon.run();
-//    std::cout << "Crashing..." << std::endl;
-
+    std::cout << "THE DAEMON HAS CRASHED!!" << std::endl;
     return 0;
 }
