@@ -27,7 +27,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     char received[DGRAM_SIZE];
     int max_fd = servers.at(0)->get_socket();
     fd_set sock_set;
-    auto outer_timer = std::chrono::steady_clock::now();
+    auto outer_timer = steady_clock::now();
     long time_elapsed;
     bool run = true;
     std::random_device rd; // obtain a random number from hardware
@@ -59,8 +59,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
                 //print_routing_table();
             }
         } else {                            //received a packet
-            time_elapsed = duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
-                                                                         outer_timer).count();
+            time_elapsed = duration_cast<milliseconds>(steady_clock::now() - outer_timer).count();
             //todo refine and implement RIP
             for (Server* server: servers) {
                 if (FD_ISSET(server->get_socket(), &sock_set)) {
@@ -85,39 +84,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     }
 }
 
-void Rip::read_entry(Rip_entry rip_route, int originating_address) {
-    try {
-        int RTE = get_entry(static_cast<short>(rip_route.address));
-        if (routing_table[RTE].metric != INFINITY) {
-            if (routing_table[RTE].nexthop == originating_address) { // re-set_up timeout_tmr
-                if (routing_table[RTE].metric != rip_route.metric) { // same route different metric
-                    if (rip_route.metric >= INFINITY) {
 
-                        start_deletion_process(RTE); // route has been deleted abroad
-                    } else {
-                        update_route(RTE, rip_route); // same route better or worse metric
-                    }
-                } else {
-                    routing_table[RTE].timeout_tmr = steady_clock::now(); // SAME EVERYTHING
-                }
-            } else {
-                if (routing_table[RTE].metric > rip_route.metric) {
-                    update_route(RTE, rip_route); // different route better metric
-                } else if (routing_table[RTE].metric == rip_route.metric) {
-                    // optional functionality
-                }
-            }
-        } else {
-            if (rip_route.metric != INFINITY) { // ROUTE HAS BEEN REVIVED
-                update_route(RTE, rip_route);
-            }
-        }
-    } catch (int i) { // BRAND NEW ROUTE
-        if (rip_route.metric < INFINITY && originating_address != routerID) {
-            add_new_route(rip_route, originating_address);
-        }
-    }
-}
 
 char* Rip::add_header(char* message) {
     Rip_header header{};
@@ -129,11 +96,11 @@ char* Rip::add_header(char* message) {
     return message;
 }
 
-void Rip::add_new_route(Rip_entry entry, int nextHop) {
-    Route_table_entry RTE;https://www.messenger.com/t/mahmah.timoteo
+void Rip::add_new_route(Rip_entry entry, int originating_address) {
+    Route_table_entry RTE;
     RTE.destination = entry.address;
     RTE.metric = entry.metric;
-    RTE.nexthop = nextHop;
+    RTE.nexthop = originating_address;
     RTE.timeout_tmr = steady_clock::now();
     RTE.marked_as_garbage = 0;
     RTE.route_changed = 0;
@@ -369,6 +336,40 @@ void Rip::process_response(Packet *packet) {
     }
 }
 
+void Rip::read_entry(Rip_entry rip_route, int originating_address) {
+    try {
+        int RTE = get_entry(static_cast<short>(rip_route.address));
+        if (routing_table[RTE].metric != INFINITY) {
+            if (routing_table[RTE].nexthop == originating_address) { // re-set_up timeout_tmr
+                if (routing_table[RTE].metric != rip_route.metric) { // same route different metric
+                    if (rip_route.metric >= INFINITY) {
+                        update_route(RTE, originating_address, rip_route.metric);
+                        start_deletion_process(RTE); // route has been deleted abroad
+                    } else {
+                        update_route(RTE, originating_address, rip_route.metric); // same route better or worse metric
+                    }
+                } else {
+                    routing_table[RTE].timeout_tmr = steady_clock::now(); // SAME EVERYTHING
+                }
+            } else {
+                if (routing_table[RTE].metric > rip_route.metric) {
+                    update_route(RTE, originating_address, rip_route.metric); // different route better metric
+                } else if (routing_table[RTE].metric == rip_route.metric) {
+                    // optional functionality
+                }
+            }
+        } else {
+            if (rip_route.metric != INFINITY) { // ROUTE HAS BEEN REVIVED
+                update_route(RTE, originating_address, rip_route.metric);
+            }
+        }
+    } catch (int i) { // BRAND NEW ROUTE
+        if (rip_route.metric < INFINITY) {
+            add_new_route(rip_route, originating_address);
+        }
+    }
+}
+
 /* SENDS A SINGLE MESSAGE TO A UDP SOCKET */
 void Rip::send_message(int fd, char* message, size_t size) {
     Client* client = clients.at(static_cast<unsigned long>(fd));
@@ -413,13 +414,11 @@ void Rip::start_deletion_process(int index_of_entry) {
             .destination, routing_table[index_of_entry].nexthop);
 }
 
-void Rip::update_route(int table_entry_index, Rip_entry rip_entry) {
+void Rip::update_route(int table_entry_index, int originating_address, int metric) {
+    routing_table[table_entry_index].nexthop = originating_address;
+    routing_table[table_entry_index].metric = metric;
     routing_table[table_entry_index].marked_as_garbage = 0;
     routing_table[table_entry_index].route_changed = 0;
-    routing_table[table_entry_index].nexthop = rip_entry.nextHop;
-    routing_table[table_entry_index].timeout_tmr = steady_clock::now();
-    routing_table[table_entry_index].metric = rip_entry.metric;
-    routing_table[table_entry_index].nexthop = rip_entry.nextHop;
     routing_table[table_entry_index].timeout_tmr = steady_clock::now();
     routing_table[table_entry_index].garbage_tmr = {};
     printf("Route to %i via %i has been updated...\n", routing_table[table_entry_index].destination,
@@ -427,8 +426,9 @@ void Rip::update_route(int table_entry_index, Rip_entry rip_entry) {
     };
 
 bool Rip::validate_packet(Packet packet) {
+    int originating_address = packet.header.routerID;
     for (auto ifaces : interfaces) {
-        if (packet.header.routerID == ifaces.id) {
+        if (originating_address == ifaces.id && originating_address != routerID) {
             return true;
         }
     }
