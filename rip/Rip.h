@@ -60,10 +60,8 @@ typedef struct Route_table_entry {
     int destination{};
     int metric{};
     int nexthop{};
-
     time_point timeout_tmr;
     time_point garbage_tmr;
-
     byte route_changed{};       /*route change flag */
     byte marked_as_garbage{};   /* Marked as garbage flag */
 } RTE;

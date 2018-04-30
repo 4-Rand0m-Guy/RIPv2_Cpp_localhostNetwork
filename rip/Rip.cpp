@@ -24,6 +24,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
 }
 
 void Rip::run() {
+    bool trigger = false;
     char received[DGRAM_SIZE];
     int max_fd = servers.at(0)->get_socket();
     fd_set sock_set;
@@ -51,17 +52,18 @@ void Rip::run() {
         } else if (activity == 0) {
 
         } else {
-            for (Server *server: servers) {
-                if (FD_ISSET(server->get_socket(), &sock_set)) {
-                    int bytes_received = server->recv(received, DGRAM_SIZE);
-                    if (bytes_received > 0) {
-                        std::cout << "bytes recv: " << bytes_received << std::endl;
-                        Packet packet = deserialize_rip_message(received, bytes_received);
-                        process_response(&packet);
-                        std::cout << "received update" << std::endl;
-                    }
+        for (Server *server: servers) {
+            if (FD_ISSET(server->get_socket(), &sock_set)) {
+                int bytes_received = server->recv(received, DGRAM_SIZE);
+                if (bytes_received > 0) {
+                    std::cout << "bytes recv: " << bytes_received << std::endl;
+                    Packet packet = deserialize_rip_message(received, bytes_received);
+                    process_response(&packet);
+                    std::cout << "received update" << std::endl;
+                    check_timers();
                 }
             }
+        }
         }
         time_elapsed = duration_cast<milliseconds>(steady_clock::now() - outer_timer).count();
         if (time_elapsed >= distr(eng)) {
@@ -78,7 +80,7 @@ char* Rip::add_header(char* message) {
     header.command = '2'; // REQUEST unsupported
     header.version = RIP_VERSION;
     header.routerID = static_cast<short>(routerID);
-    memcpy(message, (void *)&header, sizeof(header));
+    memcpy(message, (void *) &header, sizeof(header));
     message += sizeof(header);
     return message;
 }
@@ -95,7 +97,7 @@ void Rip::add_new_route(Rip_entry entry, int originating_address) {
     printf("New route to %i via %i has been added...", RTE.destination, RTE.nexthop);
 }
 
-char* Rip::add_rip_entry(char *message, struct Route_table_entry entry) {
+char *Rip::add_rip_entry(char *message, struct Route_table_entry entry) {
     Rip_entry rentry{};
     rentry.afi = 0;
     rentry.tag = 0;
@@ -103,15 +105,15 @@ char* Rip::add_rip_entry(char *message, struct Route_table_entry entry) {
     rentry.subnetmask = 0;
     rentry.nextHop = entry.nexthop;
     rentry.metric = entry.metric;
-    char* tempmessage = message;
-    memcpy(message, (void *)&rentry, sizeof(rentry));
+    char *tempmessage = message;
+    memcpy(message, (void *) &rentry, sizeof(rentry));
     tempmessage += sizeof(rentry);
     return tempmessage;
 }
 
 void Rip::check_timers() {
     time_point current_time = steady_clock::now();
-    for (int i = 0; i< routing_table.size(); i++) {
+    for (int i = 0; i < routing_table.size(); i++) {
         long long time_elapsed;
         if (routing_table[i].destination == routerID) {
             routing_table[i].timeout_tmr = steady_clock::now();
@@ -133,14 +135,14 @@ void Rip::check_timers() {
     }
 }
 
-Rip_packet Rip::deserialize_rip_message(char* message, int bytes_received) {
+Rip_packet Rip::deserialize_rip_message(char *message, int bytes_received) {
     Packet packet;
-    packet.header = *(Header*) message;
+    packet.header = *(Header *) message;
     message += HEADER_SIZE;
     int entry_size = RTE_SIZE;
-    print_header(packet.header);
-    for (int current_byte = HEADER_SIZE; current_byte < bytes_received; current_byte+=RTE_SIZE) {
-        Rip_entry rte = *(Rip_entry*) message;
+    //print_header(packet.header);
+    for (int current_byte = HEADER_SIZE; current_byte < bytes_received; current_byte += RTE_SIZE) {
+        Rip_entry rte = *(Rip_entry *) message;
         message += entry_size;
         packet.entries.push_back(rte);
         //print_entry(rte);
@@ -148,31 +150,25 @@ Rip_packet Rip::deserialize_rip_message(char* message, int bytes_received) {
     return packet;
 }
 
-char* Rip::generate_response(char* message, int size, int port_no, bool isTriggered) {
-    char* p_message = message;
+char *Rip::generate_response(char *message, int size, int port_no, bool isTriggered) {
+    char *p_message = message;
     p_message = add_header(p_message);
-    if (!isTriggered) {
-        for (Route_table_entry entry : routing_table) {
-            struct Route_table_entry temp = entry;
-            bool is_next_hop = false;
-            for (OutputInterface out: interfaces) {
-                if (out.port_number == port_no) {
-                    if (is_nextHop_neighbor(entry, out)) { //The metric for neighbour needs to be 16 in this case
-                        is_next_hop = true;
-                    }
+    for (int i = 0; i < routing_table.size(); i++) {
+        struct Route_table_entry temp = routing_table[i];
+        bool is_next_hop = false;
+        for (OutputInterface out: interfaces) {
+            if (out.port_number == port_no) {
+                if (is_nextHop_neighbor(routing_table[i], out)) { //The metric for neighbour needs to be 16 in this case
+                    is_next_hop = true;
                 }
             }
-            if (is_next_hop) {
-                temp.metric = 16;
-            }
-            p_message = add_rip_entry(p_message, temp);
         }
-    } else {
-        for (Route_table_entry entry : routing_table) {
-
+        if (is_next_hop) {
+            temp.metric = 16;
         }
+        routing_table[i].route_changed = byte{};
+        p_message = add_rip_entry(p_message, temp);
     }
-
 }
 
 int Rip::get_entry(short routerID) {
@@ -184,7 +180,7 @@ int Rip::get_entry(short routerID) {
     throw(0);
 }
 
-int Rip::get_cost(int routerID)  {
+int Rip::get_cost(int routerID) {
     for (OutputInterface iface : interfaces) {
         if (routerID == iface.id) {
             return iface.metric;
@@ -248,7 +244,7 @@ void Rip::initialize_table() {
 }
 
 bool Rip::is_nextHop_neighbor(Route_table_entry entry, OutputInterface output) {
-    bool value =false;
+    bool value = false;
     if (entry.nexthop == output.id) {
         value = true;
     }
@@ -287,13 +283,13 @@ void Rip::print_table_entry(Route_table_entry entry) {
     printf("| destination: %i\n", entry.destination);
     printf("| metric: %i\n", entry.metric);
     printf("| nextHop: %i\n", entry.nexthop);
-    time_left = std::max(static_cast<double>(intervals.timeout) - (time_elapsed.count()/ 1000.0), 0.0);
+    time_left = std::max(static_cast<double>(intervals.timeout) - (time_elapsed.count() / 1000.0), 0.0);
     printf("| timeout in %.2lf\n", time_left);
     if (entry.garbage_tmr.time_since_epoch().count() <= 0) {
         printf("| garbage timeout: N/A\n");
     } else {
         time_elapsed = steady_clock::now() - entry.garbage_tmr;
-        time_left = std::max(static_cast<double>(intervals.garbage_collection) - (time_elapsed.count()/ 1000.0), 0.0);
+        time_left = std::max(static_cast<double>(intervals.garbage_collection) - (time_elapsed.count() / 1000.0), 0.0);
         printf("| garbage timeout in:%.2lf\n", time_left);
     }
     if (entry.route_changed == 0) {
@@ -305,8 +301,7 @@ void Rip::print_table_entry(Route_table_entry entry) {
         printf("| marked as garbage: NO\n");
     } else {
         printf("| marked as garbage: YES\n");
-    }
-    ;
+    };
     printf("**************************\n");
 }
 
@@ -358,8 +353,8 @@ void Rip::read_entry(Rip_entry rip_route, int originating_address) {
 }
 
 /* SENDS A SINGLE MESSAGE TO A UDP SOCKET */
-void Rip::send_message(int fd, char* message, size_t size) {
-    Client* client = clients.at(static_cast<unsigned long>(fd));
+void Rip::send_message(int fd, char *message, size_t size) {
+    Client *client = clients.at(static_cast<unsigned long>(fd));
     int bytes_sent = client->send(message, size);
     if (bytes_sent < 0) {
         fprintf(stderr, "socket(%i) failed: %s\n", fd, strerror(errno));
@@ -367,10 +362,10 @@ void Rip::send_message(int fd, char* message, size_t size) {
 }
 
 void Rip::send_update() {
-    for (int i = 0; i < clients.size(); i++ ) {
-        size_t size = (routing_table.size() * RTE_SIZE) + HEADER_SIZE; //exclude route to neighbor router
+    for (int i = 0; i < clients.size(); i++) {
+        size_t size = (routing_table.size() * RTE_SIZE) + HEADER_SIZE;
         char message[size];
-        generate_response(message, static_cast<int>(size), clients[i]->get_port());
+        generate_response(message, static_cast<int>(size), clients[i]->get_port(), true);
         send_message(i, message, size);
     }
 }
@@ -378,7 +373,7 @@ void Rip::send_update() {
 void Rip::set_up(unsigned basetimer) {
 
     intervals.base = basetimer;
-    intervals.timeout= basetimer * 4;
+    intervals.timeout = basetimer * 4;
     intervals.garbage_collection = basetimer * 6;
 
     for (auto o: interfaces) {
@@ -412,7 +407,7 @@ void Rip::update_route(int table_entry_index, int originating_address, int metri
     routing_table[table_entry_index].garbage_tmr = {};
     printf("Route to %i via %i has been updated...\n", routing_table[table_entry_index].destination,
            routing_table[table_entry_index].nexthop);
-    };
+};
 
 bool Rip::validate_packet(Packet packet) {
     int originating_address = packet.header.routerID;
