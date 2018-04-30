@@ -65,7 +65,7 @@ typedef struct Route_table_entry {
     time_point timeout_tmr;
     time_point garbage_tmr;
 
-    byte route_changed;		/*route change flag */
+    byte route_changed;		/* ONLY SET WHEN ROUTE IS MARKED FOR DELETION */
     byte marked_as_garbage; /* Marked as garbage flag */
 } RTE;
 
@@ -140,7 +140,7 @@ private:
      *
      * @param entry - route entry.
      */
-    void add_route_table_entry(Rip_entry entry, int nextHop);
+    void add_new_route(Rip_entry entry, int nextHop);
 
     /**
      * Checks if update, timeout, or garbage collection timer
@@ -167,6 +167,11 @@ private:
      */
     void initializeClients();
 
+    /**
+     * Initialize eventfd for RIP events such as signals to send triggered updates.
+     */
+    void initializeEventFd();
+
     void initializeTimeout();
 
     /**
@@ -186,13 +191,6 @@ private:
      * @param entry - RTE poised for removal
      */
     void handle_garbage_collection(Route_table_entry entry);
-
-    /**
-     * Marks entry as stale and initializes garbage collection timer.
-     *
-     * @param entry
-     */
-    void handle_timeout_expiry(Route_table_entry entry);
 
     /**
      * Prints rip entry to console.
@@ -276,6 +274,9 @@ private:
      */
     void read_entry(Rip_entry entry, int originating_address);
 
+
+    void update_route(Route_table_entry RTE, Rip_entry rip_entry);
+
     /**
      * Validates packet is valid.
      *
@@ -288,6 +289,13 @@ private:
      * Function handles sending triggered updates
      */
     void sendUpdate();
+
+    /**
+     * Marks entry as stale and initializes the garbage collection timer.
+     *
+     * @param Route Table Entry
+     */
+    void start_deletion_process(Route_table_entry RTE);
 };
 
 

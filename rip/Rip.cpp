@@ -1,3 +1,4 @@
+#include <event.h>
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -29,16 +30,14 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
      *
      * REST OF THIS FUNCTION IS TEST AND SHOULD BE DELETED OR REFACTORED INTO OTHER METHODS
      * */
-
     char received[DGRAM_SIZE];
     int max_fd = servers.at(0)->get_socket();
     fd_set sock_set;
-    struct timeval timeout{};
+    struct timeval timeout = {0, 500000};
     bool run = true;
     auto outer_timer = std::chrono::steady_clock::now();
     while(run) {
-        timeout.tv_sec = 0;
-        timeout.tv_usec = 5000000;
+
         long time_elapsed;
         FD_ZERO(&sock_set);
         for (Server* server: servers) {
@@ -55,8 +54,8 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
             //todo refine
             time_elapsed = duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
                                                                          outer_timer).count();
+            std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
             if (time_elapsed > intervals.base * 1000) {
-                std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
                 sendUpdate();
                 outer_timer = std::chrono::steady_clock::now();
             }
@@ -70,6 +69,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
                     if (bytes_received > 0) {
                         std::cout << "bytes recv: " << bytes_received << std::endl;
                         Packet packet = deserialize_rip_message(received, bytes_received);
+                        check_timers();
                     }
                 }
             }
@@ -136,6 +136,10 @@ void Rip::initializeClients() {
     }
 }
 
+void Rip::initializeEventFd() {
+//    int triggered = eventfd
+}
+
 //setup the table using neighbors from initial config file
 void Rip::initializeTable() {
     for (auto out: interfaces) {
@@ -164,7 +168,6 @@ char* Rip::generate_response(char* message, int size, bool isTriggered) {
     p_message = add_header(p_message);
     for (Route_table_entry entry : routingTable) {
         struct Route_table_entry temp{};
-        bool is_dest = false;
         bool is_next_hop = false;
         for (OutputInterface out: interfaces) {
             if (nextHopIsRouter(entry, out)) {              //The metric for neighbour needs to be 16 in this case
@@ -203,14 +206,14 @@ char* Rip::add_rip_entry(char *message, struct Route_table_entry entry) {
     return tempmessage;
 }
 
-void Rip::add_route_table_entry(Rip_entry entry, int nextHop) {
+void Rip::add_new_route(Rip_entry entry, int nextHop) {
     Route_table_entry RTE;
     RTE.destination = entry.address;
     RTE.metric = entry.metric;
     RTE.nexthop = nextHop;
     RTE.timeout_tmr = steady_clock::now();
-    RTE.route_changed = 1;
     RTE.marked_as_garbage = 0;
+    RTE.route_changed = 0;
     routingTable.push_back(RTE);
     printf("New route to %i via %i has been added...", RTE.destination, RTE.nexthop);
     // todo signal to trigger an update
@@ -242,7 +245,7 @@ void Rip::check_timers() {
             time_elapsed = duration_cast<seconds>(current_time - entry.timeout_tmr).count();
             std::cout << "timeout elapse: " <<  time_elapsed << std::endl;
             if (time_elapsed > intervals.timeout) {
-                handle_timeout_expiry(entry);
+                start_deletion_process(entry);
             }
         } else {
             time_elapsed = duration_cast<seconds>(current_time - entry.garbage_tmr).count();
@@ -262,14 +265,6 @@ void Rip::handle_garbage_collection(Route_table_entry entry) {
             printf("Stale route to %i via %i has been pruned...\n", entry.destination, entry.nexthop);
         }
     }
-}
-
-void Rip::handle_timeout_expiry(Route_table_entry entry) {
-    entry.garbage_tmr = steady_clock::now();
-    entry.marked_as_garbage = 1;
-    entry.route_changed = 1;
-    entry.metric = INFINITY;
-    printf("Route to %i via %i has gone stale and been marked as garbage...\n", entry.destination, entry.nexthop);
 }
 
 void Rip::print_header(struct Rip_header header) {
@@ -326,23 +321,56 @@ void Rip::processPacket(Packet *packet) {
     }
 }
 
-void Rip::read_entry(Rip_entry entry, int originating_address) {
+void Rip::read_entry(Rip_entry rip_route, int originating_address) {
     try {
-        Route_table_entry RTE = get_entry(entry.address);
-        /**
-         *
-         *
-         * //todo: this entire code block
-         *
-         *
-         */
-    } catch (int e) {
-        if (entry.metric < INFINITY) {
-            add_route_table_entry(entry, originating_address);
+        Route_table_entry RTE = get_entry(rip_route.address);
+        if (RTE.metric != INFINITY) {
+            if (RTE.nexthop == originating_address) { // re-init timeout_tmr
+                if (RTE.metric != rip_route.metric) { // same route different metric
+                    if (rip_route.metric >= INFINITY) {
+                        start_deletion_process(RTE); // route has been deleted abroad
+                    } else {
+                        update_route(RTE, rip_route); // same route better or worse metric
+                    }
+                } else {
+                    RTE.timeout_tmr = steady_clock::now(); // SAME EVERYTHING
+                }
+            } else {
+                if (RTE.metric > rip_route.metric) {
+                    update_route(RTE, rip_route); // different route better metric
+                } else if (RTE.metric == rip_route.metric) {
+                    // optional functionality, best just ignore
+                }
+            }
+        } else {
+            if (rip_route.metric != INFINITY) { // ROUTE HAS BEEN REVIVED
+                if (rip_route.nextHop == originating_address) {
+                    // ROUTE RESTORED
+                    update_route(RTE, rip_route);
+                } else {
+                    // New route to new destination restored
+                    update_route(RTE, rip_route);
+                }
+            }
+        }
+    } catch (int e) { // BRAND NEW ROUTE
+        if (rip_route.metric < INFINITY) {
+            add_new_route(rip_route, originating_address);
         }
     }
 }
 
+void Rip::update_route(Route_table_entry RTE, Rip_entry rip_entry) {
+    RTE.marked_as_garbage = 0;
+    RTE.route_changed = 0;
+    RTE.nexthop = rip_entry.nextHop;
+    RTE.timeout_tmr = steady_clock::now();
+    RTE.metric = rip_entry.metric;
+    RTE.nexthop = rip_entry.nextHop;
+    RTE.timeout_tmr = steady_clock::now();
+    RTE.garbage_tmr;
+    printf("Route to %i via %i has been updated...\n", RTE.destination, RTE.nexthop);
+    };
 
 bool Rip::validate_packet(Packet packet) {
     for (auto ifaces : interfaces) {
@@ -361,6 +389,14 @@ void Rip::sendUpdate() {
         send_message(i, message, size);
     }
     std::cout << "Updated" << std::endl;
+}
+
+void Rip::start_deletion_process(Route_table_entry RTE) {
+    RTE.garbage_tmr = steady_clock::now();
+    RTE.metric = INFINITY;
+    RTE.route_changed = 1;
+    RTE.marked_as_garbage = 1;
+    printf("Route to %i via %i has gone stale and been marked as garbage...\n", RTE.destination, RTE.nexthop);
 }
 
 

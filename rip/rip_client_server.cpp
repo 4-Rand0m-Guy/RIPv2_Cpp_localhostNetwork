@@ -74,7 +74,7 @@ rip_server::rip_server(const std::string& addr, int port) : f_port(port), f_addr
         throw rip_client_server_runtime_error(("invalid address or port for UDP socket: \"" + addr + ":" + decimal_port + "\"").c_str());
     }
     f_socket = socket(f_addrinfo->ai_family, SOCK_DGRAM, IPPROTO_UDP);
-    fcntl(f_socket, F_SETFL, O_NONBLOCK);
+//    fcntl(f_socket, F_SETFL, O_NONBLOCK);
     if(f_socket == -1)
     {
         freeaddrinfo(f_addrinfo);
