@@ -234,6 +234,7 @@ private:
     */
     void process_response(Rip_packet *packet);
 
+
     /**
      * Reads an RIP entry to determine if any further action should be taken.
      *
