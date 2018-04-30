@@ -1,4 +1,4 @@
-#include <event.h>
+
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -19,13 +19,10 @@ using Rip_error = rip_client_server::rip_client_server_runtime_error;
 
 Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<OutputInterface> _outputs,
          unsigned timer /* = 30 */) {
-
     routerID = _routerID;
     input_ports = std::move(_input_ports);
     interfaces = std::move(_outputs);
-
     init(timer);
-    std::cout << "Running daemon ID: " << routerID << std::endl;
     /*
      *
      * REST OF THIS FUNCTION IS TEST AND SHOULD BE DELETED OR REFACTORED INTO OTHER METHODS
@@ -54,8 +51,8 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
             //todo refine
             time_elapsed = duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
                                                                          outer_timer).count();
-            std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
             if (time_elapsed > intervals.base * 1000) {
+                std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
                 sendUpdate();
                 outer_timer = std::chrono::steady_clock::now();
             }
@@ -108,6 +105,7 @@ void Rip::init(unsigned basetimer) {
     initializeServers();
     initializeClients();
     initializeTable();
+    print_routing_table();
 }
 
 void Rip::initializeServers() {
@@ -142,12 +140,18 @@ void Rip::initializeEventFd() {
 
 //setup the table using neighbors from initial config file
 void Rip::initializeTable() {
+    Route_table_entry entry;
+    entry.destination = routerID;
+    entry.metric = 0;
+    entry.nexthop = routerID;
+    entry.timeout_tmr = steady_clock::now();
+    routingTable.push_back(entry);
     for (auto out: interfaces) {
-        Route_table_entry entry;
         entry.destination = out.id;
         entry.metric = out.metric;
         entry.nexthop = out.id;
         entry.route_changed = 0;
+        entry.timeout_tmr = steady_clock::now();
         routingTable.push_back(entry);
     }
 }
@@ -176,7 +180,6 @@ char* Rip::generate_response(char* message, int size, bool isTriggered) {
         }
         if (is_next_hop) {
             temp.metric = 16;
-
         }
         p_message = add_rip_entry(p_message, temp);
     }
@@ -284,6 +287,46 @@ void Rip::print_entry(struct Rip_entry entry) {
     printf("| metric: %i       |\n", entry.metric);
 }
 
+void Rip::print_routing_table() {
+    printf("\nRouting table for Daemon: %i\n", routerID);
+    printf("--------------------------------------------\n");
+    int i = 1;
+    for (Route_table_entry entry: routingTable) {
+        print_table_entry(entry);
+        i++;
+    }
+    printf("--------------------------------------------\n");
+}
+
+void Rip::print_table_entry(Route_table_entry entry) {
+    double time_left;
+    std::chrono::duration<double, std::milli> time_elapsed = (steady_clock::now() - entry.timeout_tmr);
+    printf("| destination: %i\n", entry.destination);
+    printf("| metric: %i\n", entry.metric);
+    printf("| nextHop: %i\n", entry.nexthop);
+    time_left = static_cast<double>(intervals.timeout) - (time_elapsed.count()/ 1000.0);
+    printf("| timeout in %.2lf\n", time_left);
+    if (entry.garbage_tmr.time_since_epoch().count() <= 0) {
+        printf("| garbage timeout: N/A\n");
+    } else {
+        time_elapsed = steady_clock::now() - entry.garbage_tmr;
+        time_left = static_cast<double>(intervals.garbage_collection) - (time_elapsed.count()/ 1000.0);
+        printf("| garbage timeout in:%.2lf\n", time_left);
+    }
+    if (entry.route_changed == 0) {
+        printf("| route changed: NO\n");
+    } else {
+        printf("| route changed: YES\n");
+    }
+    if (entry.marked_as_garbage == 0) {
+        printf("| marked as garbage: NO\n");
+    } else {
+        printf("| marked as garbage: YES\n");
+    }
+    ;
+    printf("**********************\n");
+}
+
 Route_table_entry Rip::get_entry(short routerID) noexcept {
     for (auto route : routingTable) {
         if (routerID == route.destination) {
@@ -323,7 +366,7 @@ void Rip::processPacket(Packet *packet) {
 
 void Rip::read_entry(Rip_entry rip_route, int originating_address) {
     try {
-        Route_table_entry RTE = get_entry(rip_route.address);
+        Route_table_entry RTE = get_entry(static_cast<short>(rip_route.address));
         if (RTE.metric != INFINITY) {
             if (RTE.nexthop == originating_address) { // re-init timeout_tmr
                 if (RTE.metric != rip_route.metric) { // same route different metric

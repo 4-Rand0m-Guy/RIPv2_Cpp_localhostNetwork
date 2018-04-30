@@ -58,15 +58,15 @@ typedef struct Route_table_entry {
      * Struct representing one single route table entry (RTE)
      * in the routing table.
      */
-    int destination;
-    int metric;
-    int nexthop;
+    int destination{};
+    int metric{};
+    int nexthop{};
 
     time_point timeout_tmr;
     time_point garbage_tmr;
 
-    byte route_changed;		/* ONLY SET WHEN ROUTE IS MARKED FOR DELETION */
-    byte marked_as_garbage; /* Marked as garbage flag */
+    byte route_changed{};/*route change flag */
+    byte marked_as_garbage{};   /* Marked as garbage flag */
 } RTE;
 
 typedef struct Timer_Intervals {
@@ -207,6 +207,13 @@ private:
     void print_header(struct Rip_header header);
 
     /**
+     * Prints the routing table for the daemon in it's current state
+     */
+    void print_routing_table();
+
+    void print_table_entry(Route_table_entry entry);
+
+    /**
      * Generates an RIP response message. Parameter isTriggered
      * has default value of false which implies a regular (timed)
      * update message. If isTriggered is True then a Triggered Update
@@ -225,7 +232,7 @@ private:
      * @param routerID
      * @return the metric
      */
-    int get_cost(int routerID) throw();
+    int get_cost(int routerID) noexcept;
 
     /**
     * Gets a RIPRoutingEntry by routerID.
@@ -235,7 +242,7 @@ private:
     * @param routerID
     * @return RIPRoutingEntry
     */
-    Route_table_entry get_entry(short routerID) throw();
+    Route_table_entry get_entry(short routerID) noexcept;
 
     /**
     * Function sends update to neighboring routers once time limit is reached.
