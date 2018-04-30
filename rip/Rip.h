@@ -13,8 +13,6 @@
 #include "../config/OutputInterface.h"
 #include "rip_client_server.h"
 
-
-
 typedef char byte;
 
 typedef std::chrono::seconds seconds;
@@ -65,7 +63,7 @@ typedef struct Route_table_entry {
     time_point timeout_tmr;
     time_point garbage_tmr;
 
-    byte route_changed{};/*route change flag */
+    byte route_changed{};       /*route change flag */
     byte marked_as_garbage{};   /* Marked as garbage flag */
 } RTE;
 
@@ -75,43 +73,16 @@ typedef struct Timer_Intervals {
     int garbage_collection;
 };
 
-typedef struct Timers {
-    time_point update;
-    time_point check;
-};
-
 class Rip {
     public:
         Rip(unsigned routerID, std::vector<unsigned> input_ports, std::vector<OutputInterface> outputs, unsigned timer=30);
-
-        /**
-         * Function handles how the daemon runs. Listens to the setup ports for updates, handles requests and responses
-         */
-        void run();
-
-        /**
-         * Function to get the input ports
-         * @return Vector: Vector containing the input ports registered with the daemon.
-         */
-        const std::vector<unsigned int> &getInput_ports() const;
-
-        /**
-        * Checks each routing table entry included in a message that was received
-        * from the network. If new routes are discovered it will attempt to
-        * add them to its own routing table. If a more optimal alternative
-        * path is discovered or an old path has been marked for expiration
-        * then appropriate changes are made accordingly.
-        *
-        * @param message (array of unsigned chars) - data received from network
-        */
-        void processResponse(Rip_packet packet);
 
 private:
     unsigned routerID;
     std::vector<unsigned> input_ports;
     std::vector<OutputInterface> interfaces;
     struct Timer_Intervals intervals;
-    std::vector<Route_table_entry> routingTable;
+    std::vector<Route_table_entry> routing_table;
     std::vector<rip_client_server::rip_server*> servers;
     std::vector<rip_client_server::rip_client*> clients;
     std::vector<int> output_ports;
@@ -126,6 +97,14 @@ private:
     char* add_header(char *message);
 
     /**
+     * Adds another route entry to the routing table using information
+     * from an RIP entry.
+     *
+     * @param entry - route entry.
+     */
+    void add_new_route(Rip_entry entry, int nextHop);
+
+    /**
      * Adds another route entry to a message.
      *
      * @param message - message to add RTEs to
@@ -135,44 +114,11 @@ private:
     char* add_rip_entry(char *message, struct Route_table_entry entry);
 
     /**
-     * Adds another route entry to the routing table using information
-     * from an RIP entry.
-     *
-     * @param entry - route entry.
-     */
-    void add_new_route(Rip_entry entry, int nextHop);
-
-    /**
      * Checks if update, timeout, or garbage collection timer
      * have timed out and takes action accordingly (e.g removing a
      * stale route entry if the garbage collection timer has expired).
      */
     void check_timers();
-
-    /**
-     * Initialize. Loads configuration settings, initalizes instance variables,
-     * client and server sockets, and starts up the RIP daemon (todo)
-     */
-    void init(unsigned timer);
-
-    /**
-     * Initialize sockets for the receiving of UDP packets. Available servers
-     * can be accessed in the private instance variable servers.
-     */
-    void initializeServers();
-
-    /**
-     * Initialize sockets for the sending of UDP packets. Available clients
-     * can be accessed in the private instance variable clients.
-     */
-    void initializeClients();
-
-    /**
-     * Initialize eventfd for RIP events such as signals to send triggered updates.
-     */
-    void initializeEventFd();
-
-    void initializeTimeout();
 
     /**
      * Use this method on messages received from a socket on the network.
@@ -183,35 +129,6 @@ private:
      * @return struct Rip_packet
      */
     Rip_packet deserialize_rip_message(char *message, int size);
-
-    /**
-     * Removes stale route table entries (RTE) whose garbage collection
-     * timers have expired.
-     *
-     * @param entry - RTE poised for removal
-     */
-    void handle_garbage_collection(Route_table_entry entry);
-
-    /**
-     * Prints rip entry to console.
-     *
-     * @param entry
-     */
-    void print_entry(struct Rip_entry entry);
-
-    /**
-     * Prints rip header to console.
-     *
-     * @param header
-     */
-    void print_header(struct Rip_header header);
-
-    /**
-     * Prints the routing table for the daemon in it's current state
-     */
-    void print_routing_table();
-
-    void print_table_entry(Route_table_entry entry);
 
     /**
      * * Generates an RIP response message. Parameter isTriggered
@@ -225,7 +142,6 @@ private:
      * @return char array containing the serialized packet header and entries for entry in router table
      */
     char* generate_response(char* msg, int size, int port_no, bool isTriggered=false);
-
 
     /**
      * Get metric of peer router by its routerID.
@@ -246,17 +162,30 @@ private:
     int get_entry(short routerID) ;
 
     /**
-    * Function sends update to neighboring routers once time limit is reached.
-    * @param fdValue Value of one of the socket() call return values, will be used to assign sending port
-    */
-    void send_message(int fdValue, char* message, size_t size);
-
+     * Removes stale route table entries (RTE) whose garbage collection
+     * timers have expired.
+     *
+     * @param entry - RTE poised for removal
+     */
+    void handle_garbage_collection(Route_table_entry entry);
 
     /**
-     * Function sets up the routing table ot it's initial state using the neighbors found in the config file and metrics
+     * Initialize sockets for the sending of UDP packets. Available clients
+     * can be accessed in the private instance variable clients.
      */
-    void initializeTable();
+    void initialize_clients();
 
+    /**
+     * Initialize sockets for the receiving of UDP packets. Available servers
+     * can be accessed in the private instance variable servers.
+     */
+    void initialize_servers();
+
+    /**
+     * Function sets up the routing table ot it's initial state using the
+     * neighbors found in the config file and metrics
+     */
+    void initialize_table();
 
     /**
      * Function checks if the next hop to a destination is the router about to be messaged. This for the
@@ -265,15 +194,45 @@ private:
      * @param output: Output interface to determine which neighbor is about to be messaged
      * @return bool: True if the next hop is the router to be messaged
      */
-    bool nextHopIsRouter(Route_table_entry entry, OutputInterface output);
+    bool is_nextHop_neighbor(Route_table_entry entry, OutputInterface output);
 
     /**
-     * Function goes through the received packet, checks what routes it contains, updates the daemons table as
-     * necessary.
-     * @param packet
+     * Prints rip entry to console.
+     *
+     * @param entry
      */
-    void processPacket(Rip_packet* packet);
+    void print_entry(struct Rip_entry entry);
 
+
+    /**
+     * Prints rip header to console.
+     *
+     * @param header
+     */
+    void print_header(struct Rip_header header);
+
+    /**
+     * Prints the routing table for the daemon in it's current state
+     */
+    void print_routing_table();
+
+    /**
+     * Prints a table entry.
+     *
+     * @param entry
+     */
+    void print_table_entry(Route_table_entry entry);
+
+    /**
+    * Checks each routing table entry included in a message that was received
+    * from the network. If new routes are discovered it will attempt to
+    * add them to its own routing table. If a more optimal alternative
+    * path is discovered or an old path has been marked for expiration
+    * then appropriate changes are made accordingly.
+    *
+    * @param packet - Rip_packet of data received from network
+    */
+    void process_response(Rip_packet *packet);
 
     /**
      * Reads an RIP entry to determine if any further action should be taken.
@@ -283,6 +242,36 @@ private:
     void read_entry(Rip_entry entry, int originating_address);
 
 
+    /**
+    * Function sends update to neighboring routers once time limit is reached.
+    * @param fdValue Value of one of the socket() call return values, will be used to assign sending port
+    */
+    void send_message(int fdValue, char* message, size_t size);
+
+    /**
+     * Function handles sending triggered updates
+     */
+    void send_update();
+
+    /**
+     * Initialize. Loads configuration settings, initalizes instance variables,
+     * client and server sockets, and starts up the RIP daemon (todo)
+     */
+    void set_up(unsigned timer);
+
+    /**
+     * Marks entry as stale and initializes the garbage collection timer.
+     *
+     * @param Route Table Entry
+     */
+    void start_deletion_process(int index_of_entry);
+
+    /**
+     * Sends an update to each directly connect peer router.
+     *
+     * @param route_entry_index
+     * @param rip_entry
+     */
     void update_route(int route_entry_index, Rip_entry rip_entry);
 
     /**
@@ -292,18 +281,6 @@ private:
      * @return True (Valid) False otherwise
      */
     bool validate_packet(Packet packet);
-
-    /**
-     * Function handles sending triggered updates
-     */
-    void sendUpdate();
-
-    /**
-     * Marks entry as stale and initializes the garbage collection timer.
-     *
-     * @param Route Table Entry
-     */
-    void start_deletion_process(int index_of_entry);
 };
 
 
