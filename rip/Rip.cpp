@@ -173,7 +173,7 @@ char* Rip::generate_response(char* message, int size, bool isTriggered) {
     char* p_message = message;
     p_message = add_header(p_message);
     for (Route_table_entry entry : routingTable) {
-        struct Route_table_entry temp{};
+        struct Route_table_entry temp = entry;
         bool is_next_hop = false;
         for (OutputInterface out: interfaces) {
             if (nextHopIsRouter(entry, out)) {              //The metric for neighbour needs to be 16 in this case
@@ -234,7 +234,7 @@ Rip_packet Rip::deserialize_rip_message(char* message, int bytes_received) {
         Rip_entry rte = *(Rip_entry*) message;
         message += entry_size;
         packet.entries.push_back(rte);
-        //print_entry(rte);
+        print_entry(rte);
     }
     return packet;
 }
