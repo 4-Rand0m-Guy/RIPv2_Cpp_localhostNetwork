@@ -324,7 +324,7 @@ void Rip::print_table_entry(Route_table_entry entry) {
         printf("| marked as garbage: YES\n");
     }
     ;
-    printf("**********************\n");
+    printf("**************************\n");
 }
 
 Route_table_entry Rip::get_entry(short routerID) noexcept {
