@@ -29,6 +29,10 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     auto outer_timer = std::chrono::steady_clock::now();
     long time_elapsed;
     bool run = true;
+    std::random_device rd; // obtain a random number from hardware
+    std::mt19937 eng(rd()); // seed the generator
+    std::uniform_int_distribution<> distr(static_cast<int>(0.8 * intervals.base * 1000),
+                                          static_cast<int>(1.2 * intervals.base * 1000)); // define the range
     while(run) {
         struct timeval timeout = {0, 500000};
         FD_ZERO(&sock_set);
@@ -46,7 +50,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
             //todo refine
             time_elapsed = duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
                                                                          outer_timer).count();
-            if (time_elapsed > intervals.base * 1000) {
+            if (time_elapsed >= distr(eng)) {
                 std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
                 check_timers();
                 send_update();
@@ -68,7 +72,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
                     }
                 }
             }
-            if (time_elapsed > intervals.base * 1000) {
+            if (time_elapsed >= distr(eng)) {
                 std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
                 send_update();
                 outer_timer = std::chrono::steady_clock::now();
@@ -125,13 +129,13 @@ void Rip::check_timers() {
         }
         if (routing_table[i].marked_as_garbage != 1) {
             time_elapsed = duration_cast<seconds>(current_time - routing_table[i].timeout_tmr).count();
-            std::cout << "timeout elapse: " <<  time_elapsed << std::endl;
+            //std::cout << "timeout elapse: " <<  time_elapsed << std::endl;
             if (time_elapsed >= intervals.timeout) {
                 start_deletion_process(i);
             }
         } else {
             time_elapsed = duration_cast<seconds>(current_time - routing_table[i].garbage_tmr).count();
-            std::cout << "garbage elapse: " <<  time_elapsed << std::endl;
+            //std::cout << "garbage elapse: " <<  time_elapsed << std::endl;
             if (time_elapsed >= intervals.garbage_collection) {
                 handle_garbage_collection(routing_table[i]);
             }
@@ -149,7 +153,7 @@ Rip_packet Rip::deserialize_rip_message(char* message, int bytes_received) {
         Rip_entry rte = *(Rip_entry*) message;
         message += entry_size;
         packet.entries.push_back(rte);
-        print_entry(rte);
+        //print_entry(rte);
     }
     return packet;
 }
@@ -312,10 +316,10 @@ void Rip::print_table_entry(Route_table_entry entry) {
 
 void Rip::process_response(Packet *packet) {
     if (validate_packet(*packet)) {
-        std::cout << "Processing packet" << std::endl;
+        //std::cout << "Processing packet" << std::endl;
         for (Entry entry: packet->entries) {
             entry.metric = std::min(entry.metric + get_cost(packet->header.routerID), INFINITY);
-            std::cout << "new metric: " << entry.metric << std::endl;
+            //std::cout << "new metric: " << entry.metric << std::endl;
             read_entry(entry, packet->header.routerID);
         }
     } else {
@@ -330,7 +334,6 @@ void Rip::read_entry(Rip_entry rip_route, int originating_address) {
             if (routing_table[RTE].nexthop == originating_address) { // re-set_up timeout_tmr
                 if (routing_table[RTE].metric != rip_route.metric) { // same route different metric
                     if (rip_route.metric >= INFINITY) {
-                        update_route(RTE, rip_route);
                         start_deletion_process(RTE); // route has been deleted abroad
                     } else {
                         update_route(RTE, rip_route); // same route better or worse metric
