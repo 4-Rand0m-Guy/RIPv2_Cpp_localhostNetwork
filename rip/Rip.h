@@ -16,6 +16,7 @@
 typedef char byte;
 
 typedef std::chrono::seconds seconds;
+typedef std::chrono::milliseconds milliseconds;
 typedef std::chrono::steady_clock::time_point time_point;
 using std::chrono::steady_clock;
 using std::chrono::duration;
@@ -270,9 +271,9 @@ private:
      * Sends an update to each directly connect peer router.
      *
      * @param route_entry_index
-     * @param rip_entry
+     * @param metric
      */
-    void update_route(int route_entry_index, Rip_entry rip_entry);
+    void update_route(int route_entry_index, int originating_address, int metric);
 
     /**
      * Validates packet is valid.
