@@ -17,12 +17,10 @@ using Client = rip_client_server::rip_client;
 using Rip_error = rip_client_server::rip_client_server_runtime_error;
 
 Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<OutputInterface> _outputs,
-         unsigned timer /* = 30 */) {
-    routerID = _routerID;
+         unsigned timer /* = 30 */) : routerID(_routerID) {
     input_ports = std::move(_input_ports);
     interfaces = std::move(_outputs);
     set_up(timer);
-    bool trigger = false;
 
     char received[DGRAM_SIZE];
     int max_fd = servers.at(0)->get_socket();
@@ -33,7 +31,9 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     std::random_device rd; // obtain a random number from hardware
     std::mt19937 eng(rd()); // seed the generator
     std::uniform_int_distribution<> distr(static_cast<int>(0.8 * intervals.base * 1000),
-                                          static_cast<int>(1.2 * intervals.base * 1000)); // define the range
+                                          static_cast<int>(1.2 * intervals.base * 1000));
+    std::uniform_int_distribution<> trigger_dstr(static_cast<int>(0.033 * intervals.base * 1000),
+                                             static_cast<int>(0.166 * intervals.base * 1000));
     while(run) {
         struct timeval timeout = {0, 500000};
         FD_ZERO(&sock_set);
@@ -48,17 +48,15 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
             perror("Select error");
             run = false;
         } else if (activity == 0){          //timeout for select, no updates received
-            //todo refine
-            time_elapsed = duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
-                                                                         outer_timer).count();
+            check_timers();
+            time_elapsed = duration_cast<milliseconds>(steady_clock::now() - outer_timer).count();
             if (time_elapsed >= distr(eng)) {
                 std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
-                check_timers();
                 send_update();
-                outer_timer = std::chrono::steady_clock::now();
-                //print_routing_table();
+                outer_timer = steady_clock::now();
             }
         } else {                            //received a packet
+            check_timers();
             time_elapsed = duration_cast<milliseconds>(steady_clock::now() - outer_timer).count();
             //todo refine and implement RIP
             for (Server* server: servers) {
@@ -69,12 +67,11 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
                         Packet packet = deserialize_rip_message(received, bytes_received);
                         process_response(&packet);
                         std::cout << "received update" << std::endl;
-                        check_timers();
                     }
                 }
             }
             if (time_elapsed >= distr(eng)) {
-                //std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
+                std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
                 send_update();
                 outer_timer = std::chrono::steady_clock::now();
                 print_routing_table();
@@ -83,8 +80,6 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
         }
     }
 }
-
-
 
 char* Rip::add_header(char* message) {
     Rip_header header{};
@@ -409,9 +404,10 @@ void Rip::start_deletion_process(int index_of_entry) {
     routing_table[index_of_entry].metric = INFINITY;
     routing_table[index_of_entry].route_changed = 1;
     routing_table[index_of_entry].marked_as_garbage = 1;
-
     printf("Route to %i via %i has gone stale and been marked as garbage...\n", routing_table[index_of_entry]
             .destination, routing_table[index_of_entry].nexthop);
+    send_update();
+    printf("triggered update...\n");
 }
 
 void Rip::update_route(int table_entry_index, int originating_address, int metric) {
