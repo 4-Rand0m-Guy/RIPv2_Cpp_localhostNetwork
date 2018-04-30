@@ -21,7 +21,9 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     input_ports = std::move(_input_ports);
     interfaces = std::move(_outputs);
     set_up(timer);
+}
 
+void Rip::run() {
     char received[DGRAM_SIZE];
     int max_fd = servers.at(0)->get_socket();
     fd_set sock_set;
@@ -32,12 +34,11 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     std::mt19937 eng(rd()); // seed the generator
     std::uniform_int_distribution<> distr(static_cast<int>(0.8 * intervals.base * 1000),
                                           static_cast<int>(1.2 * intervals.base * 1000));
-    std::uniform_int_distribution<> trigger_dstr(static_cast<int>(0.033 * intervals.base * 1000),
-                                             static_cast<int>(0.166 * intervals.base * 1000));
-    while(run) {
+    while (run) {
+        check_timers();
         struct timeval timeout = {0, 500000};
         FD_ZERO(&sock_set);
-        for (Server* server: servers) {
+        for (Server *server: servers) {
             FD_SET(server->get_socket(), &sock_set);
             if (server->get_socket() > max_fd) {
                 max_fd = server->get_socket();
@@ -47,19 +48,10 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
         if ((activity < 0) && (errno != EINTR)) {
             perror("Select error");
             run = false;
-        } else if (activity == 0){          //timeout for select, no updates received
-            check_timers();
-            time_elapsed = duration_cast<milliseconds>(steady_clock::now() - outer_timer).count();
-            if (time_elapsed >= distr(eng)) {
-                std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
-                send_update();
-                outer_timer = steady_clock::now();
-            }
-        } else {                            //received a packet
-            check_timers();
-            time_elapsed = duration_cast<milliseconds>(steady_clock::now() - outer_timer).count();
-            //todo refine and implement RIP
-            for (Server* server: servers) {
+        } else if (activity == 0) {
+
+        } else {
+            for (Server *server: servers) {
                 if (FD_ISSET(server->get_socket(), &sock_set)) {
                     int bytes_received = server->recv(received, DGRAM_SIZE);
                     if (bytes_received > 0) {
@@ -70,13 +62,13 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
                     }
                 }
             }
-            if (time_elapsed >= distr(eng)) {
-                std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
-                send_update();
-                outer_timer = std::chrono::steady_clock::now();
-                print_routing_table();
-            }
-
+        }
+        time_elapsed = duration_cast<milliseconds>(steady_clock::now() - outer_timer).count();
+        if (time_elapsed >= distr(eng)) {
+            std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
+            send_update();
+            outer_timer = steady_clock::now();
+            print_routing_table();
         }
     }
 }
@@ -407,6 +399,7 @@ void Rip::start_deletion_process(int index_of_entry) {
     printf("Route to %i via %i has gone stale and been marked as garbage...\n", routing_table[index_of_entry]
             .destination, routing_table[index_of_entry].nexthop);
     send_update();
+    triggered = true;
     printf("triggered update...\n");
 }
 

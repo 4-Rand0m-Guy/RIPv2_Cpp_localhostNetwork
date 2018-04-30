@@ -76,8 +76,21 @@ typedef struct Timer_Intervals {
 
 class Rip {
     public:
+        /**
+         * Constructor.
+         *
+         * @param routerID
+         * @param input_ports
+         * @param outputs
+         * @param timer
+         */
         Rip(unsigned routerID, std::vector<unsigned> input_ports, std::vector<OutputInterface> outputs, unsigned timer=30);
 
+        /**
+         * Main RIP Daemon loop.
+         *
+         */
+        void run();
 private:
     unsigned routerID;
     std::vector<unsigned> input_ports;
@@ -87,6 +100,7 @@ private:
     std::vector<rip_client_server::rip_server*> servers;
     std::vector<rip_client_server::rip_client*> clients;
     std::vector<int> output_ports;
+    bool triggered;
 
     /**
      * Adds a header to a yet so far empty message.
@@ -242,7 +256,6 @@ private:
      * @param entry - the RIP packey entry
      */
     void read_entry(Rip_entry entry, int originating_address);
-
 
     /**
     * Function sends update to neighboring routers once time limit is reached.
