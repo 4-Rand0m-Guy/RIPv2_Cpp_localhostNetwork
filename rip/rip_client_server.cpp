@@ -14,7 +14,7 @@ rip_client::rip_client(const std::string& addr, int port) : f_port(port), f_addr
     char decimal_port[16];
     snprintf(decimal_port, sizeof(decimal_port), "%d", f_port);
     decimal_port[sizeof(decimal_port) / sizeof(decimal_port[0]) - 1] = '\0';
-    struct addrinfo hints;
+    struct addrinfo hints{};
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_DGRAM;
@@ -53,7 +53,7 @@ std::string rip_client::get_addr() const
 
 int rip_client::send(const char *msg, size_t size)
 {
-    return sendto(f_socket, msg, size, 0, f_addrinfo->ai_addr, f_addrinfo->ai_addrlen);
+    return static_cast<int>(sendto(f_socket, msg, size, 0, f_addrinfo->ai_addr, f_addrinfo->ai_addrlen));
 }
 
 /* SERVER */
@@ -62,7 +62,7 @@ rip_server::rip_server(const std::string& addr, int port) : f_port(port), f_addr
     char decimal_port[16];
     snprintf(decimal_port, sizeof(decimal_port), "%d", f_port);
     decimal_port[sizeof(decimal_port) / sizeof(decimal_port[0]) - 1] = '\0';
-    struct addrinfo hints;
+    struct addrinfo hints{};
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_DGRAM;
@@ -107,6 +107,6 @@ std::string rip_server::get_addr() const {
 }
 
 int rip_server::recv(char *msg, size_t max_size) {
-    return ::recv(f_socket, msg, max_size, 0);
+    return static_cast<int>(::recv(f_socket, msg, max_size, 0));
 }
 } // namespace rip_client_server
