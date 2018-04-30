@@ -243,7 +243,7 @@ private:
     * @param routerID
     * @return RIPRoutingEntry
     */
-    Route_table_entry get_entry(short routerID) ;
+    int get_entry(short routerID) ;
 
     /**
     * Function sends update to neighboring routers once time limit is reached.
@@ -283,7 +283,7 @@ private:
     void read_entry(Rip_entry entry, int originating_address);
 
 
-    void update_route(Route_table_entry RTE, Rip_entry rip_entry);
+    void update_route(int route_entry_index, Rip_entry rip_entry);
 
     /**
      * Validates packet is valid.
@@ -303,7 +303,7 @@ private:
      *
      * @param Route Table Entry
      */
-    void start_deletion_process(Route_table_entry RTE);
+    void start_deletion_process(int index_of_entry);
 };
 
 
