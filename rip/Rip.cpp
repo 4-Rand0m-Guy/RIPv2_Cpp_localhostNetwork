@@ -23,10 +23,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     input_ports = std::move(_input_ports);
     interfaces = std::move(_outputs);
     init(timer);
-    /*
-     *
-     * REST OF THIS FUNCTION IS TEST AND SHOULD BE DELETED OR REFACTORED INTO OTHER METHODS
-     * */
+
     char received[DGRAM_SIZE];
     int max_fd = servers.at(0)->get_socket();
     fd_set sock_set;
@@ -80,19 +77,6 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
             }
 
         }
-        /*int bytes_recv = server1->recv(received, DGRAM_SIZE);
-        if (bytes_recv > 0) {
-            std::cout << "bytes recv: " << bytes_recv << std::endl;
-            Packet packet = deserialize_rip_message(received, bytes_recv);
-        }
-
-        if ((float( std::clock() - begin_time ) /  CLOCKS_PER_SEC) > 5.0) {
-            std::cout << "sending: "<< std::endl;
-            char message[size];
-            generate_response(message, size);
-            send_message(0, message, size);
-            begin_time = std::clock();
-        };*/
     }
 }
 
@@ -178,7 +162,7 @@ char* Rip::generate_response(char* message, int size, int port_no, bool isTrigge
         bool is_next_hop = false;
         for (OutputInterface out: interfaces) {
             if (out.port_number == port_no) {
-                if (nextHopIsRouter(entry, out)) {              //The metric for neighbour needs to be 16 in this case
+                if (nextHopIsRouter(entry, out)) { //The metric for neighbour needs to be 16 in this case
                     is_next_hop = true;
                 }
             }
@@ -231,7 +215,7 @@ Rip_packet Rip::deserialize_rip_message(char* message, int bytes_received) {
     packet.header = *(Header*) message;
     message += HEADER_SIZE;
     int entry_size = RTE_SIZE;
-    //print_header(packet.header);
+    print_header(packet.header);
     for (int current_byte = HEADER_SIZE; current_byte < bytes_received; current_byte+=RTE_SIZE) {
         Rip_entry rte = *(Rip_entry*) message;
         message += entry_size;
@@ -389,7 +373,7 @@ void Rip::read_entry(Rip_entry rip_route, int originating_address) {
                 if (routingTable[RTE].metric > rip_route.metric) {
                     update_route(RTE, rip_route); // different route better metric
                 } else if (routingTable[RTE].metric == rip_route.metric) {
-                    // optional functionality, best just ignore
+                    // optional functionality
                 }
             }
         } else {
@@ -398,7 +382,7 @@ void Rip::read_entry(Rip_entry rip_route, int originating_address) {
             }
         }
     } catch (int i) { // BRAND NEW ROUTE
-        if (rip_route.metric < INFINITY) {
+        if (rip_route.metric < INFINITY && originating_address != routerID) {
             add_new_route(rip_route, originating_address);
         }
     }
