@@ -1,2 +1,14 @@
 .idea/
-cmake*
+!/cmake-build-debug/cmake_install.cmake
+!/cmake-build-debug/config4.ini
+!/cmake-build-debug/RIP_
+!/cmake-build-debug/Makefile
+!/cmake-build-debug/RIP_.cbp
+!/cmake-build-debug/config5.ini
+!/cmake-build-debug/config3.ini
+!/cmake-build-debug/config2.ini
+!/cmake-build-debug/config1.ini
+!/cmake-build-debug/config6.ini
+!/cmake-build-debug/CMakeCache.txt
+!/cmake-build-debug/config7.ini
+/cmake-build-debug/CMakeFiles/
