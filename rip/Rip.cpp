@@ -169,15 +169,17 @@ void Rip::send_message(int fd, char* message, size_t size) {
     }*/
 }
 
-char* Rip::generate_response(char* message, int size, bool isTriggered) {
+char* Rip::generate_response(char* message, int size, int port_no, bool isTriggered) {
     char* p_message = message;
     p_message = add_header(p_message);
     for (Route_table_entry entry : routingTable) {
         struct Route_table_entry temp = entry;
         bool is_next_hop = false;
         for (OutputInterface out: interfaces) {
-            if (nextHopIsRouter(entry, out)) {              //The metric for neighbour needs to be 16 in this case
-                is_next_hop = true;
+            if (out.port_number == port_no) {
+                if (nextHopIsRouter(entry, out)) {              //The metric for neighbour needs to be 16 in this case
+                    is_next_hop = true;
+                }
             }
         }
         if (is_next_hop) {
@@ -221,7 +223,6 @@ void Rip::add_new_route(Rip_entry entry, int nextHop) {
     RTE.route_changed = 0;
     routingTable.push_back(RTE);
     printf("New route to %i via %i has been added...", RTE.destination, RTE.nexthop);
-    // todo signal to trigger an update
 }
 
 Rip_packet Rip::deserialize_rip_message(char* message, int bytes_received) {
@@ -341,6 +342,7 @@ Route_table_entry Rip::get_entry(short routerID) {
 int Rip::get_cost(int routerID)  {
     for (OutputInterface iface : interfaces) {
         if (routerID == iface.id) {
+            std::cout << "cost = "  << iface.metric <<std::endl;
             return iface.metric;
         }
     }
@@ -357,8 +359,10 @@ bool Rip::nextHopIsRouter(Route_table_entry entry, OutputInterface output) {
 
 void Rip::processPacket(Packet *packet) {
     if (validate_packet(*packet)) {
+        std::cout << "Processing packet" << std::endl;
         for (Entry entry: packet->entries) {
             entry.metric = std::min(entry.metric + get_cost(packet->header.routerID), INFINITY);
+            std::cout << "new metric: " << entry.metric << std::endl;
             read_entry(entry, packet->header.routerID);
         }
     } else {
@@ -389,13 +393,7 @@ void Rip::read_entry(Rip_entry rip_route, int originating_address) {
             }
         } else {
             if (rip_route.metric != INFINITY) { // ROUTE HAS BEEN REVIVED
-                if (rip_route.nextHop == originating_address) {
-                    // ROUTE RESTORED
-                    update_route(RTE, rip_route);
-                } else {
-                    // New route to new destination restored
-                    update_route(RTE, rip_route);
-                }
+                update_route(RTE, rip_route);
             }
         }
     } catch (int i) { // BRAND NEW ROUTE
@@ -430,7 +428,7 @@ void Rip::sendUpdate() {
     for (int i = 0; i < clients.size(); i++ ) {
         size_t size = (routingTable.size() * RTE_SIZE) + HEADER_SIZE; //exclude route to neighbor router
         char message[size];
-        generate_response(message, static_cast<int>(size));
+        generate_response(message, static_cast<int>(size), clients[i]->get_port());
         send_message(i, message, size);
     }
 }

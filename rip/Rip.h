@@ -214,16 +214,17 @@ private:
     void print_table_entry(Route_table_entry entry);
 
     /**
-     * Generates an RIP response message. Parameter isTriggered
+     * * Generates an RIP response message. Parameter isTriggered
      * has default value of false which implies a regular (timed)
      * update message. If isTriggered is True then a Triggered Update
      * Message will be generated.
-     *
-     * todo Split Horizon with poisoned reverse is implemented here.
-     *
-     * @param isTriggered
+     * @param msg buffer for the serialized message to be pu into
+     * @param size size of the buffer
+     * @param port_no int used to identify who the intended neighbor is for creating custom packet
+     * @param isTriggered bool indicating whether this is a triggered event or not
+     * @return char array containing the serialized packet header and entries for entry in router table
      */
-    char* generate_response(char* msg, int size, bool isTriggered=false);
+    char* generate_response(char* msg, int size, int port_no, bool isTriggered=false);
 
 
     /**
