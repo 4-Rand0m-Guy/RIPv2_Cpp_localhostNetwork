@@ -232,7 +232,7 @@ private:
      * @param routerID
      * @return the metric
      */
-    int get_cost(int routerID) noexcept;
+    int get_cost(int routerID) ;
 
     /**
     * Gets a RIPRoutingEntry by routerID.
@@ -242,7 +242,7 @@ private:
     * @param routerID
     * @return RIPRoutingEntry
     */
-    Route_table_entry get_entry(short routerID) noexcept;
+    Route_table_entry get_entry(short routerID) ;
 
     /**
     * Function sends update to neighboring routers once time limit is reached.

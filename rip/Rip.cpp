@@ -54,6 +54,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
                 std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
                 sendUpdate();
                 outer_timer = std::chrono::steady_clock::now();
+                print_routing_table();
             }
         } else {                            //received a packet
             time_elapsed = duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() -
@@ -74,6 +75,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
                 std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
                 sendUpdate();
                 outer_timer = std::chrono::steady_clock::now();
+                print_routing_table();
             }
 
         }
@@ -327,19 +329,16 @@ void Rip::print_table_entry(Route_table_entry entry) {
     printf("**************************\n");
 }
 
-Route_table_entry Rip::get_entry(short routerID) noexcept {
-    std::cout << "Entered get_entry" << std::endl;
+Route_table_entry Rip::get_entry(short routerID) {
     for (auto route : routingTable) {
         if (routerID == route.destination) {
-            std::cout << "get_entry entry found" << std::endl;
             return route;
         }
     }
-    std::cout << "get_entry entry not found" << std::endl;
     throw(0);
 }
 
-int Rip::get_cost(int routerID) noexcept {
+int Rip::get_cost(int routerID)  {
     for (OutputInterface iface : interfaces) {
         if (routerID == iface.id) {
             return iface.metric;
@@ -357,7 +356,6 @@ bool Rip::nextHopIsRouter(Route_table_entry entry, OutputInterface output) {
 }
 
 void Rip::processPacket(Packet *packet) {
-    std::cout << "Problem is not at start of process packet" << std::endl;
     if (validate_packet(*packet)) {
         for (Entry entry: packet->entries) {
             entry.metric = std::min(entry.metric + get_cost(packet->header.routerID), INFINITY);
@@ -369,28 +367,21 @@ void Rip::processPacket(Packet *packet) {
 }
 
 void Rip::read_entry(Rip_entry rip_route, int originating_address) {
-    std::cout << "Entered read_entry" << std::endl;
     try {
-        std::cout << "Entered read_entry try block" << std::endl;
         Route_table_entry RTE = get_entry(static_cast<short>(rip_route.address));
         if (RTE.metric != INFINITY) {
             if (RTE.nexthop == originating_address) { // re-init timeout_tmr
                 if (RTE.metric != rip_route.metric) { // same route different metric
-                    std::cout << "read_entry same route different metric" << std::endl;
                     if (rip_route.metric >= INFINITY) {
-                        std::cout << "read_entry same route different metric: dead route" << std::endl;
                         start_deletion_process(RTE); // route has been deleted abroad
                     } else {
-                        std::cout << "read_entry same route different metric: not dead" << std::endl;
                         update_route(RTE, rip_route); // same route better or worse metric
                     }
                 } else {
-                    std::cout << "read_entry everything is the same" << std::endl;
                     RTE.timeout_tmr = steady_clock::now(); // SAME EVERYTHING
                 }
             } else {
                 if (RTE.metric > rip_route.metric) {
-                    std::cout << "read_entry different route: better metric" << std::endl;
                     update_route(RTE, rip_route); // different route better metric
                 } else if (RTE.metric == rip_route.metric) {
                     // optional functionality, best just ignore
@@ -407,8 +398,7 @@ void Rip::read_entry(Rip_entry rip_route, int originating_address) {
                 }
             }
         }
-    } catch (int e) { // BRAND NEW ROUTE
-        std::cout << "Caught exception thrown by get_entry" << std::endl;
+    } catch (int i) { // BRAND NEW ROUTE
         if (rip_route.metric < INFINITY) {
             add_new_route(rip_route, originating_address);
         }
@@ -428,7 +418,6 @@ void Rip::update_route(Route_table_entry RTE, Rip_entry rip_entry) {
     };
 
 bool Rip::validate_packet(Packet packet) {
-    std::cout << "Problem is not in validate packet" << std::endl;
     for (auto ifaces : interfaces) {
         if (packet.header.routerID == ifaces.id) {
             return true;
@@ -444,7 +433,6 @@ void Rip::sendUpdate() {
         generate_response(message, static_cast<int>(size));
         send_message(i, message, size);
     }
-    std::cout << "Updated" << std::endl;
 }
 
 void Rip::start_deletion_process(Route_table_entry RTE) {
