@@ -21,73 +21,9 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     input_ports = std::move(_input_ports);
     interfaces = std::move(_outputs);
     set_up(timer);
-    bool trigger = false;
-
-    char received[DGRAM_SIZE];
-    int max_fd = servers.at(0)->get_socket();
-    fd_set sock_set;
-    auto outer_timer = steady_clock::now();
-    long time_elapsed;
-    bool run = true;
-    std::random_device rd; // obtain a random number from hardware
-    std::mt19937 eng(rd()); // seed the generator
-    std::uniform_int_distribution<> distr(static_cast<int>(0.8 * intervals.base * 1000),
-                                          static_cast<int>(1.2 * intervals.base * 1000));
-    std::uniform_int_distribution<> trigger_dstr(static_cast<int>(0.033 * intervals.base * 1000),
-                                             static_cast<int>(0.166 * intervals.base * 1000));
-    while(run) {
-        struct timeval timeout = {0, 500000};
-        FD_ZERO(&sock_set);
-        for (Server *server: servers) {
-            FD_SET(server->get_socket(), &sock_set);
-            if (server->get_socket() > max_fd) {
-                max_fd = server->get_socket();
-            }
-        }
-        int activity = select(max_fd + 1, &sock_set, nullptr, nullptr, &timeout);
-        if ((activity < 0) && (errno != EINTR)) {
-            perror("Select error");
-            run = false;
-        } else if (activity == 0){          //timeout for select, no updates received
-            check_timers();
-            time_elapsed = duration_cast<milliseconds>(steady_clock::now() - outer_timer).count();
-            if (time_elapsed >= distr(eng)) {
-                //std::cout << "Time elapsed since last update "  << time_elapsed << "(ms)" << time_elapsed <<
-                // std::endl;
-                std::cout << "Sending automatic update" <<std::endl;
-                send_update();
-                outer_timer = steady_clock::now();
-                print_routing_table();
-            }
-        } else {                            //received a packet
-            check_timers();
-            time_elapsed = duration_cast<milliseconds>(steady_clock::now() - outer_timer).count();
-            //todo refine and implement RIP
-            for (Server *server: servers) {
-                if (FD_ISSET(server->get_socket(), &sock_set)) {
-                    int bytes_received = server->recv(received, DGRAM_SIZE);
-                    if (bytes_received > 0) {
-                        std::cout << "bytes recv: " << bytes_received << std::endl;
-                        Packet packet = deserialize_rip_message(received, bytes_received);
-                        process_response(&packet);
-                        std::cout << "received update" << std::endl;
-                        check_timers();
-                    }
-                }
-            }
-            if (time_elapsed >= distr(eng)) {
-                //std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
-                std::cout << "Sending automatic update" <<std::endl;
-                send_update();
-                outer_timer = std::chrono::steady_clock::now();
-                print_routing_table();
-            }
-
-        }
-    }
 }
 
-char* Rip::add_header(char* message) {
+char *Rip::add_header(char *message) {
     Rip_header header{};
     header.command = '2'; // REQUEST unsupported
     header.version = RIP_VERSION;
@@ -162,7 +98,7 @@ Rip_packet Rip::deserialize_rip_message(char *message, int bytes_received) {
     return packet;
 }
 
-char *Rip::generate_response(char *message, int size, int port_no, bool isTriggered) {
+char *Rip::generate_response(char *message, int port_no) {
     char *p_message = message;
     p_message = add_header(p_message);
     for (int i = 0; i < routing_table.size(); i++) {
@@ -189,7 +125,7 @@ int Rip::get_entry(short routerID) {
             return i;
         }
     }
-    throw(0);
+    throw (0);
 }
 
 int Rip::get_cost(int routerID) {
@@ -198,7 +134,7 @@ int Rip::get_cost(int routerID) {
             return iface.metric;
         }
     }
-    throw(0);
+    throw (0);
 }
 
 void Rip::handle_garbage_collection(Route_table_entry entry) {
@@ -245,14 +181,6 @@ void Rip::initialize_table() {
     entry.nexthop = routerID;
     entry.timeout_tmr = steady_clock::now();
     routing_table.push_back(entry);
-    for (auto out: interfaces) {
-        entry.destination = out.id;
-        entry.metric = out.metric;
-        entry.nexthop = out.id;
-        entry.route_changed = 0;
-        entry.timeout_tmr = steady_clock::now();
-        routing_table.push_back(entry);
-    }
 }
 
 bool Rip::is_nextHop_neighbor(Route_table_entry entry, OutputInterface output) {
@@ -364,6 +292,71 @@ void Rip::read_entry(Rip_entry rip_route, int originating_address) {
     }
 }
 
+void Rip::run() {
+    char received[DGRAM_SIZE];
+    int max_fd = servers.at(0)->get_socket();
+    fd_set sock_set;
+    auto outer_timer = steady_clock::now();
+    long time_elapsed;
+    bool run = true;
+    std::random_device rd; // obtain a random number from hardware
+    std::mt19937 eng(rd()); // seed the generator
+    std::uniform_int_distribution<> distr(static_cast<int>(0.8 * intervals.base * 1000),
+                                          static_cast<int>(1.2 * intervals.base * 1000));
+    std::uniform_int_distribution<> trigger_dstr(static_cast<int>(0.033 * intervals.base * 1000),
+                                                 static_cast<int>(0.166 * intervals.base * 1000));
+    while (run) {
+        struct timeval timeout = {0, 500000};
+        FD_ZERO(&sock_set);
+        for (Server *server: servers) {
+            FD_SET(server->get_socket(), &sock_set);
+            if (server->get_socket() > max_fd) {
+                max_fd = server->get_socket();
+            }
+        }
+        int activity = select(max_fd + 1, &sock_set, nullptr, nullptr, &timeout);
+        if ((activity < 0) && (errno != EINTR)) {
+            perror("Select error");
+            run = false;
+        } else if (activity == 0) {          //timeout for select, no updates received
+            check_timers();
+            time_elapsed = duration_cast<milliseconds>(steady_clock::now() - outer_timer).count();
+            if (time_elapsed >= distr(eng)) {
+                //std::cout << "Time elapsed since last update "  << time_elapsed << "(ms)" << time_elapsed <<
+                // std::endl;
+                std::cout << "Sending automatic update" << std::endl;
+                send_update();
+                outer_timer = steady_clock::now();
+                print_routing_table();
+            }
+        } else {                            //received a packet
+            check_timers();
+            time_elapsed = duration_cast<milliseconds>(steady_clock::now() - outer_timer).count();
+            //todo refine and implement RIP
+            for (Server *server: servers) {
+                if (FD_ISSET(server->get_socket(), &sock_set)) {
+                    int bytes_received = server->recv(received, DGRAM_SIZE);
+                    if (bytes_received > 0) {
+                        std::cout << "Received update" << std::endl;
+                        //std::cout << "bytes recv: " << bytes_received << std::endl;
+                        Packet packet = deserialize_rip_message(received, bytes_received);
+                        process_response(&packet);
+                        check_timers();
+                    }
+                }
+            }
+            if (time_elapsed >= distr(eng)) {
+                //std::cout << "Time elapsed since last update (ms)" << time_elapsed << std::endl;
+                std::cout << "Sending automatic update" << std::endl;
+                send_update();
+                outer_timer = std::chrono::steady_clock::now();
+                print_routing_table();
+            }
+
+        }
+    }
+}
+
 /* SENDS A SINGLE MESSAGE TO A UDP SOCKET */
 void Rip::send_message(int fd, char *message, size_t size) {
     Client *client = clients.at(static_cast<unsigned long>(fd));
@@ -377,7 +370,7 @@ void Rip::send_update() {
     for (int i = 0; i < clients.size(); i++) {
         size_t size = (routing_table.size() * RTE_SIZE) + HEADER_SIZE;
         char message[size];
-        generate_response(message, static_cast<int>(size), clients[i]->get_port(), true);
+        generate_response(message, clients[i]->get_port());
         send_message(i, message, size);
     }
 }
@@ -398,7 +391,6 @@ void Rip::set_up(unsigned basetimer) {
 }
 
 void Rip::start_deletion_process(int index_of_entry) {
-
     routing_table[index_of_entry].garbage_tmr = steady_clock::now();
     routing_table[index_of_entry].metric = INFINITY;
     routing_table[index_of_entry].route_changed = 1;

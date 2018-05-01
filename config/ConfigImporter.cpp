@@ -20,7 +20,7 @@ ConfigImporter::ConfigImporter(const std::string filename) {
 };
 
 Configuration ConfigImporter::get_configuration() {
-    return Configuration({ routerID, input_ports, outputs, timer });
+    return Configuration({routerID, input_ports, outputs, timer});
 }
 
 // reads config settings into program variables
@@ -28,9 +28,8 @@ void ConfigImporter::load_config(const std::string &filename) {
     std::ifstream configfile;
     open_config(filename, configfile);
     char buffer[120];
-    while (configfile.getline(buffer, 120))
-    {
-        char* tokBuffer;
+    while (configfile.getline(buffer, 120)) {
+        char *tokBuffer;
         tokBuffer = strtok(buffer, ":");
         if (tokBuffer != NULL) {
             std::string key(tokBuffer);
@@ -39,7 +38,6 @@ void ConfigImporter::load_config(const std::string &filename) {
             if (isComment) {
                 continue;
             }
-
             tokBuffer = strtok(NULL, "\n");
             if (tokBuffer != NULL) {
                 std::string value(tokBuffer);
@@ -104,15 +102,13 @@ void ConfigImporter::set_outputs(std::string &outputsline) {
             }
             OutputInterface oi{};
             // array of pointers to the unsigned ints in the oi struct
-            unsigned* oi_array[3];
-            oi_array[0] = &oi.port_number; oi_array[1] = &oi.metric; oi_array[2] = &oi.id;
-
+            unsigned *oi_array[3];
+            oi_array[0] = &oi.port_number;
+            oi_array[1] = &oi.metric;
+            oi_array[2] = &oi.id;
             assign_variable_as_int(&oi.port_number, output_info[0]);
             assign_variable_as_int(&oi.metric, output_info[1]);
             assign_variable_as_int(&oi.id, output_info[2]);
-
-           /* std::cout << "Port number: " << oi.port_number << ", ID is : " << oi.id << " and metric is : " << oi.metric
-                      << std::endl;*/
             outputs.push_back(oi);
         }
     } else {

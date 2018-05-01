@@ -1,3 +1,9 @@
+/**
+ * RIP daemon class. The class contains structs for the route entries into tables, packets as well as the packet
+ * structures themselves. This class controls the running of the daemon which includes the generating of packets,
+ * serializing and de-serializing packets, sending and receiving packets and all the events that take place when the
+ * daemon is running such as updating the routing table.
+ */
 #ifndef RIP_RIP_H
 #define RIP_RIP_H
 #define DGRAM_SIZE 504
@@ -14,7 +20,6 @@
 #include "rip_client_server.h"
 
 typedef char byte;
-
 typedef std::chrono::seconds seconds;
 typedef std::chrono::milliseconds milliseconds;
 typedef std::chrono::steady_clock::time_point time_point;
@@ -22,12 +27,11 @@ using std::chrono::steady_clock;
 using std::chrono::duration;
 using std::chrono::duration_cast;
 
-
 typedef struct Rip_header {
     /**
      * Header Struct for rip packets
      */
-    byte command; 		   /* 1-REQUEST, 2-RESPONSE */
+    byte command;           /* 1-REQUEST, 2-RESPONSE */
     byte version;          /* 1-RIPv1, 2-RIPv2 */
     short int routerID;    /* routerID */
 } Header;
@@ -73,8 +77,14 @@ typedef struct Timer_Intervals {
 };
 
 class Rip {
-    public:
-        Rip(unsigned routerID, std::vector<unsigned> input_ports, std::vector<OutputInterface> outputs, unsigned timer=30);
+public:
+    Rip(unsigned routerID, std::vector<unsigned> input_ports, std::vector<OutputInterface> outputs,
+        unsigned timer = 30);
+
+    /**
+    * The workhorse function. Function handles the running of the RIP daemon
+    */
+    void run();
 
 private:
     unsigned routerID;
@@ -82,8 +92,8 @@ private:
     std::vector<OutputInterface> interfaces;
     struct Timer_Intervals intervals;
     std::vector<Route_table_entry> routing_table;
-    std::vector<rip_client_server::rip_server*> servers;
-    std::vector<rip_client_server::rip_client*> clients;
+    std::vector<rip_client_server::rip_server *> servers;
+    std::vector<rip_client_server::rip_client *> clients;
     std::vector<int> output_ports;
 
     /**
@@ -93,7 +103,7 @@ private:
      * all the RTEs.
      * @return the new message with a header included
      */
-    char* add_header(char *message);
+    char *add_header(char *message);
 
     /**
      * Adds another route entry to the routing table using information
@@ -110,7 +120,7 @@ private:
      * @param entry - Route Table Entry to glean information from for the rip entry
      * @return the new message with another RTE included at bottom
      */
-    char* add_rip_entry(char *message, struct Route_table_entry entry);
+    char *add_rip_entry(char *message, struct Route_table_entry entry);
 
     /**
      * Checks if update, timeout, or garbage collection timer
@@ -140,7 +150,7 @@ private:
      * @param isTriggered bool indicating whether this is a triggered event or not
      * @return char array containing the serialized packet header and entries for entry in router table
      */
-    char* generate_response(char* msg, int size, int port_no, bool isTriggered=false);
+    char *generate_response(char *msg, int port_no);
 
     /**
      * Get metric of peer router by its routerID.
@@ -148,7 +158,7 @@ private:
      * @param routerID
      * @return the metric
      */
-    int get_cost(int routerID) ;
+    int get_cost(int routerID);
 
     /**
     * Gets a RIPRoutingEntry by routerID.
@@ -158,7 +168,7 @@ private:
     * @param routerID
     * @return RIPRoutingEntry
     */
-    int get_entry(short routerID) ;
+    int get_entry(short routerID);
 
     /**
      * Removes stale route table entries (RTE) whose garbage collection
@@ -241,12 +251,11 @@ private:
      */
     void read_entry(Rip_entry entry, int originating_address);
 
-
     /**
     * Function sends update to neighboring routers once time limit is reached.
     * @param fdValue Value of one of the socket() call return values, will be used to assign sending port
     */
-    void send_message(int fdValue, char* message, size_t size);
+    void send_message(int fdValue, char *message, size_t size);
 
     /**
      * Function handles sending triggered updates

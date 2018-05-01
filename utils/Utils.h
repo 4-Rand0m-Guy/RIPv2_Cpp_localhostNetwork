@@ -1,6 +1,6 @@
-//
-// Created by Johny Appleseed on 3/6/18.
-//
+/**
+ *
+ */
 
 #ifndef RIP_UTILS_H
 #define RIP_UTILS_H

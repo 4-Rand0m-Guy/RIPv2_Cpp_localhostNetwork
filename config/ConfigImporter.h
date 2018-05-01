@@ -1,3 +1,6 @@
+/**
+ * Class handles the importing of configuration files.
+ */
 #ifndef RIP_CONFIGIMPORTER_H
 #define RIP_CONFIGIMPORTER_H
 #include <vector>
@@ -6,14 +9,14 @@
 
 class ConfigImporter {
     public:
-        ConfigImporter(const std::string filename);
+    explicit ConfigImporter(std::string filename);
         Configuration get_configuration();
 private:
         unsigned routerID = NULL;
         std::vector<unsigned> input_ports;
         std::vector<OutputInterface> outputs;
         unsigned timer = NULL;
-        std::string get_filename(int argc, char **argv);
+
         void load_config(const std::string &filename);
         void open_config(const std::string &filename, std::ifstream &file);
         void set_input_ports(std::string &id);
