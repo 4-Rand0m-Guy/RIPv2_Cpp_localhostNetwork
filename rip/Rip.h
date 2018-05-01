@@ -72,29 +72,23 @@ typedef struct Timer_Intervals {
 
 class Rip {
 public:
+    /**
+     * Constructor.
+     *
+     * @param routerID
+     * @param input_ports
+     * @param outputs
+     * @param timer
+     */
     Rip(unsigned routerID, std::vector<unsigned> input_ports, std::vector<OutputInterface> outputs,
         unsigned timer = 30);
 
     /**
-    * The workhorse function. Function handles the running of the RIP daemon
-    */
+     * Main RIP Daemon loop.
+     *
+     */
     void run();
-    public:
-        /**
-         * Constructor.
-         *
-         * @param routerID
-         * @param input_ports
-         * @param outputs
-         * @param timer
-         */
-        Rip(unsigned routerID, std::vector<unsigned> input_ports, std::vector<OutputInterface> outputs, unsigned timer=30);
 
-        /**
-         * Main RIP Daemon loop.
-         *
-         */
-        void run();
 private:
     unsigned routerID;
     std::vector<unsigned> input_ports;
