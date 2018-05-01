@@ -98,7 +98,7 @@ private:
     std::vector<rip_client_server::rip_server*> servers;
     std::vector<rip_client_server::rip_client*> clients;
     std::vector<int> output_ports;
-    bool triggered;
+    bool triggered = false;
 
     /**
      * Adds a header to a yet so far empty message.

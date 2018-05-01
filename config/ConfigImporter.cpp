@@ -47,11 +47,11 @@ void ConfigImporter::load_config(const std::string &filename) {
                 if (key == "router-id") {
                     set_routerId(value);
                 } else if (key == "input-ports") {
-                    set_input_ports(value);
+                    load_input_ports(value);
                 } else if (key == "interfaces") {
-                    set_outputs(value);
+                    load_outputs(value);
                 } else if (key == "timer") {
-                    set_timer(value);
+                    load_timer(value);
                 } else {
                     ConsoleLogger::warning(1, "CONFIG");
                 }
@@ -80,7 +80,7 @@ void ConfigImporter::set_routerId(std::string &id) {
 }
 
 // Input ports are the ports that the RIP daemon will be listening on.
-void ConfigImporter::set_input_ports(std::string &inputs) {
+void ConfigImporter::load_input_ports(std::string &inputs) {
     if (input_ports.empty()) {
         std::vector<std::string> inputport_strings = Utils::Strings::split(inputs, ',');
         input_ports.resize(inputport_strings.size(), 0);
@@ -95,7 +95,7 @@ void ConfigImporter::set_input_ports(std::string &inputs) {
 }
 
 // Outputs contains information about the port number, id, and metric of adjacent routers.
-void ConfigImporter::set_outputs(std::string &outputsline) {
+void ConfigImporter::load_outputs(std::string &outputsline) {
     if (outputs.empty()) {
         for (auto output : Utils::Strings::split(outputsline, ',')) {
             std::vector<std::string> output_info = Utils::Strings::split(output, '-');
@@ -124,7 +124,7 @@ void ConfigImporter::set_outputs(std::string &outputsline) {
 }
 
 // RIP timer that certain timed updates are based on
-void ConfigImporter::set_timer(std::string &_timer) {
+void ConfigImporter::load_timer(std::string &_timer) {
     unsigned *p_timer = &timer;
     if (*p_timer == NULL) {
         assign_variable_as_int(p_timer, _timer);
