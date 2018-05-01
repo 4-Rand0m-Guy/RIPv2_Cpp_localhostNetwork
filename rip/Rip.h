@@ -1,9 +1,3 @@
-/**
- * RIP daemon class. The class contains structs for the route entries into tables, packets as well as the packet
- * structures themselves. This class controls the running of the daemon which includes the generating of packets,
- * serializing and de-serializing packets, sending and receiving packets and all the events that take place when the
- * daemon is running such as updating the routing table.
- */
 #ifndef RIP_RIP_H
 #define RIP_RIP_H
 #define DGRAM_SIZE 504
@@ -85,7 +79,22 @@ public:
     * The workhorse function. Function handles the running of the RIP daemon
     */
     void run();
+    public:
+        /**
+         * Constructor.
+         *
+         * @param routerID
+         * @param input_ports
+         * @param outputs
+         * @param timer
+         */
+        Rip(unsigned routerID, std::vector<unsigned> input_ports, std::vector<OutputInterface> outputs, unsigned timer=30);
 
+        /**
+         * Main RIP Daemon loop.
+         *
+         */
+        void run();
 private:
     unsigned routerID;
     std::vector<unsigned> input_ports;
@@ -95,6 +104,7 @@ private:
     std::vector<rip_client_server::rip_server *> servers;
     std::vector<rip_client_server::rip_client *> clients;
     std::vector<int> output_ports;
+    bool triggered;
 
     /**
      * Adds a header to a yet so far empty message.
