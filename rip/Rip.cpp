@@ -23,7 +23,7 @@ Rip::Rip(unsigned _routerID, std::vector<unsigned> _input_ports, std::vector<Out
     set_up(timer);
 }
 
-char *Rip::add_header(char *message) {
+char* Rip::add_header(char* message) {
     Rip_header header{};
     header.command = '2'; // REQUEST unsupported
     header.version = RIP_VERSION;
@@ -45,18 +45,18 @@ void Rip::add_new_route(Rip_entry entry, int originating_address) {
     printf("New route to %i via %i has been added...", RTE.destination, RTE.nexthop);
 }
 
-char *Rip::add_rip_entry(char *message, struct Route_table_entry entry) {
-    Rip_entry rentry{};
-    rentry.afi = 0;
-    rentry.tag = 0;
-    rentry.address = entry.destination;
-    rentry.subnetmask = 0;
-    rentry.nextHop = entry.nexthop;
-    rentry.metric = entry.metric;
-    char *tempmessage = message;
-    memcpy(message, (void *) &rentry, sizeof(rentry));
-    tempmessage += sizeof(rentry);
-    return tempmessage;
+char* Rip::add_rip_entry(char *message, struct Route_table_entry entry) {
+    Rip_entry rip_entry {};
+    rip_entry.afi = 0;
+    rip_entry.tag = 0;
+    rip_entry.address = entry.destination;
+    rip_entry.subnetmask = 0;
+    rip_entry.nextHop = entry.nexthop;
+    rip_entry.metric = entry.metric;
+    char *temp_message = message;
+    memcpy(message, (void *) &rip_entry, sizeof(rip_entry));
+    temp_message += sizeof(rip_entry);
+    return temp_message;
 }
 
 void Rip::check_timers() {
